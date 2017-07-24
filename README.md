@@ -1,2 +1,2 @@
 # SikMunGo
-Here is Android Branch.
+Here is Server Branch.
