@@ -16,6 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Landing" android:theme="@style/LandingTheme"/>
+        <activity android:name=".SignIn" android:theme="@style/AppTheme"/>
+        <activity android:name=".Certification" android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>
