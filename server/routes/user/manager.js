@@ -38,7 +38,7 @@ manager.checkId = function (id, callback) {
         if (err) response.error = true;
         else if (reslt.affectedRows) response.overlap = true;
 
-        callback(response);
+        callback(JSON.stringify(response));
     })
 }
 

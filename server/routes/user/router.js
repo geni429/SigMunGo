@@ -11,16 +11,6 @@ router.route('/account/registe').post(function (req, res) {
     let password = req.body.password;
     let phone = req.body.phone;
 
-    manager.checkId(id, function (response) {
-        if (response.overlap) {
-            res.writeHead(200, {
-                'Content-Type': 'application/json'
-            });
-            res.write(JSON.stringify(response));
-            res.end();
-        }
-    });
-    
     manager.registe(id, password, name, phone, function (JSONResponse) {
         res.writeHead(200, {
             'Content-Type': 'application/json'
@@ -45,6 +35,18 @@ router.route('/account/login').post(function (req, res) {
             'Content-Type': 'application/json'
         });
         res.write(JSON.stringify(response));
+        res.end();
+    });
+});
+
+router.route('/account/checkId').post(function (req, res) {
+    let id = req.body.id;
+
+    manager.checkId(id, function (JSONResponse) {
+        res.writeHead(200, {
+            'Content-Type': 'application/json'
+        });
+        res.write(JSONResponse);
         res.end();
     });
 });
