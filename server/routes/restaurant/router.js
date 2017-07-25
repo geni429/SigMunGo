@@ -32,5 +32,5 @@ router.route('/restaurant/:contentId').delete(function (req, res) {
 
 router.route('/restaurant/:areaCode').get(function (req, res) {
     let areaCode = req.param.areaCode;
-    http: //jojoldu.tistory.com/163
+    
 });
