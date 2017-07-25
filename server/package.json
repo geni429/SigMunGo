@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "crypto": "0.0.3",
+    "debug": "^2.6.8",
+    "express": "^4.15.3",
+    "express-session": "^1.15.4",
+    "jade": "^1.11.0",
+    "morgan": "^1.8.2",
+    "mysql": "^2.13.0",
+    "path": "^0.12.7",
+    "serve-favicon": "^2.4.3"
+  }
+}
