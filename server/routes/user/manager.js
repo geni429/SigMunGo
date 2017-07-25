@@ -29,4 +29,17 @@ manager.login = function (id, password, callback) {
     });
 }
 
+manager.checkId = function (id, callback) {
+    let response = {
+        error: false,
+        overlap: false
+    };
+    conn.query("select * from accont where id=?", id, function (err, result) {
+        if (err) response.error = true;
+        else if (reslt.affectedRows) response.overlap = true;
+
+        callback(response);
+    })
+}
+
 module.exports = manager;

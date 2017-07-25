@@ -10,7 +10,7 @@ router.route('/restaurant').post(function (req, res) {
     let phone = req.body.phone;
     let manu = req.body.manu;
     let bool = true;
-    
+
     while (bool) {
         contentId = randomString.random();
         if (manager.checkId(contentId)) bool = false;
