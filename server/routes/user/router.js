@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 let manager = require('./manager');
 let AES256 = require('../../secure/AES256');
+let randomString= require('../../support/randomString');
 
 /* GET home page. */
 router.route('/account/registe').post(function (req, res) {
@@ -37,17 +38,5 @@ router.route('/account/login').post(function (req, res) {
         res.end();
     });
 });
-
-function randomString() {
-    var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-    var string_length = 10;
-    var randomstring = '';
-    for (var i = 0; i < string_length; i++) {
-        var rnum = Math.floor(Math.random() * chars.length);
-        randomstring += chars.substring(rnum, rnum + 1);
-    }
-    //document.randform.randomfield.value = randomstring;
-    return randomstring;
-}
 
 module.exports = router;

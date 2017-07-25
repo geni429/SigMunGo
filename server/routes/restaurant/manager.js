@@ -2,6 +2,18 @@ let conn = require('../../DBConnection');
 
 let manager = {}
 
+manager.checkId = function (contentId) {
+    let response = {
+        error: false,
+        success: false
+    };
+
+    conn.query('select * from restaurant where contentId=?', contentId, function (err, rows) {
+        if (rows.length == 1) return false;
+        else if (rows.length == 0) return true;
+    });
+}
+
 manager.addRestaurant = function (contentId, name, place, phone, manu, callback) {
     let response = {
         error: false,
