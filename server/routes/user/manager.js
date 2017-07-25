@@ -8,9 +8,8 @@ manager.registe = function (id, password, name, phone, callback) {
         success: false
     };
     conn.query("insert into account values(?,?,?,?);", [id, password, name, phone], function (err, result) {
-        if (err) {
-            response.error = true;
-        } else if (result.affectedRows) response.success = true;
+        if (err) response.error = true;
+        else if (result.affectedRows) response.success = true;
 
         callback(JSON.stringify(response));
     });

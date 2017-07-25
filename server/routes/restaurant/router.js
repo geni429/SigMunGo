@@ -9,6 +9,13 @@ router.route('/restaurant/:contentId').post(function (req, res) {
     let phone = req.body.phone;
     let manu = req.body.manu;
 
+    manager.addRestaurant(contentId, name, place, phone, manu, function (JSONResponse) {
+        res.writeHead(200, {
+            'Content-Type': 'application/json'
+        });
+        res.write(JSONResponse);
+        res.end();
+    });
 });
 
 router.route('/restaurant/:contentId').get(function (req, res) {
@@ -32,5 +39,5 @@ router.route('/restaurant/:contentId').delete(function (req, res) {
 
 router.route('/restaurant/:areaCode').get(function (req, res) {
     let areaCode = req.param.areaCode;
-    
+
 });
