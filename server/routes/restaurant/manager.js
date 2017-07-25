@@ -17,3 +17,5 @@ manager.updateRestaurant = function (contentId, name, place, phone, manu, callba
 manager.deleteRestaurant = function (contentId, callback) {
 
 }
+
+module.exports= manager;
