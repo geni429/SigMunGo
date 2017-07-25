@@ -47,29 +47,28 @@
             android:layout_weight="1"
             android:gravity="center_horizontal">
             <Button
+                android:id="@+id/pager_button_1"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:background="@drawable/pager_button"
+                android:background="@drawable/pager_button_on"
                 android:layout_margin="5dp"/>
             <Button
+                android:id="@+id/pager_button_2"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:background="@drawable/pager_button"
+                android:background="@drawable/pager_button_off"
                 android:layout_margin="5dp"/>
             <Button
+                android:id="@+id/pager_button_3"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:background="@drawable/pager_button"
+                android:background="@drawable/pager_button_off"
                 android:layout_margin="5dp"/>
             <Button
+                android:id="@+id/pager_button_4"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:background="@drawable/pager_button"
-                android:layout_margin="5dp"/>
-            <Button
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:background="@drawable/pager_button"
+                android:background="@drawable/pager_button_off"
                 android:layout_margin="5dp"/>
         </LinearLayout>
 
@@ -79,13 +78,15 @@
             android:layout_height="0dp"
             android:layout_weight="8"
             android:orientation="vertical"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:weightSum="2">
 
             <Button
                 android:id="@+id/kakao_login_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:layout_weight="1"
                 android:background="@drawable/primary_button"
                 android:text="카카오톡으로 로그인하기"
                 android:textColor="#ffffff"
@@ -95,8 +96,9 @@
                 android:id="@+id/login_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/primary_button"
                 android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/primary_button"
                 android:text="로그인"
                 android:textColor="#ffffff"
                 android:textSize="18dp"/>

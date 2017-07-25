@@ -5,8 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import com.example.sigmungo.sigmungo.R;
+import static android.widget.ImageView.ScaleType.CENTER_CROP;
 
 /**
  * Created by geni on 2017. 7. 24..
@@ -21,10 +21,10 @@ public class LandingAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View view = null;
-        view= inflater.inflate(R.layout.landing_pager, null);
+        View view = inflater.inflate(R.layout.landing_pager, null);;
         ImageView img= (ImageView)view.findViewById(R.id.landing_pager_image);
         img.setImageResource(R.drawable.landing_img_1+position);
+        img.setScaleType(CENTER_CROP);
         container.addView(view);
         return view;
     }
@@ -36,7 +36,7 @@ public class LandingAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 4;
     }
 
     @Override
