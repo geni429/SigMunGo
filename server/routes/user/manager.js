@@ -30,4 +30,4 @@ manager.login = function (id, password, callback) {
     });
 }
 
-module.exports=manager;
+module.exports = manager;
