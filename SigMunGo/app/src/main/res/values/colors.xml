@@ -5,4 +5,6 @@
     <color name="colorBlackClarity">#a0000000</color>
     <color name="colorPagerButtonOff">#d3d3d3</color>
     <color name="colorPagerButtonOn">#797979</color>
+    <color name="colorButtonClick">#ffffff</color>
+    <color name="colorButton">#000000</color>
 </resources>
