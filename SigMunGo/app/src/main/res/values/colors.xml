@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ff7c4e</color>
+    <color name="colorClarity">#00ffffff</color>
+    <color name="colorBlackClarity">#a0000000</color>
+    <color name="colorPagerButtonOff">#d3d3d3</color>
+    <color name="colorPagerButtonOn">#797979</color>
+</resources>
