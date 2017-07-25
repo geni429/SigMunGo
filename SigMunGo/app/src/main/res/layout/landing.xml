@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="10">
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/landing_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+        <LinearLayout
+            android:id="@+id/landing_explain"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal|center_vertical"
+            android:background="@color/colorBlackClarity">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorClarity"
+                android:text="음식점에 대한 고객의 불만을\n들어주는 공간"
+                android:textColor="#ffffff"
+                android:textSize="20dp"
+                android:textAlignment="center"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:weightSum="10"
+        android:orientation="vertical"
+        android:id="@+id/content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+            <Button
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:background="@drawable/pager_button"
+                android:layout_margin="5dp"/>
+            <Button
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:background="@drawable/pager_button"
+                android:layout_margin="5dp"/>
+            <Button
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:background="@drawable/pager_button"
+                android:layout_margin="5dp"/>
+            <Button
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:background="@drawable/pager_button"
+                android:layout_margin="5dp"/>
+            <Button
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:background="@drawable/pager_button"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttons"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:orientation="vertical"
+            android:baselineAligned="false">
+
+            <Button
+                android:id="@+id/kakao_login_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/primary_button"
+                android:text="카카오톡으로 로그인하기"
+                android:textColor="#ffffff"
+                android:textSize="18dp" />
+
+            <Button
+                android:id="@+id/login_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/primary_button"
+                android:layout_margin="10dp"
+                android:text="로그인"
+                android:textColor="#ffffff"
+                android:textSize="18dp"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/skip_login_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_gravity="right|bottom"
+            android:text="로그인 건너뛰기" />
+    </LinearLayout>
+</LinearLayout>
