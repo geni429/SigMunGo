@@ -12,12 +12,12 @@
         android:id="@+id/input_area"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:gravity="center_horizontal">
         <EditText
             android:id="@+id/input_id"
             android:layout_width="340dp"
             android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
             android:layout_marginTop="45dp"
             android:layout_below="@+id/input_id"
             android:layout_alignLeft="@+id/input_id"
@@ -28,7 +28,6 @@
             android:layout_width="340dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:hint="비밀번호입력(6~15자리)"
