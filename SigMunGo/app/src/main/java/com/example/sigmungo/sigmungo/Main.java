@@ -1,10 +1,13 @@
 package com.example.sigmungo.sigmungo;
 
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Button;
 
+import com.example.sigmungo.sigmungo.Adapter.LandingAdapter;
 import com.example.sigmungo.sigmungo.Adapter.MainRecyclerAdapter;
 import com.example.sigmungo.sigmungo.Items.MainItems;
 
@@ -17,12 +20,15 @@ import java.util.List;
 
 public class Main extends AppCompatActivity {
     private RecyclerView recyclerView;
-    MainItems items = new MainItems();
+    ViewPager pager;
 
     protected void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
         setContentView(R.layout.main);
         recyclerView = (RecyclerView) findViewById(R.id.restaurants_info);
+        pager = (ViewPager)findViewById(R.id.main_pager);
+        PagerThread thread = new PagerThread();
+        thread.start();
         initData();
     }
 
@@ -38,5 +44,12 @@ public class Main extends AppCompatActivity {
 
         recyclerView.setAdapter(new MainRecyclerAdapter(restaurantsInfo));
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+    }
+
+    class PagerThread extends Thread{
+        public void run(){
+            LandingAdapter adapter = new LandingAdapter(getApplicationContext());
+            pager.setAdapter(adapter);
+        }
     }
 }
