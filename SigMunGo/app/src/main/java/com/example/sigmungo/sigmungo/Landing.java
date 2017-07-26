@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.sigmungo.sigmungo.Adapter.LandingAdapter;
 
@@ -14,70 +15,63 @@ import com.example.sigmungo.sigmungo.Adapter.LandingAdapter;
 public class Landing extends AppCompatActivity {
     ViewPager pager;
     Button btnGroup[] = new Button[4];
+    TextView landingExplain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing);
         pager = (ViewPager)findViewById(R.id.landing_pager);
+        landingExplain = (TextView) findViewById(R.id.landing_explain);
         btnGroup[0] = (Button)findViewById(R.id.pager_button_1);
         btnGroup[1] = (Button)findViewById(R.id.pager_button_2);
         btnGroup[2] = (Button)findViewById(R.id.pager_button_3);
         btnGroup[3] = (Button)findViewById(R.id.pager_button_4);
 
-        LandingAdapter adapter = new LandingAdapter(getLayoutInflater());
-        pager.setAdapter(adapter);
+        PagerThread thread = new PagerThread();
+        thread.start();
     }
 
-//    private class PagerTask extends AsyncTask{
-//        @Override
-//        protected Object doInBackground(Object[] params) {
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPreExecute() {
-//            LandingAdapter adapter = new LandingAdapter(getLayoutInflater(), getApplicationContext());
-//            pager.setAdapter(adapter);
-//            pager.setOffscreenPageLimit(4);
-//            super.onPreExecute();
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Object o) {
-//            super.onPostExecute(o);
-//        }
-//
-//        @Override
-//        protected void onProgressUpdate(Object[] values) {
-//            super.onProgressUpdate(values);
-//        }
-//    }
-//
-//    class PagerThread extends Thread{
-//        public void run(){
-//
-//            pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//                @Override
-//                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//                }
-//
-//                @Override
-//                public void onPageSelected(int position) {
-//
-//                }
-//
-//                @Override
-//                public void onPageScrollStateChanged(int state) {
-//                    if(state == 2){
-//                        for(Button pagerButtons : btnGroup){
-//                            pagerButtons.setBackgroundResource(R.drawable.pager_button_off);
-//                        }
-//                        btnGroup[pager.getCurrentItem()].setBackgroundResource(R.drawable.pager_button_on);
-//                    }
-//                }
-//            });
-//        }
-//    }
+    class PagerThread extends Thread{
+        public void run(){
+            LandingAdapter adapter = new LandingAdapter(getApplicationContext());
+            pager.setAdapter(adapter);
+            pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                    if(state == 2){
+                        for(Button pagerButtons : btnGroup){
+                            pagerButtons.setBackgroundResource(R.drawable.pager_button_off);
+                        }
+                        btnGroup[pager.getCurrentItem()].setBackgroundResource(R.drawable.pager_button_on);
+                        switch (pager.getCurrentItem()){
+                            case 0:
+                                landingExplain.setText("더이상 참지마새요");
+                                break;
+                            case 1:
+                                landingExplain.setText("솔직한 리뷰로 당신의 의견을 표출하세요");
+                                break;
+                            case 2:
+                                landingExplain.setText("솔직담백한 고객들의 이야기");
+                                break;
+                            case 3:
+                                landingExplain.setText("식문고로 당신을 초대합니다.");
+                                break;
+                            default: break;
+                        }
+                    }
+                }
+            });
+        }
+    }
 }

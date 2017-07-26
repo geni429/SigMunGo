@@ -1,14 +1,14 @@
 package com.example.sigmungo.sigmungo.Adapter;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.content.Context;
+import android.support.v4.util.Pools;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 import com.example.sigmungo.sigmungo.R;
 import static android.widget.ImageView.ScaleType.CENTER_CROP;
 
@@ -17,10 +17,13 @@ import static android.widget.ImageView.ScaleType.CENTER_CROP;
  */
 
 public class LandingAdapter extends PagerAdapter {
-    LayoutInflater inflater;
+    private final int MAX_POOL_SIZE = 4;
+    private Context mContext;
+    private Pools.SimplePool<View> viewPool;
 
-    public LandingAdapter(LayoutInflater inflater) {
-        this.inflater = inflater;
+    public LandingAdapter(Context context) {
+        this.mContext = context;
+        viewPool = new Pools.SynchronizedPool<>(MAX_POOL_SIZE);
     }
 
     @Override
@@ -30,16 +33,17 @@ public class LandingAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View view = inflater.inflate(R.layout.landing_pager, null);
+        View view = getPagerItemView();
         ImageView img= (ImageView)view.findViewById(R.id.landing_pager_image);
-        img.setImageResource(R.drawable.landing_img_1+position);
+        Glide.with(view).load(R.drawable.landing_img_1+position).into(img);
         img.setScaleType(CENTER_CROP);
-        container.addView(view);
+        container.addView(view, 0);
         return view;
 }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
+        viewPool.release((View) object);
         container.removeView((View)object);
     }
 
@@ -51,5 +55,14 @@ public class LandingAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
+    }
+
+    private View getPagerItemView() {
+        View view = viewPool.acquire();
+        if (view == null) {
+            view = LayoutInflater.from(mContext).inflate(R.layout.landing_pager, null);
+        }
+
+        return view;
     }
 }
