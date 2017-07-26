@@ -1,8 +1,10 @@
 package com.example.sigmungo.sigmungo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,6 +18,8 @@ public class Landing extends AppCompatActivity {
     ViewPager pager;
     Button btnGroup[] = new Button[4];
     TextView landingExplain;
+    Button loginBtn;
+    Button kakaoLoginBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,8 @@ public class Landing extends AppCompatActivity {
         setContentView(R.layout.landing);
         pager = (ViewPager)findViewById(R.id.landing_pager);
         landingExplain = (TextView) findViewById(R.id.landing_explain);
+        loginBtn = (Button)findViewById(R.id.login_btn);
+        kakaoLoginBtn = (Button)findViewById(R.id.kakao_login_btn);
         btnGroup[0] = (Button)findViewById(R.id.pager_button_1);
         btnGroup[1] = (Button)findViewById(R.id.pager_button_2);
         btnGroup[2] = (Button)findViewById(R.id.pager_button_3);
@@ -30,6 +36,13 @@ public class Landing extends AppCompatActivity {
 
         PagerThread thread = new PagerThread();
         thread.start();
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), SignIn.class));
+            }
+        });
     }
 
     class PagerThread extends Thread{
