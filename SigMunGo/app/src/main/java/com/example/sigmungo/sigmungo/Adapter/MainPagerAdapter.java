@@ -1,6 +1,13 @@
 package com.example.sigmungo.sigmungo.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.support.v4.util.Pools;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;

@@ -3,6 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_recyclerview"
+    android:layout_margin="10dp"
     android:weightSum="10">
     <ImageView
         android:id="@+id/restaurant_img"

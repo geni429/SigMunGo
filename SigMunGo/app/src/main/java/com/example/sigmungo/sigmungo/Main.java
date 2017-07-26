@@ -1,5 +1,6 @@
 package com.example.sigmungo.sigmungo;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;

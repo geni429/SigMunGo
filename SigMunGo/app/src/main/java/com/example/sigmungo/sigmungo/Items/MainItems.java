@@ -1,5 +1,11 @@
 package com.example.sigmungo.sigmungo.Items;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+
+import com.example.sigmungo.sigmungo.R;
+
 /**
  * Created by geni on 2017. 7. 26..
  */
