@@ -87,4 +87,8 @@ public class Landing extends AppCompatActivity {
             });
         }
     }
+
+    public void skipLogin(View v){
+        startActivity(new Intent(getApplicationContext(), Main.class));
+    }
 }
