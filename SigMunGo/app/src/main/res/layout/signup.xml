@@ -40,7 +40,7 @@
             android:layout_width="350dp"
             android:layout_height="50dp"
             android:hint="비밀번호 입력(6~15자)"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
             android:paddingBottom="20dp" />
 
         <EditText
@@ -48,7 +48,7 @@
             android:layout_width="350dp"
             android:layout_height="50dp"
             android:hint="비밀번호 확인"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
             android:paddingBottom="20dp" />
 
     </LinearLayout>
