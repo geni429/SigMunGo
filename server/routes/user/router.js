@@ -2,7 +2,7 @@ let express = require('express');
 let router = express.Router();
 let manager = require('./manager');
 let AES256 = require('../../secure/AES256');
-let randomString = require('../../support/randomString');
+let random = require('../../support/random');
 
 /* GET home page. */
 router.route('/account/registe').post(function (req, res) {
@@ -43,6 +43,21 @@ router.route('/account/checkId').post(function (req, res) {
     let id = req.body.id;
 
     manager.checkId(id, function (JSONResponse) {
+        res.writeHead(200, {
+            'Content-Type': 'application/json'
+        });
+        res.write(JSONResponse);
+        res.end();
+    });
+});
+
+// router.route('/account/id/') 아이디 찾기
+
+router.route('/account/password/:id').put(function (req, res) {
+    let id = req.params.id;
+    let password = req.body.password;
+
+    manager.updatePassword(id, password, function (JSONResponse) {
         res.writeHead(200, {
             'Content-Type': 'application/json'
         });

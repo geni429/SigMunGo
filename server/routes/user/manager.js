@@ -7,7 +7,7 @@ manager.registe = function (id, password, name, phone, callback) {
         error: false,
         success: false
     };
-    conn.query("insert into account values(?,?,?,?);", [id, password, name, phone], function (err, result) {
+    conn.query('insert into account values(?,?,?,?);', [id, password, name, phone], function (err, result) {
         if (err) response.error = true;
         else if (result.affectedRows) response.success = true;
 
@@ -34,12 +34,26 @@ manager.checkId = function (id, callback) {
         error: false,
         overlap: false
     };
-    conn.query("select * from accont where id=?", id, function (err, result) {
+    conn.query('select * from accont where id=?', id, function (err, result) {
         if (err) response.error = true;
         else if (reslt.affectedRows) response.overlap = true;
 
         callback(JSON.stringify(response));
     })
+}
+
+manager.updatePassword = function (id, callback) {
+    let response = {
+        error: false,
+        success: false
+    };
+
+    conn.query('update account set password=? where id=?;', [id, password], function (err, result) {
+        if (err) response.error = true;
+        else if (reslt.affectedRows) response.success = true;
+
+        callback(JSON.stringify(response));
+    });
 }
 
 module.exports = manager;

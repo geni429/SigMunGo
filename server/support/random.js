@@ -1,6 +1,6 @@
-randomString = {};
+random = {};
 
-randomString.random = function () {
+random.randomString = function () {
     var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
     var string_length = 10;
     var randomstring = '';
@@ -12,4 +12,8 @@ randomString.random = function () {
     return randomstring;
 }
 
-module.exports = randomString;
+random.randomInt = function () {
+    return Math.random()*10000;
+}
+
+module.exports = random;
