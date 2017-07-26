@@ -69,7 +69,7 @@ public class Landing extends AppCompatActivity {
                         btnGroup[pager.getCurrentItem()].setBackgroundResource(R.drawable.pager_button_on);
                         switch (pager.getCurrentItem()){
                             case 0:
-                                landingExplain.setText("더이상 참지마새요");
+                                landingExplain.setText("더이상 참지마세요");
                                 break;
                             case 1:
                                 landingExplain.setText("솔직한 리뷰로 당신의 의견을 표출하세요");
@@ -86,5 +86,9 @@ public class Landing extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public void skipLogin(View v){
+        startActivity(new Intent(getApplicationContext(), Main.class));
     }
 }

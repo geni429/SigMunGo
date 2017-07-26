@@ -111,6 +111,7 @@
             android:layout_marginBottom="6dp"
             android:layout_marginRight="6dp"
             android:layout_gravity="right|bottom"
-            android:text="로그인 건너뛰기" />
+            android:text="로그인 건너뛰기"
+            android:onClick="skipLogin"/>
     </LinearLayout>
 </LinearLayout>
