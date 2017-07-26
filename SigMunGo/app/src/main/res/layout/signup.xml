@@ -14,42 +14,37 @@
 
         <EditText
             android:id="@+id/input_name"
-            android:layout_width="350dp"
+            android:layout_width="340dp"
             android:layout_height="50dp"
             android:hint="이름"
-            android:inputType="textPersonName"
-            android:paddingBottom="20dp" />
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/input_phoneNumber"
-            android:layout_width="350dp"
+            android:layout_width="340dp"
             android:layout_height="50dp"
-            android:hint="휴대폰 번호 ( '-' 없이 입력해주세요)"
-            android:paddingBottom="20dp" />
+            android:hint="휴대폰 번호 ( '-' 없이 입력해주세요)" />
 
         <EditText
             android:id="@+id/input_id"
-            android:layout_width="350dp"
+            android:layout_width="340dp"
             android:layout_height="50dp"
             android:hint="아이디 입력"
-            android:inputType="textPassword"
-            android:paddingBottom="20dp" />
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/input_userPassword"
-            android:layout_width="350dp"
+            android:layout_width="340dp"
             android:layout_height="50dp"
             android:hint="비밀번호 입력(6~15자)"
-            android:inputType="textPassword"
-            android:paddingBottom="20dp" />
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/input_passwordOK"
-            android:layout_width="350dp"
+            android:layout_width="340dp"
             android:layout_height="50dp"
             android:hint="비밀번호 확인"
-            android:inputType="textPassword"
-            android:paddingBottom="20dp" />
+            android:inputType="textPassword" />
 
     </LinearLayout>
     <LinearLayout
