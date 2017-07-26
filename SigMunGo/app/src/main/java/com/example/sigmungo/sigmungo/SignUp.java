@@ -10,7 +10,7 @@ import android.view.MenuItem;
 
 
 public class SignUp extends AppCompatActivity {
-    protected void onCreate(Bundle savedInstance){
+    protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         setContentView(R.layout.signup);
 
@@ -29,3 +29,4 @@ public class SignUp extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+}

@@ -1,22 +1,21 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.sigmungo.sigmungo.SignUp"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginTop="50dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
         <EditText
             android:id="@+id/input_name"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="30dp"
-            android:ems="10"
             android:hint="이름"
             android:inputType="textPersonName"
             android:paddingBottom="20dp" />
@@ -25,8 +24,6 @@
             android:id="@+id/input_phoneNumber"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="30dp"
-            android:ems="10"
             android:hint="휴대폰 번호 ( '-' 없이 입력해주세요)"
             android:paddingBottom="20dp" />
 
@@ -34,8 +31,6 @@
             android:id="@+id/input_id"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="30dp"
-            android:ems="10"
             android:hint="아이디 입력"
             android:inputType="textPassword"
             android:paddingBottom="20dp" />
@@ -44,8 +39,6 @@
             android:id="@+id/input_userPassword"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="30dp"
-            android:ems="10"
             android:hint="비밀번호 입력(6~15자)"
             android:inputType="textPersonName"
             android:paddingBottom="20dp" />
@@ -54,29 +47,22 @@
             android:id="@+id/input_passwordOK"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="30dp"
-            android:ems="10"
             android:hint="비밀번호 확인"
             android:inputType="textPersonName"
             android:paddingBottom="20dp" />
 
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_margin="10dp">
+        android:gravity="center_horizontal">
         <Button
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="40dp"
             android:textSize="20dp"
-            android:textColor="@drawable/text_selector"
-            android:background="@drawable/round"
-            android:text="휴대폰 인증하기"
-            >
-
+            android:textColor="@drawable/text"
+            android:background="@drawable/primary_button"
+            android:text="휴대폰 인증하기">
         </Button>
-
     </LinearLayout>
 </LinearLayout>
