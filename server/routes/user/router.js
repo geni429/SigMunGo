@@ -4,9 +4,11 @@ let manager = require('./manager');
 let AES256 = require('nodejs-aes256');
 let SHA256 = require('sha256');
 let random = require('../../support/random');
+const key='this_is_key';
 
+//회원가입
 router.route('/account/registe').post(function (req, res) {
-    let id = AES256.encrypt(req.body.id);
+    let id = AES256.encrypt(key,req.body.id);
     let name = req.body.name;
     let password = SHA256.encrypt(req.body.password);
     let phone = req.body.phone;
@@ -22,8 +24,9 @@ router.route('/account/registe').post(function (req, res) {
     });
 });
 
+//로그인
 router.route('/account/login').post(function (req, res) {
-    let id = AES256.encrypt(req.body.id);
+    let id = AES256.encrypt(key,req.body.id);
     let password = SHA256.encrypt(req.body.password);
 
     manager.login(id, password, function (response) {
@@ -41,6 +44,7 @@ router.route('/account/login').post(function (req, res) {
     });
 });
 
+//로그아웃
 router.route('/account/logout').delete(function (req, res) {
     let response={
         success:false
@@ -65,8 +69,9 @@ router.route('/account/logout').delete(function (req, res) {
     }
 });
 
+//아이디 중복 체크
 router.route('/account/checkId').post(function (req, res) {
-    let id = AES256.encrypt(req.body.id);
+    let id = AES256.encrypt(key,req.body.id);
 
     manager.checkId(id, function (JSONResponse) {
         res.writeHead(200, {
@@ -77,9 +82,10 @@ router.route('/account/checkId').post(function (req, res) {
     });
 });
 
-router.route('/account/id/:name/:phone').get(function (req, res) {
-    let name = req.params.name;
-    let phone = req.params.phone;
+//아이디 찾기
+router.route('/account/id').post(function (req, res) {
+    let name = req.body.name;
+    let phone = req.body.phone;
 
     manager.getId(name, phone, function (JSONResponse) {
         res.writeHead(200, {
@@ -90,8 +96,9 @@ router.route('/account/id/:name/:phone').get(function (req, res) {
     });
 });
 
-router.route('/account/password/:id').put(function (req, res) {
-    let id = AES256.encrypt(req.params.id);
+//비밀번호 변경
+router.route('/account/password').put(function (req, res) {
+    let id = AES256.encrypt(key,req.params.id);
     let password = SHA256.encrypt(req.body.password);
 
     manager.updatePassword(id, password, function (JSONResponse) {
