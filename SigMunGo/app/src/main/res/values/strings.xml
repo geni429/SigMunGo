@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">식문고</string>
+    <string name="action_main_sidemenu">MainSideMenu</string>
+    <string name="action_main_simplewrite">MainSimpleWrite</string>
 </resources>

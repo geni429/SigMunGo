@@ -14,6 +14,14 @@
         <item name="android:background">@drawable/splash_img</item>
     </style>
 
+    <style name="MainTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">#ff7c4e</item>
+    </style>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">#000000</item>

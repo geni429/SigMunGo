@@ -40,12 +40,10 @@ import static android.widget.ImageView.ScaleType.CENTER_CROP;
  */
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder> {
-    private Context mContext;
     private List<MainItems> mDataset;
 
-    public MainRecyclerAdapter(List<MainItems> dataset, Context context){
+    public MainRecyclerAdapter(List<MainItems> dataset){
         this.mDataset = dataset;
-        this.mContext = context;
     }
 
     @Override
