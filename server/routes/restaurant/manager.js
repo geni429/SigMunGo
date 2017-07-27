@@ -153,20 +153,20 @@ manager.getRestaurant = function (contentId, callback) {
     });
 }
 
-manager.addPost = function () {
+// manager.addPost = function () {
 
-}
+// }
 
-manager.getCountOfPost = function (contentId, callback) {
+// manager.getCountOfPost = function (contentId, callback) {
 
-}
+// }
 
-manager.updatePost = function (callback) {
+// manager.updatePost = function (callback) {
 
-}
+// }
 
-manager.deletePost = function (contentId, callback) {
+// manager.deletePost = function (contentId, callback) {
 
-}
+// }
 
 module.exports = manager;
