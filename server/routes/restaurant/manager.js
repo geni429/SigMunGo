@@ -2,42 +2,43 @@ let conn = require('../../DBConnection');
 
 let manager = {}
 
+//세션 체크
+manager.sessionCheck=function(req,res){
+     if (!req.session.user) {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({
+            session: false
+        }));
+        res.end();
+        return;
+    }else{
+        return;
+    }
+}
 //좋아요 +1
-manager.addGood = function (contentId, callback) {
+manager.addGood = function (contentId, id, callback) {
     let response = {
         error: false,
         success: false
     }
 
-    conn.query('select * from restaurant where contentid=?', contentId, function (err, rows) {
+    conn.query('insert into good values(?,?,1)', [contentId, id], function (err, result) {
         if (err) response.error = true;
-        else if (rows.length == 1) {
-            let good = rows[0].good;
-            good += 1;
-
-            conn.query('update restaurant set good=? where contentid=?', [good, contentId], function (err, result) {
-                console.log(result);
-                console.log(result.affectedRows == 1);
-                if (err) response.error = true;
-                else if (result.affectedRows == 1) response.success = true;
-
-                callback(JSON.stringify(response));
-            });
-        }
+        else if (result.affectedRows == 1) response.success = true;
+        callback(JSON.stringify(response));
     });
 }
 
 //좋아요 받아오기
-manager.getGood = function (contentId, callback) {
+manager.getGood = function (contentId, id, callback) {
     let response = {
         error: false,
         good: null
     };
 
-    conn.query('select * from restaurant where contentid=?;', contentId, function (err, rows) {
-        console.log(rows);
+    conn.query('select * from good where contentid=? and id=?;', [contentId, id], function (err, rows) {
         if (err) response.error = true;
-        else if (rows.length == 1) response.good = rows[0].good;
+        else if (rows.length >= 0) response.good = rows.length;
         callback(JSON.stringify(response));
     });
 }
@@ -161,8 +162,12 @@ manager.getDetailRestaurant = function (contentId, callback) {
             response.name = rows[0].name;
             response.place = rows[0].place;
             response.phone = rows[0].phone;
-            response.good = rows[0].good;
             response.img = rows[0].img;
+
+            conn.query('select * from good where contentid=?;', contentId, function (err, rows) {
+                if (err) response.error = true;
+                else if (rows.length >= 0) response.good = rows.length;
+            });
 
             conn.query('select * from manu where contentId=?', contentId, function (err, rows) {
                 if (err) response.error = true;
@@ -213,7 +218,11 @@ manager.getRestaurant = function (contentId, callback) {
             response.img = rows[0].img;
             response.name = rows[0].name;
             response.place = rows[0].place;
-            response.good = rows[0].good;
+
+            conn.query('select * from good where contentid=?;', contentId, function (err, rows) {
+                if (err) response.error = true;
+                else if (rows.length >= 0) response.good = rows.length;
+            });
         }
 
         callback(JSON.stringify(response));

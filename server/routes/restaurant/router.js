@@ -5,9 +5,11 @@ let random = require('../../support/random');
 
 //좋아요 +1
 router.route('/good/:contentId').post(function (req, res) {
+    manager.sessionCheck(req,res);
     let contentId = req.params.contentId;
+    let id = req.session.user.id;
 
-    manager.addGood(contentId, function (JSONResponse) {
+    manager.addGood(contentId,id, function (JSONResponse) {
         res.writeHead(200, {
             'Content-Type': 'application/json'
         });
@@ -18,11 +20,11 @@ router.route('/good/:contentId').post(function (req, res) {
 
 //좋아요 get
 router.route('/good/:contentId').get(function (req, res) {
+    manager.sessionCheck(req,res);
     let contentId = req.params.contentId;
-    console.log(contentId);
+    let id = req.session.user.id;
 
-    console.log(contentId);
-    manager.getGood(contentId, function (JSONResponse) {
+    manager.getGood(contentId,id, function (JSONResponse) {
         res.writeHead(200, {
             'Content-Type': 'application/json'
         });
@@ -55,6 +57,8 @@ router.route('/restaurantInfo').get(function (req, res) {
 
 //음식점 생성
 router.route('/restaurant').post(function (req, res) {
+    manager.sessionCheck(req,res);
+
     let contentId;
     let name = req.body.name;
     let place = req.body.place;
@@ -93,6 +97,7 @@ router.route('/restaurant/:contentId').get(function (req, res) {
 
 //음식점 업데이트
 router.route('/restaurant/:contentId').put(function (req, res) {
+    manager.sessionCheck(req);
     let contentId = req.params.contentId;
     let name = req.body.name;
     let place = req.body.place;
@@ -105,6 +110,8 @@ router.route('/restaurant/:contentId').put(function (req, res) {
 
 //음식점 삭제
 router.route('/restaurant/:contentId').delete(function (req, res) {
+    manager.sessionCheck(req);
+
     let contentId = req.params.contentId;
 
     manager.deleteRestaurant(contentId, function (JSONResponse) {
