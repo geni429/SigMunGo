@@ -69,7 +69,7 @@ router.route('/account/logout').delete(function (req, res) {
 });
 
 //아이디 중복 체크
-router.route('/account/checkId').post(function (req, res) {
+router.route('/account/idCheck').post(function (req, res) {
     let id = req.body.id;
 
     manager.checkId(id, function (JSONResponse) {
@@ -82,7 +82,7 @@ router.route('/account/checkId').post(function (req, res) {
 });
 
 //이름 중복 체크
-router.route('/account/checkName').post(function (req, res) {
+router.route('/account/nameCheck').post(function (req, res) {
     let name = req.body.name;
 
     manager.checkName(name, function (JSONResponse) {
@@ -95,7 +95,7 @@ router.route('/account/checkName').post(function (req, res) {
 });
 
 //전화번호 중복 체크
-router.route('/account/checkPhone').post(function (req, res) {
+router.route('/account/phoneCheckb h').post(function (req, res) {
     let phone = req.body.phone;
 
     manager.checkPhone(phone, function (JSONResponse) {

@@ -37,7 +37,7 @@ manager.login = function (id, password, callback) {
 }
 
 //아이디 중복 체크
-manager.checkId = function (id, callback) {
+manager.idCheck = function (id, callback) {
     let response = {
         error: false,
         overlap: false
@@ -51,7 +51,7 @@ manager.checkId = function (id, callback) {
 }
 
 //아이디 중복 체크
-manager.checkName = function (name, callback) {
+manager.nameCheck = function (name, callback) {
     let response = {
         error: false,
         overlap: false
@@ -65,7 +65,7 @@ manager.checkName = function (name, callback) {
 }
 
 //아이디 중복 체크
-manager.checkPhone = function (phoneid, callback) {
+manager.phonecheck = function (phoneid, callback) {
     let response = {
         error: false,
         overlap: false
