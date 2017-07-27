@@ -1,5 +1,6 @@
 package com.example.sigmungo.sigmungo;
 
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 
 import com.example.sigmungo.sigmungo.Adapter.LandingAdapter;
+import com.example.sigmungo.sigmungo.Adapter.MainPagerAdapter;
 import com.example.sigmungo.sigmungo.Adapter.MainRecyclerAdapter;
 import com.example.sigmungo.sigmungo.Items.MainItems;
 
@@ -40,16 +42,17 @@ public class Main extends AppCompatActivity {
             items.setRestaurantImage(R.drawable.restaurant_img_1+i);
             items.setRestaurantName("식문고 식당");
             items.setRestuarantLocation("대전광역시 식문구 식문동");
+            items.setSympathyCount(103);
             restaurantsInfo.add(items);
         }
 
-        recyclerView.setAdapter(new MainRecyclerAdapter(restaurantsInfo));
+        recyclerView.setAdapter(new MainRecyclerAdapter(restaurantsInfo, getApplicationContext()));
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
     }
 
     class PagerThread extends Thread{
         public void run(){
-            LandingAdapter adapter = new LandingAdapter(getApplicationContext());
+            MainPagerAdapter adapter = new MainPagerAdapter(getApplicationContext());
             pager.setAdapter(adapter);
         }
     }

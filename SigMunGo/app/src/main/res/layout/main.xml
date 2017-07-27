@@ -51,17 +51,32 @@
             android:textSize="18dp"/>
         <android.support.v4.view.ViewPager
             android:id="@+id/main_pager"
+            android:background="@drawable/main_recyclerview"
+            android:elevation="10dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="7">
-
-        </android.support.v4.view.ViewPager>
+            android:layout_weight="7"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:gravity="center_vertical|center_horizontal">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@android:color/black" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6.3"
-        android:background="#ffffff">
+        android:layout_weight="6">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/restaurants_info"
             android:layout_width="match_parent"

@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Outline;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -16,12 +17,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.sigmungo.sigmungo.Items.MainItems;
 import com.example.sigmungo.sigmungo.Main;
+import com.example.sigmungo.sigmungo.MainItemDecoration;
 import com.example.sigmungo.sigmungo.R;
 import com.example.sigmungo.sigmungo.RoundedAvatarDrawable;
 
@@ -29,6 +32,7 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
+import static android.R.id.mask;
 import static android.widget.ImageView.ScaleType.CENTER_CROP;
 
 /**
@@ -36,11 +40,12 @@ import static android.widget.ImageView.ScaleType.CENTER_CROP;
  */
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder> {
-
+    private Context mContext;
     private List<MainItems> mDataset;
 
-    public MainRecyclerAdapter(List<MainItems> dataset){
+    public MainRecyclerAdapter(List<MainItems> dataset, Context context){
         this.mDataset = dataset;
+        this.mContext = context;
     }
 
     @Override
@@ -53,25 +58,12 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         MainItems items = mDataset.get(position);
-        Glide.with(holder.restaurantImg).load(items.getRestaurantImage()).into(holder.restaurantImg);
         holder.restaurantImg.setScaleType(CENTER_CROP);
+        Glide.with(holder.restaurantImg).load(items.getRestaurantImage()).into(holder.restaurantImg);
         holder.restaurantName.setText(items.getRestaurantName());
         holder.restaurantLocation.setText(items.getRestuarantLocation());
+        holder.sympathyCount.setText(items.getSympathyCount()+"");
     }
-
-//    ImageView mImageView= (ImageView)findViewById(R.id.imageview_id);
-//    Bitmap original = BitmapFactory.decodeResource(,R.drawable.content_image);
-//    Bitmap mask = BitmapFactory.decodeResource(getResources(),R.drawable.mask);
-//    Bitmap result = Bitmap.createBitmap(mask.getWidth(), mask.getHeight(), Config.ARGB_8888);
-//    Canvas mCanvas = new Canvas(result);
-//    Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-//     paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
-//     mCanvas.drawBitmap(original, 0, 0, null);
-//     mCanvas.drawBitmap(mask, 0, 0, paint);
-//     paint.setXfermode(null);
-//     mImageView.setImageBitmap(result);
-//     mImageView.setScaleType(ScaleType.CENTER);
-//     mImageView.setBackgroundResource(R.drawable.background_frame);
 
     @Override
     public int getItemCount() {
@@ -82,12 +74,14 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         ImageView restaurantImg;
         TextView restaurantName;
         TextView restaurantLocation;
+        TextView sympathyCount;
 
         public ViewHolder(View view){
             super(view);
             this.restaurantImg = (ImageView) view.findViewById(R.id.restaurant_img);
             this.restaurantName = (TextView) view.findViewById(R.id.restaurant_name);
             this.restaurantLocation = (TextView) view.findViewById(R.id.restaurant_location);
+            this.sympathyCount = (TextView) view.findViewById(R.id.sympathy_count);
         }
     }
 }

@@ -14,6 +14,15 @@ public class MainItems {
     private int restaurantImage;
     private String restaurantName;
     private String restuarantLocation;
+    private int sympathyCount;
+
+    public int getSympathyCount() {
+        return sympathyCount;
+    }
+
+    public void setSympathyCount(int sympathyCount) {
+        this.sympathyCount = sympathyCount;
+    }
 
     public int getRestaurantImage() {
         return restaurantImage;
