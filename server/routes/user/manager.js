@@ -7,6 +7,7 @@ manager.registe = function (id, password, name, phone, callback) {
         error: false,
         success: false
     };
+
     conn.query('insert into account values(?,?,?,?);', [id, password, name, phone], function (err, result) {
         if (err) response.error = true;
         else if (result.affectedRows) response.success = true;
@@ -51,6 +52,20 @@ manager.updatePassword = function (id, callback) {
     conn.query('update account set password=? where id=?;', [id, password], function (err, result) {
         if (err) response.error = true;
         else if (reslt.affectedRows) response.success = true;
+
+        callback(JSON.stringify(response));
+    });
+}
+
+manager.getId = function (name, phone, callback) {
+    let response = {
+        error: true,
+        id: null
+    };
+
+    conn.query('select id from account where name=? and phone=?;', [name, phone], function (err, rows) {
+        if (err) response.error = true;
+        else if (rows.length == 1) response.id = rows[0].id;
 
         callback(JSON.stringify(response));
     });

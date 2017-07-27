@@ -15,7 +15,9 @@
     "jade": "^1.11.0",
     "morgan": "^1.8.2",
     "mysql": "^2.13.0",
+    "nodejs-aes256": "^1.0.1",
     "path": "^0.12.7",
-    "serve-favicon": "^2.4.3"
+    "serve-favicon": "^2.4.3",
+    "sha256": "^0.2.0"
   }
 }

@@ -73,7 +73,6 @@ manager.addRestaurant = function (contentId, name, place, phone, manu, callback)
         if (err) response.error = true;
         else if (result.affectedRows) {
             for (let i = 0; i < manu.length; i++) {
-
                 conn.query('insert into manu value(?,?)', [contentId, manu.restaurant[i].manu], function (err, result) {
                     if (err) response.error = true;
                     else if (result.affectedRows) response.success = true;
@@ -154,19 +153,19 @@ manager.getRestaurant = function (contentId, callback) {
     });
 }
 
-manager.addDiscontent = function () {
+manager.addPost = function () {
 
 }
 
-manager.getCountOfDiscontent = function (contentId, callback) {
+manager.getCountOfPost = function (contentId, callback) {
 
 }
 
-manager.updateDiscontent = function (contentId) {
+manager.updatePost = function (callback) {
 
 }
 
-manager.deleteDiscontent = function (contentId, callback) {
+manager.deletePost = function (contentId, callback) {
 
 }
 
