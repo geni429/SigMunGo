@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:weightSum="10">
     <include android:id="@+id/toolbar"
-        layout="@layout/main_actionbar" />
+        layout="@layout/main_toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,7 +69,7 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/main_pager"
             android:background="@drawable/main_recyclerview"
-            android:elevation="10dp"
+            android:elevation="6dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="7"
@@ -77,24 +77,18 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"/>
     </LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.3"
-        android:background="#00ffffff"
-        android:gravity="center_vertical|center_horizontal">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@android:color/black" />
-    </LinearLayout>
+        android:layout_height="1dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@android:color/black" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6">
+        android:layout_weight="6.3">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/restaurants_info"
             android:layout_width="match_parent"
