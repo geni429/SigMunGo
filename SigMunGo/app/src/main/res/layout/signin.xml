@@ -75,7 +75,7 @@
             android:layout_margin="1dp"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/button"
-            android:text="비밀번호를 잊어버렸나요?"
+            android:text="아이디/비밀번호 찾기"
             android:textColor="#000000"
             android:textSize="12dp" />
 

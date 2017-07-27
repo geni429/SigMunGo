@@ -52,8 +52,8 @@
         android:layout_height="100dp"
         android:gravity="center_horizontal">
         <Button
-            android:layout_width="300dp"
-            android:layout_height="50dp"
+            android:layout_width="275dp"
+            android:layout_height="55dp"
             android:textSize="20dp"
             android:textColor="@drawable/text"
             android:background="@drawable/primary_button"
