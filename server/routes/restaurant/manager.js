@@ -15,6 +15,7 @@ manager.sessionCheck=function(req,res){
         return;
     }
 }
+
 //좋아요 +1
 manager.addGood = function (contentId, id, callback) {
     let response = {
@@ -25,7 +26,7 @@ manager.addGood = function (contentId, id, callback) {
     conn.query('insert into good values(?,?,1)', [contentId, id], function (err, result) {
         if (err) response.error = true;
         else if (result.affectedRows == 1) response.success = true;
-        callback(JSON.stringify(response));
+        callback(response);
     });
 }
 
@@ -39,7 +40,7 @@ manager.getGood = function (contentId, id, callback) {
     conn.query('select * from good where contentid=? and id=?;', [contentId, id], function (err, rows) {
         if (err) response.error = true;
         else if (rows.length >= 0) response.good = rows.length;
-        callback(JSON.stringify(response));
+        callback(response);
     });
 }
 
@@ -91,7 +92,7 @@ manager.getMostOfRestaurant = function (callback) {
                 response[i].good = rows[i] ? rows[i].good : null;
             }
         }
-        callback(JSON.stringify(response));
+        callback(response);
     });
 }
 
@@ -111,7 +112,7 @@ manager.getContentId = function (callback) {
                 response.name.push(rows[i].name);
             }
         }
-        callback(JSON.stringify(response));
+        callback(response);
     });
 }
 
@@ -140,7 +141,7 @@ manager.addRestaurant = function (contentId, name, place, phone, manu, img, call
                 });
             }
         }
-        callback(JSON.stringify(response));
+        callback(response);
     });
 }
 
@@ -178,7 +179,7 @@ manager.getDetailRestaurant = function (contentId, callback) {
                 }
             });
         }
-        callback(JSON.stringify(response));
+        callback(response);
     });
 }
 
@@ -198,7 +199,7 @@ manager.deleteRestaurant = function (contentId, callback) {
         if (err) response.error = true;
         else if (result.affectedRows == 1) response.success = true;
 
-        callback(JSON.stringify(response));
+        callback(response);
     });
 }
 
@@ -225,7 +226,7 @@ manager.getRestaurant = function (contentId, callback) {
             });
         }
 
-        callback(JSON.stringify(response));
+        callback(response);
     });
 }
 

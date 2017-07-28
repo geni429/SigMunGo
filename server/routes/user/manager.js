@@ -16,7 +16,7 @@ manager.registe = function (id, password, name, phone, callback) {
         if (err) response.error = true;
         else if (result.affectedRows) response.success = true;
 
-        callback(JSON.stringify(response));
+        callback(response);
     });
 }
 
@@ -27,12 +27,29 @@ manager.login = function (id, password, callback) {
         success: false
     };
 
-    conn.query('select * from account where id=? and password=?', [id, password], function (err, rows) {
-        console.log(rows.length);
-        if (err) response.error = true;
-        else if (rows.length == 1) response.success = true;
-
-        callback(response);
+    conn.query('select * from account where id=?', id, function (err, rows) {
+        if (err) {
+            response.error = true;
+            callback(response);
+        }
+        else if (rows.length == 1) {
+            conn.query('select * from account where id=? and password=?;', [id, password], function (err, rows1) {
+                console.log(rows1);
+                if (err) {
+                    response.error = true;
+                    callback(response);
+                } else if (rows1.length == 1) {
+                    response.success = true;
+                    callback(response);
+                } else if (rows1.length) {
+                    response.message = 'worngPassword';
+                    callback(response);
+                }
+            });
+        } else {
+            response.message = 'nonexistentId';
+            callback(response);
+        }
     });
 }
 
@@ -46,7 +63,7 @@ manager.idCheck = function (id, callback) {
         if (err) response.error = true;
         else if (rows.length == 1) response.overlap = true;
 
-        callback(JSON.stringify(response));
+        callback(response);
     });
 }
 
@@ -74,7 +91,7 @@ manager.phonecheck = function (phoneid, callback) {
         if (err) response.error = true;
         else if (rows.length == 1) response.overlap = true;
 
-        callback(JSON.stringify(response));
+        callback(response);
     });
 }
 
@@ -89,7 +106,7 @@ manager.updatePassword = function (id, callback) {
         if (err) response.error = true;
         else if (reslt.affectedRows) response.success = true;
 
-        callback(JSON.stringify(response));
+        callback(response);
     });
 }
 
@@ -105,7 +122,7 @@ manager.getId = function (name, phone, callback) {
         if (err) response.error = true;
         else if (rows.length == 1) response.id = rows[0].id;
 
-        callback(JSON.stringify(response));
+        callback(response);
     });
 }
 
@@ -119,6 +136,23 @@ manager.goodCounts = function (id, callback) {
     conn.query('select * from good where id=?', id, function (err, rows) {
         if (err) response.error = true;
         else if (rows.length >= 0) response.counts = rows.length;
+        callback(response);
     });
+}
+
+//세션 체크
+manager.sessionCheck = function (req, res) {
+    if (!req.session.user) {
+        res.writeHead(200, {
+            'Content-Type': 'application/json'
+        });
+        res.write(JSON.stringify({
+            session: false
+        }));
+        res.end();
+        return;
+    } else {
+        return;
+    }
 }
 module.exports = manager;
