@@ -1,18 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="15"
     tools:context="com.example.sigmungo.sigmungo.Certification">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="13"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="435dp"
+            android:src="@drawable/use" />
+
+        <CheckBox
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="-165dp"
+            android:text="서비스약관(필수)" />
+
+        <CheckBox
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="5dp"
+            android:text="개인정보 취급방침(필수)" />
+
+        <CheckBox
+            android:layout_width="230dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="5dp"
+            android:text="위치기반서비스 이용약관(필수)" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="-98dp"
+            android:text="@string/underline"
+            android:textColor="@color/colorButton" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="35.5dp"
+            android:layout_marginTop="47dp"
+            android:text="@string/underline"
+            android:textColor="@color/colorButton" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="-63dp"
+            android:text="@string/underline"
+            android:textColor="@color/colorButton" />
+
+        <CheckBox
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="50dp"
+            android:text="개인정보 취급방침(필수)" />
+</LinearLayout>
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="2"
+    android:gravity="center_horizontal"
+    >
 
     <Button
         android:id="@+id/button"
         android:layout_width="275dp"
         android:layout_height="55dp"
-        android:background="@drawable/primary_button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="43dp"
+        android:background="@drawable/primary_button"
         android:text="시작하기"
-        android:textSize="20dp"/>
-</RelativeLayout>
+        android:textSize="20dp" />
+</LinearLayout>
+</LinearLayout>
