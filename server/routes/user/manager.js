@@ -1,3 +1,4 @@
+"use strict";
 let conn = require('../../DBConnection');
 let AES256 = require('nodejs-aes256');
 const key = 'this_is_key';

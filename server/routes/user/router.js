@@ -32,26 +32,26 @@ router.route('/account/registe').post(function (req, res) {
 });
 
 //로그인
-// router.route('/account/login').post(function (req, res) {
-//     let id = req.body.id;
-//     let password = SHA256(req.body.password);
+router.route('/account/login').post(function (req, res) {
+    let id = req.body.id;
+    let password = SHA256(req.body.password);
 
-//     manager.login(id, password, function (response) {
-//         console.log(response.success);
-//         if (response.success) {
-//             req.session.user = {
-//                 id: id,
-//                 authorized: true
-//             };
-//         }
+    manager.login(id, password, function (response) {
+        console.log(response.success);
+        if (response.success) {
+            req.session.user = {
+                id: id,
+                authorized: true
+            };
+        }
 
-//         res.writeHead(200, {
-//             'Content-Type': 'application/json'
-//         });
-//         res.write(JSON.stringify(response));
-//         res.end();
-//     });
-// });
+        res.writeHead(200, {
+            'Content-Type': 'application/json'
+        });
+        res.write(JSON.stringify(response));
+        res.end();
+    });
+});
 
 //로그아웃
 router.route('/account/logout').delete(function (req, res) {

@@ -1,3 +1,4 @@
+"use strict";
 let conn = require('../../DBConnection');
 
 let manager = {}

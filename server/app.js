@@ -13,7 +13,7 @@ let mysql = require('mysql');
 var user = require('./routes/user/router');
 var restaurant=require('./routes/restaurant/router');
 
-var port = '3434';
+var port = '8080';
 
 app.set('port', port);
 
