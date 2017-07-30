@@ -48,7 +48,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurants_info_items,parent,false);
+        Log.d("MainRecycler parent", parent+"");
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurants_info_items, parent, false);
         ViewHolder holder = new ViewHolder(v);
         return holder;
     }
@@ -56,8 +57,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         MainItems items = mDataset.get(position);
-        holder.restaurantImg.setScaleType(CENTER_CROP);
         Glide.with(holder.restaurantImg).load(items.getRestaurantImage()).into(holder.restaurantImg);
+        holder.restaurantImg.setScaleType(CENTER_CROP);
         holder.restaurantName.setText(items.getRestaurantName());
         holder.restaurantLocation.setText(items.getRestuarantLocation());
         holder.sympathyCount.setText(items.getSympathyCount()+"");

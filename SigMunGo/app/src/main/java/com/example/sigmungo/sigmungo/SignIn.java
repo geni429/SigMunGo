@@ -24,7 +24,6 @@ import retrofit2.Response;
  */
 
 public class SignIn extends AppCompatActivity {
-    private Map<String, String> params;
     APIinterface apIinterface;
     TextView signUp;
     EditText inputId;
@@ -34,7 +33,6 @@ public class SignIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
         setContentView(R.layout.signin);
-        params = new HashMap<>();
         signUp = (TextView)findViewById(R.id.signup);
         inputId = (EditText)findViewById(R.id.input_id);
         inputPw = (EditText)findViewById(R.id.input_password);
@@ -55,7 +53,12 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onResponse(Call<SignInRequest> call, Response<SignInRequest> response) {
                 Log.d("SignIn status code", response.code()+"");
-                Log.d("SignIn response body", response.body().toString());
+                if(response.isSuccessful()){
+                    //When Login Success
+                    startActivity(new Intent(getApplicationContext(), Main.class));
+                } else {
+                    //When Login Failure
+                }
             }
 
             @Override
@@ -81,18 +84,3 @@ public class SignIn extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), SignUp.class));
     }
 }
-
-//                Call signInCall = apIinterface.doSignIn(inputId.getText().toString(), inputPw.getText().toString());
-//                signInCall.enqueue(new Callback() {
-//                    @Override
-//                    public void onResponse(Call call, Response response) {
-//                        Log.d("SignIn status code", response.code()+"");
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call call, Throwable t) {
-//                        t.printStackTrace();
-//                        call.cancel();
-//                    }
-//                });
-
