@@ -1,11 +1,16 @@
 package com.example.sigmungo.sigmungo.Adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.sigmungo.sigmungo.Main;
 import com.example.sigmungo.sigmungo.R;
 
 import java.util.List;
@@ -16,9 +21,11 @@ import java.util.List;
 
 public class SetLocationAdapter extends RecyclerView.Adapter<SetLocationAdapter.ViewHolder>  {
     private List<String> locationNames;
+    private Context mContext;
 
-    public SetLocationAdapter(List<String> locationNames){
+    public SetLocationAdapter(List<String> locationNames, Context context){
         this.locationNames = locationNames;
+        this.mContext = context;
     }
 
     @Override
@@ -29,8 +36,16 @@ public class SetLocationAdapter extends RecyclerView.Adapter<SetLocationAdapter.
     }
 
     @Override
-    public void onBindViewHolder(SetLocationAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final SetLocationAdapter.ViewHolder holder, final int position) {
         holder.location_name.setText(this.locationNames.get(position));
+        holder.location_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, Main.class);
+                intent.putExtra("location_name", locationNames.get(position));
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
