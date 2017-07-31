@@ -128,7 +128,7 @@ public class Main extends AppCompatActivity {
         }
 
         recyclerView.setAdapter(new MainRecyclerAdapter(restaurantsInfo));
-        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+        recyclerView.setLayoutManager(new MainGridLayoutManager(getApplicationContext(), 2, true));
     }
 
     class PagerThread extends Thread{
