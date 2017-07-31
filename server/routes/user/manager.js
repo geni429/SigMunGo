@@ -6,7 +6,7 @@ const key = 'this_is_key';
 let manager = {}
 
 //회원가입
-manager.registe = function (id, password, name, phone, callback) {
+manager.signup = function (id, password, name, phone, callback) {
     let response = {
         error: false,
         success: false
@@ -21,10 +21,9 @@ manager.registe = function (id, password, name, phone, callback) {
 }
 
 //로그인
-manager.login = function (id, password, callback) {
+manager.signin = function (id, password, callback) {
     let response = {
-        error: false,
-        success: false
+        error: false
     };
 
     conn.query('select * from account where id=?', id, function (err, rows) {

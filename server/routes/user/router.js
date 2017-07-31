@@ -16,7 +16,7 @@ router.route('/account/signup').post(function (req, res) {
     let phone = req.body.phone;
     console.log(id, name, password, phone);
 
-    manager.registe(id, password, name, phone, function (response) {
+    manager.signup(id, password, name, phone, function (response) {
         if (response.success) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ router.route('/account/signin').post(function (req, res) {
     let id = req.body.id;
     let password = SHA256(req.body.password);
 
-    manager.login(id, password, function (response) {
+    manager.signin(id, password, function (response) {
         if (response.success) {
             req.session.user = {
                 id: id,
