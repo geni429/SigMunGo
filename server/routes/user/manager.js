@@ -8,7 +8,6 @@ let manager = {}
 //회원가입
 manager.signup = function (id, password, name, phone, callback) {
     let response = {
-        error: false,
         success: false
     };
 
@@ -22,9 +21,7 @@ manager.signup = function (id, password, name, phone, callback) {
 
 //로그인
 manager.signin = function (id, password, callback) {
-    let response = {
-        error: false
-    };
+    let response = {};
 
     conn.query('select * from account where id=?', id, function (err, rows) {
         if (err) {
@@ -34,7 +31,6 @@ manager.signin = function (id, password, callback) {
         else if (rows.length == 1) {
             conn.query('select * from account where id=? and password=?;', [id, password], function (err, rows1) {
                 if (err) {
-                    response.error = true;
                     callback(response);
                 } else if (rows1.length == 1) {
                     response.success = true;
@@ -54,7 +50,6 @@ manager.signin = function (id, password, callback) {
 //아이디 중복 체크
 manager.idCheck = function (id, callback) {
     let response = {
-        error: false,
         overlap: false
     };
     conn.query('select * from account where id=?', id, function (err, rows) {
@@ -68,7 +63,6 @@ manager.idCheck = function (id, callback) {
 //이름 중복 체크
 manager.nameCheck = function (name, callback) {
     let response = {
-        error: false,
         overlap: false
     };
     conn.query('select * from account where name=?', name, function (err, rows) {
@@ -82,7 +76,6 @@ manager.nameCheck = function (name, callback) {
 //전화번호 중복 체크
 manager.phonecheck = function (phone, callback) {
     let response = {
-        error: false,
         overlap: false
     };
     conn.query('select * from account where phone=?', phone, function (err, rows) {
@@ -96,7 +89,6 @@ manager.phonecheck = function (phone, callback) {
 //비밀번호 변경
 manager.updatePassword = function (id, callback) {
     let response = {
-        error: false,
         success: false
     };
 
@@ -111,7 +103,6 @@ manager.updatePassword = function (id, callback) {
 //아이디 찾기
 manager.getId = function (name, phone, callback) {
     let response = {
-        error: false,
         id: null
     };
 
@@ -127,7 +118,6 @@ manager.getId = function (name, phone, callback) {
 //사용자가 누른 좋아요 갯수
 manager.goodCounts = function (id, callback) {
     let response = {
-        error: false,
         counts: null
     };
 

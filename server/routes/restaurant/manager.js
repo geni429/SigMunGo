@@ -22,7 +22,6 @@ manager.sessionCheck = function (req, res) {
 //좋아요 +1
 manager.addGood = function (contentId, id, callback) {
     let response = {
-        error: false,
         success: false
     }
 
@@ -36,7 +35,6 @@ manager.addGood = function (contentId, id, callback) {
 //좋아요 받아오기
 manager.getGood = function (contentId, id, callback) {
     let response = {
-        error: false,
         good: null
     };
 
@@ -50,7 +48,6 @@ manager.getGood = function (contentId, id, callback) {
 //좋아요 높은 5개 음식점 
 manager.getMostOfRestaurant = function (callback) {
     let response = {
-        error: false,
         0: {
             img: null,
             name: null,
@@ -102,7 +99,6 @@ manager.getMostOfRestaurant = function (callback) {
 //앱 시작할 때, contentid, name
 manager.getContentId = function (callback) {
     let response = {
-        error: false,
         contentId: [],
         name: []
     };
@@ -130,7 +126,6 @@ manager.checkId = function (contentId) {
 //음식점 추가 
 manager.addRestaurant = function (contentId, name, place, phone, img, callback) {
     let response = {
-        error: false,
         success: false
     };
 
@@ -144,7 +139,6 @@ manager.addRestaurant = function (contentId, name, place, phone, img, callback) 
 //음식점 디테일 정보
 manager.getDetailRestaurant = function (contentId, callback) {
     let response = {
-        error: false,
         name: null,
         place: null,
         phone: null,
@@ -187,7 +181,6 @@ manager.updateRestaurant = function (contentId, name, place, phone, manu, callba
 //음식점 정보 삭제
 manager.deleteRestaurant = function (contentId, callback) {
     let response = {
-        error: false,
         success: false
     };
 
@@ -202,7 +195,6 @@ manager.deleteRestaurant = function (contentId, callback) {
 //음식점 대략 정보
 manager.getRestaurant = function (callback) {
     let response = {
-        error: false,
         restaurant: []
     };
 
@@ -227,7 +219,6 @@ manager.getRestaurant = function (callback) {
 //음식점 메뉴 추가
 manager.addManu = function (contentId, manu, callback) {
     let response = {
-        error: false,
         success: false
     };
 
@@ -241,7 +232,6 @@ manager.addManu = function (contentId, manu, callback) {
 //음식점 메뉴 요청
 manager.getManu = function (contentId, callback) {
     let response = {
-        error: false,
         manu: []
     };
 
@@ -260,7 +250,6 @@ manager.getManu = function (contentId, callback) {
 //음식점 메뉴 삭제
 manager.deleteManu = function (contentId, manu) {
     let response = {
-        error: false,
         success: false
     };
 
