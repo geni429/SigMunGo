@@ -1,6 +1,7 @@
 package com.example.sigmungo.sigmungo;
 
 import com.example.sigmungo.sigmungo.Items.SignInRequest;
+import com.example.sigmungo.sigmungo.Items.SignUpRequest;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -13,6 +14,14 @@ import retrofit2.http.POST;
 
 interface APIinterface {
     @FormUrlEncoded
-    @POST("/account/login")
-    Call<SignInRequest> doSignIn(@Field("id") String id, @Field("password") String password);
+    @POST("/account/signin")
+    Call<SignInRequest> doSignIn(@Field("id") String id,
+                                 @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("/account/signup")
+    Call<SignUpRequest> doSignUp(@Field("name") String name,
+                                 @Field("phone") String phone,
+                                 @Field("id") String id,
+                                 @Field("password") String password);
 }

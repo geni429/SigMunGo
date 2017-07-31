@@ -9,12 +9,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sigmungo.sigmungo.Items.SignInRequest;
+import com.google.gson.JsonObject;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,15 +63,31 @@ public class SignIn extends AppCompatActivity {
                 Log.d("SignIn status code", response.code()+"");
                 if(response.isSuccessful()){
                     //When Login Success
+                    Log.d("SignIn POST", "Success");
                     startActivity(new Intent(getApplicationContext(), Main.class));
                 } else {
                     //When Login Failure
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String errorMessage = jsonObject.get("message").toString();
+                        if(errorMessage.equals("nonexistentId")){
+                            Log.d("SignIn POST", "nonexistentId");
+                            Toast.makeText(getApplicationContext(), "존재하지 않는 아이디입니다.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.d("SignIn POST", "wrongPassword");
+                            Toast.makeText(getApplicationContext(), "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<SignInRequest> call, Throwable t) {
-                Log.d("fail", "failure");
+                Log.d("SignIn POST", "Failure");
                 t.printStackTrace();
             }
         });
