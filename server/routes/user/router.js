@@ -44,9 +44,15 @@ router.route('/account/signin').post(function (req, res) {
             };
         }
 
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
-        });
+        if (!!response.message) {
+            res.writeHead(400, {
+                'Content-Type': 'application/json'
+            });
+        } else {
+            res.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+        }
         res.write(JSON.stringify(response));
         res.end();
     });
@@ -152,7 +158,7 @@ router.route('/account/password').put(function (req, res) {
 
 //사용자가 누른 좋아요 개수
 router.route('/account/good').get(function (req, res) {
-    manager.sessionCheck(req,res);
+    manager.sessionCheck(req, res);
     let id = req.session.user.id;
 
     manager.goodCounts(id, function (response) {
