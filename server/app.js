@@ -27,30 +27,6 @@ app.use(expressSession({
     saveUninitialized: true
 }));
 
-app.post('/account/login',function (req, res) {
-    console.log(req.body.id);
-    console.log('로그인');
-    let id = req.body.id;
-    let password = SHA256(req.body.password);
-
-    console.log(id, password);
-    manager.login(id, password, function (response) {
-        console.log(response.success);
-        if (response.success) {
-            req.session.user = {
-                id: id,
-                authorized: true
-            };
-        }
-
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
-        });
-        res.write(JSON.stringify(response));
-        res.end();
-    });
-});
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
