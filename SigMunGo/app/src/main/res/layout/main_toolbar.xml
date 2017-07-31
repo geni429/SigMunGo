@@ -19,7 +19,8 @@
             android:src="@drawable/ic_action_sidemenu"
             android:background="@null"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:onClick="toolbarItemOnClick"/>
 
         <ImageButton
             android:id="@+id/simplewrite_btn"
@@ -29,6 +30,7 @@
             android:src="@drawable/ic_action_simplewrite"
             android:background="@null"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:onClick="toolbarItemOnClick"/>
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
