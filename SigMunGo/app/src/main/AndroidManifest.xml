@@ -20,7 +20,7 @@
         <activity android:name=".SignUp" android:theme="@style/AppTheme"/>
         <activity android:name=".Certification" android:theme="@style/AppTheme"/>
         <activity android:name=".Main" android:theme="@style/ToolbarTheme"/>
-        <activity android:name=".SetLocation" android:theme="@style/ToolbarTheme"/>
+        <activity android:name=".SetLocation" android:theme="@style/ToolbarTheme" android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

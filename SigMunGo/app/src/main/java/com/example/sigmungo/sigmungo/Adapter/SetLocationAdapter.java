@@ -23,7 +23,6 @@ public class SetLocationAdapter extends RecyclerView.Adapter<SetLocationAdapter.
 
     @Override
     public SetLocationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.d("setLocation parent", parent+"");
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.locations_list, parent, false);
         SetLocationAdapter.ViewHolder holder = new SetLocationAdapter.ViewHolder(v);
         return holder;
