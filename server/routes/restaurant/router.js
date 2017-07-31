@@ -41,7 +41,7 @@ router.route('/good/:contentId').get(function (req, res) {
 });
 
 //좋아요 많은 5개 음식점 
-router.route('/MostOfRestaurant').get(function (req, res) {
+router.route('/mostofrestaurant').get(function (req, res) {
     manager.getMostOfRestaurant(function (response) {
         res.writeHead(200, {
             'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ router.route('/MostOfRestaurant').get(function (req, res) {
 });
 
 //처음 시작할 때
-router.route('/restaurantInfo').get(function (req, res) {
+router.route('/restaurantinfo').get(function (req, res) {
     manager.getContentId(function (response) {
         res.writeHead(200, {
             'Content-Type': 'application/json'

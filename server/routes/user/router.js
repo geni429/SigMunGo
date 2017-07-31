@@ -9,7 +9,7 @@ let random = require('../../support/random');
 const key = 'this_is_key';
 
 //회원가입
-router.route('/account/registe').post(function (req, res) {
+router.route('/account/signup').post(function (req, res) {
     let id = req.body.id;
     let name = req.body.name;
     let password = SHA256(req.body.password);
@@ -32,7 +32,7 @@ router.route('/account/registe').post(function (req, res) {
 });
 
 //로그인
-router.route('/account/login').post(function (req, res) {
+router.route('/account/signin').post(function (req, res) {
     let id = req.body.id;
     let password = SHA256(req.body.password);
 
@@ -53,7 +53,7 @@ router.route('/account/login').post(function (req, res) {
 });
 
 //로그아웃
-router.route('/account/logout').delete(function (req, res) {
+router.route('/account/signout').delete(function (req, res) {
     let response = {
         success: false
     };
@@ -78,7 +78,7 @@ router.route('/account/logout').delete(function (req, res) {
 });
 
 //아이디 중복 체크
-router.route('/account/idCheck').post(function (req, res) {
+router.route('/account/idcheck').post(function (req, res) {
     let id = req.body.id;
 
     manager.checkId(id, function (response) {
@@ -104,7 +104,7 @@ router.route('/account/nameCheck').post(function (req, res) {
 });
 
 //전화번호 중복 체크
-router.route('/account/phoneCheckb h').post(function (req, res) {
+router.route('/account/phonecheckb').post(function (req, res) {
     let phone = req.body.phone;
 
     manager.checkPhone(phone, function (response) {
