@@ -1,6 +1,7 @@
 package com.example.sigmungo.sigmungo;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -12,6 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +47,7 @@ public class Main extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.restaurants_info);
         pager = (ViewPager)findViewById(R.id.main_pager);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
@@ -51,6 +56,17 @@ public class Main extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        View navHeaderView = navigationView.getHeaderView(0);
+
+        TextView sympathyCount = (TextView)navHeaderView.findViewById(R.id.sympathy_count);
+        TextView writingCount = (TextView)navHeaderView.findViewById(R.id.writing_count);
+        SpannableString sympathyCountNumber = new SpannableString("2");
+        SpannableString writingCountNumber = new SpannableString("2");
+        sympathyCountNumber.setSpan(new UnderlineSpan(), 0, sympathyCountNumber.length(), 0);
+        writingCountNumber.setSpan(new UnderlineSpan(), 0, writingCountNumber.length(), 0);
+        sympathyCount.setText(sympathyCountNumber);
+        writingCount.setText(writingCountNumber);
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
