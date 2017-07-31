@@ -42,6 +42,7 @@
             android:text="위치기반서비스 이용약관(필수)" />
 
         <TextView
+            android:id="@+id/termofservice"
             android:layout_width="70dp"
             android:layout_height="25dp"
             android:layout_gravity="right"
@@ -51,6 +52,7 @@
             android:textColor="@color/colorButton" />
 
         <TextView
+            android:id="@+id/gpsterm"
             android:layout_width="70dp"
             android:layout_height="25dp"
             android:layout_gravity="right"
@@ -60,6 +62,7 @@
             android:textColor="@color/colorButton" />
 
         <TextView
+            android:id="@+id/privacyterm"
             android:layout_width="70dp"
             android:layout_height="25dp"
             android:layout_gravity="right"
@@ -84,7 +87,7 @@
     >
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/startbutton"
         android:layout_width="275dp"
         android:layout_height="55dp"
         android:layout_alignParentBottom="true"
