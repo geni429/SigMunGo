@@ -71,7 +71,6 @@ router.route('/restaurant').post(function (req, res) {
     let place = req.body.place;
     let phone = req.body.phone;
     let img = req.body.img;
-    let manu = JSON.parse(req.body.manu);
     let bool = true;
 
     while (bool) {
@@ -79,7 +78,7 @@ router.route('/restaurant').post(function (req, res) {
         bool = manager.checkId(contentId);
     }
 
-    manager.addRestaurant(contentId, name, place, phone, manu, img, function (response) {
+    manager.addRestaurant(contentId, name, place, phone, img, function (response) {
         if (response.success) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
@@ -94,8 +93,18 @@ router.route('/restaurant').post(function (req, res) {
     });
 });
 
+router.route('/restaurant').get(function(req,res){
+    manager.getRestaurant(function(response){
+        res.writeHead(200, {
+            'Content-Type': 'application/json'
+        });
+        res.write(JSON.stringify(response));
+        res.end();
+    });
+});
+
 //음식점 디테일 정보
-router.route('/restaurant/:contentId').get(function (req, res) {
+router.route('/restaurant/detail/:contentId').get(function (req, res) {
     let contentId = req.params.contentId;
 
     console.log(contentId);
@@ -115,7 +124,6 @@ router.route('/restaurant/:contentId').put(function (req, res) {
     let name = req.body.name;
     let place = req.body.place;
     let phone = req.body.phone;
-    let manu = req.body.manu;
     let img = req.body.img;
 
 
@@ -142,11 +150,83 @@ router.route('/restaurant/:contentId').delete(function (req, res) {
     });
 });
 
-//gps로 음식점 정보
-router.route('/restaurant/:areaCode').get(function (req, res) {
-    let areaCode = req.params.areaCode;
+// //gps로 음식점 정보
+// router.route('/restaurant/:areaCode').get(function (req, res) {
+//     let areaCode = req.params.areaCode;
 
 
+// });
+
+//음식점 메뉴 추가
+router.route('/restaurant/manu/:contentid').post(function(req, res){
+    let contentId = req.params.contentId;
+    let manu=req.body.manu;
+
+    manager.addManu(contentId, manu, function(response){
+       if (response.success) {
+            res.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+        } else {
+            res.writeHead(400, {
+                'Content-Type': 'application/json'
+            });
+        }
+        res.write(JSON.stringify(response));
+        res.end(); 
+    });
+});
+
+//음식점 메뉴 요청
+router.route('/restaurant/manu/:contentid').get(function(req, res){
+    let contentId = req.params.contentId;
+
+    manager.getManu(contentId, manu, function(response){
+        res.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+        res.write(JSON.stringify(response));
+        res.end(); 
+    });
+});
+
+//음식점 메뉴 삭제
+router.route('/restaurant/manu/:contentid').delete(function(req, res){
+    let contentId = req.params.contentId;
+    let manu=req.body.manu;
+
+    manager.deleteManu(contentId, manu, function(response){
+        if (response.success) {
+            res.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+        } else {
+            res.writeHead(400, {
+                'Content-Type': 'application/json'
+            });
+        }
+        res.write(JSON.stringify(response));
+        res.end(); 
+    });
+});
+
+//음식점 메뉴 수정
+router.route('/restaurant/manu/:contentid').put(function(req, res){
+    let contentId = req.params.contentId;
+
+    manager.updateManu(contentId, manu, function(response){
+        if (response.success) {
+            res.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+        } else {
+            res.writeHead(400, {
+                'Content-Type': 'application/json'
+            });
+        }
+        res.write(JSON.stringify(response));
+        res.end(); 
+    }); 
 });
 
 //불만 작성

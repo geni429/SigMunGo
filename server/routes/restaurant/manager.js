@@ -4,15 +4,17 @@ let conn = require('../../DBConnection');
 let manager = {}
 
 //세션 체크
-manager.sessionCheck=function(req,res){
-     if (!req.session.user) {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
+manager.sessionCheck = function (req, res) {
+    if (!req.session.user) {
+        res.writeHead(200, {
+            'Content-Type': 'application/json'
+        });
         res.write(JSON.stringify({
             session: false
         }));
         res.end();
         return;
-    }else{
+    } else {
         return;
     }
 }
@@ -126,7 +128,7 @@ manager.checkId = function (contentId) {
 }
 
 //음식점 추가 
-manager.addRestaurant = function (contentId, name, place, phone, manu, img, callback) {
+manager.addRestaurant = function (contentId, name, place, phone, img, callback) {
     let response = {
         error: false,
         success: false
@@ -134,14 +136,7 @@ manager.addRestaurant = function (contentId, name, place, phone, manu, img, call
 
     conn.query('insert into restaurant value(?,?,?,?,?);', [contentId, name, place, phone, img], function (err, result) {
         if (err) response.error = true;
-        else if (result.affectedRows) {
-            for (let i = 0; i < manu.length; i++) {
-                conn.query('insert into manu value(?,?)', [contentId, manu.restaurant[i].manu], function (err, result) {
-                    if (err) response.error = true;
-                    else if (result.affectedRows == 1) response.success = true;
-                });
-            }
-        }
+        else if (result.affectedRows) response.success = true;
         callback(response);
     });
 }
@@ -205,30 +200,80 @@ manager.deleteRestaurant = function (contentId, callback) {
 }
 
 //음식점 대략 정보
-manager.getRestaurant = function (contentId, callback) {
+manager.getRestaurant = function (callback) {
     let response = {
         error: false,
-        img: null,
-        name: null,
-        place: null,
-        good: null
+        restaurant: []
     };
 
-    conn.query('select * from restaurant where contentid=?', contentId, function (err, rows) {
+    conn.query('select * from restaurant', null, function (err, rows) {
         if (err) response.error = true;
-        else if (rows.length == 1) {
-            response.img = rows[0].img;
-            response.name = rows[0].name;
-            response.place = rows[0].place;
+        else if (rows.length >= 0) {
+            for (var i = 0; i < 50; i++) {
+                let restaurant = {
+                    contentid: rows[i].contentid,
+                    img: rows[i].img,
+                    name: rows[i].name,
+                    place: rows[i].place,
+                    good: rows[i].good
+                }
+                response.restaurant.push(restaurant);
+            }
+        }
+        callback(response);
+    });
+}
 
-            conn.query('select * from good where contentid=?;', contentId, function (err, rows) {
-                if (err) response.error = true;
-                else if (rows.length >= 0) response.good = rows.length;
-            });
+//음식점 메뉴 추가
+manager.addManu = function (contentId, manu, callback) {
+    let response = {
+        error: false,
+        success: false
+    };
+
+    conn.query('insert into manu value(?,?);', [contentId, manu], function (err, result) {
+        if (err) response.error = true;
+        else if (result.affectedRows) response.success = true;
+        callback(response);
+    });
+}
+
+//음식점 메뉴 요청
+manager.getManu = function (contentId, callback) {
+    let response = {
+        error: false,
+        manu: []
+    };
+
+    conn.query('select * from manu where contentid=?;', contentId, function (err, rows) {
+        if (err) response.error = true;
+        else if (rows.length >= 0) {
+            for (var i = 0; i < rows.length; i++) {
+                response.manu.push(rows[i].manu);
+            }
         }
 
         callback(response);
     });
+}
+
+//음식점 메뉴 삭제
+manager.deleteManu = function (contentId, manu) {
+    let response = {
+        error: false,
+        success: false
+    };
+
+    conn.query('delete from manu where contentid=? and manu=?;', [contentId, manu], function (err, result) {
+        if (err) response.error = true;
+        else if (result.affectedRows) response.success = true;
+        callback(response);
+    });
+}
+
+//음식점 메뉴 수정
+manager.updateManu = function () {
+
 }
 
 //불만 작성
