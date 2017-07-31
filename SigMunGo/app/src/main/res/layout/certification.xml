@@ -23,21 +23,21 @@
         <CheckBox
             android:layout_width="200dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="60dp"
             android:layout_marginTop="-165dp"
             android:text="서비스약관(필수)" />
 
         <CheckBox
             android:layout_width="200dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="60dp"
             android:layout_marginTop="5dp"
             android:text="개인정보 취급방침(필수)" />
 
         <CheckBox
             android:layout_width="230dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="60dp"
             android:layout_marginTop="5dp"
             android:text="위치기반서비스 이용약관(필수)" />
 
@@ -46,7 +46,7 @@
             android:layout_width="70dp"
             android:layout_height="25dp"
             android:layout_gravity="right"
-            android:layout_marginRight="35dp"
+            android:layout_marginRight="55dp"
             android:layout_marginTop="-98dp"
             android:text="@string/underline"
             android:textColor="@color/colorButton" />
@@ -56,7 +56,7 @@
             android:layout_width="70dp"
             android:layout_height="25dp"
             android:layout_gravity="right"
-            android:layout_marginRight="35.5dp"
+            android:layout_marginRight="55dp"
             android:layout_marginTop="47dp"
             android:text="@string/underline"
             android:textColor="@color/colorButton" />
@@ -66,19 +66,20 @@
             android:layout_width="70dp"
             android:layout_height="25dp"
             android:layout_gravity="right"
-            android:layout_marginRight="35dp"
+            android:layout_marginRight="55dp"
             android:layout_marginTop="-63dp"
             android:text="@string/underline"
             android:textColor="@color/colorButton" />
 
         <CheckBox
+            android:id="@+id/checkBox"
             android:layout_width="200dp"
             android:layout_height="30dp"
             android:layout_gravity="right"
             android:layout_marginRight="25dp"
             android:layout_marginTop="50dp"
             android:text="개인정보 취급방침(필수)" />
-</LinearLayout>
+    </LinearLayout>
     <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="0dp"
