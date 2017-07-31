@@ -40,10 +40,8 @@ manager.signin = function (id, password, callback) {
                     callback(response);
                 }
             });
-        } else {
-            response.message = 'nonexistentId';
-            callback(response);
-        }
+        } 
+        callback(response);
     });
 }
 

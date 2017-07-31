@@ -110,7 +110,7 @@ router.route('/account/nameCheck').post(function (req, res) {
 });
 
 //전화번호 중복 체크
-router.route('/account/phonecheckb').post(function (req, res) {
+router.route('/account/phonecheck').post(function (req, res) {
     let phone = req.body.phone;
 
     manager.checkPhone(phone, function (response) {
