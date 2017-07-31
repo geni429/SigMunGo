@@ -37,7 +37,6 @@ router.route('/account/login').post(function (req, res) {
     let password = SHA256(req.body.password);
 
     manager.login(id, password, function (response) {
-        console.log(response.success);
         if (response.success) {
             req.session.user = {
                 id: id,

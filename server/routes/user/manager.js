@@ -13,7 +13,6 @@ manager.registe = function (id, password, name, phone, callback) {
     };
 
     conn.query('insert into account values(?,?,?,?);', [id, password, name, phone], function (err, result) {
-        console.log(err);
         if (err) response.error = true;
         else if (result.affectedRows) response.success = true;
 
@@ -35,7 +34,6 @@ manager.login = function (id, password, callback) {
         }
         else if (rows.length == 1) {
             conn.query('select * from account where id=? and password=?;', [id, password], function (err, rows1) {
-                console.log(rows1);
                 if (err) {
                     response.error = true;
                     callback(response);
@@ -68,7 +66,7 @@ manager.idCheck = function (id, callback) {
     });
 }
 
-//아이디 중복 체크
+//이름 중복 체크
 manager.nameCheck = function (name, callback) {
     let response = {
         error: false,
@@ -78,12 +76,12 @@ manager.nameCheck = function (name, callback) {
         if (err) response.error = true;
         else if (rows.length == 1) response.overlap = true;
 
-        callback(JSON.stringify(response));
+        callback(response);
     });
 }
 
-//아이디 중복 체크
-manager.phonecheck = function (phoneid, callback) {
+//전화번호 중복 체크
+manager.phonecheck = function (phone, callback) {
     let response = {
         error: false,
         overlap: false
