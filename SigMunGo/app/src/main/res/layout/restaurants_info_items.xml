@@ -22,8 +22,9 @@
             android:id="@+id/restaurant_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
             android:textSize="20dp"
-            android:layout_marginBottom="3dp"/>
+            android:textColor="@android:color/tab_indicator_text"/>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -32,27 +33,32 @@
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="10dp"
+                android:layout_marginRight="3dp"
                 android:src="@drawable/ic_location"/>
             <TextView
                 android:id="@+id/restaurant_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"/>
+                android:textSize="10dp"
+                android:textColor="@android:color/tab_indicator_text"/>
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="bottom|right">
+            android:gravity="right|center_vertical"
+            android:layout_gravity="bottom">
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="10dp"
+                android:layout_marginRight="3dp"
                 android:src="@drawable/ic_sympathy"/>
             <TextView
                 android:id="@+id/sympathy_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"/>
+                android:textSize="10dp"
+                android:textColor="@android:color/tab_indicator_text"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

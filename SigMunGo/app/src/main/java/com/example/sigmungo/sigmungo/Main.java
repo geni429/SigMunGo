@@ -1,17 +1,15 @@
 package com.example.sigmungo.sigmungo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
+import android.widget.TextView;
+
 import com.example.sigmungo.sigmungo.Adapter.MainPagerAdapter;
 import com.example.sigmungo.sigmungo.Adapter.MainRecyclerAdapter;
 import com.example.sigmungo.sigmungo.Items.MainItems;
@@ -24,19 +22,23 @@ import java.util.List;
  */
 
 public class Main extends Activity {
-    private RecyclerView recyclerView;
+    public RecyclerView recyclerView;
     ViewPager pager;
 
     @Override
     protected void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
         setContentView(R.layout.main);
-
         recyclerView = (RecyclerView) findViewById(R.id.restaurants_info);
         pager = (ViewPager)findViewById(R.id.main_pager);
+
         PagerThread thread = new PagerThread();
         thread.start();
         initData();
+    }
+
+    public void setLocation(View v){
+        startActivity(new Intent(getApplicationContext(), SetLocation.class));
     }
 
     public void initData(){
