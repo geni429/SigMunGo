@@ -2,4 +2,8 @@
     <string name="app_name">식문고</string>
     <string name="action_main_sidemenu">MainSideMenu</string>
     <string name="action_main_simplewrite">MainSimpleWrite</string>
+    <string name="registration_restaurant">식당 등록</string>
+    <string name="notice">공지사항</string>
+    <string name="setting">환경설정</string>
+    <string name="help">도움말</string>
 </resources>

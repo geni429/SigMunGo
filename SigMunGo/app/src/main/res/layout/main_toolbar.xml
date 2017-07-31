@@ -6,7 +6,8 @@
     android:layout_alignParentTop="true"
     android:background="@color/colorPrimary"
     app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-    app:contentInsetStart="0dp">
+    app:contentInsetStart="0dp"
+    app:contentInsetEnd="0dp">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
