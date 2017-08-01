@@ -193,7 +193,9 @@ manager.deleteRestaurant = function (contentId, callback) {
 
 //음식점 대략 정보
 manager.getRestaurant = function (callback) {
-    let response = [];
+    let response = {
+        restaurant: []
+    };
 
     conn.query('select * from restaurant', null, function (err, rows) {
         if (err) response.error = true;
@@ -207,7 +209,7 @@ manager.getRestaurant = function (callback) {
                     sympathy: rows[i].good,
                     improved: rows[i].improved
                 }
-                response.push(restaurant);
+                response.restaurant.push(restaurant);
             }
         }
         callback(response);
