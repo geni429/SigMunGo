@@ -35,7 +35,7 @@ router.route('/account/signin').post(function (req, res) {
     let id = req.body.id;
     let password = SHA256(req.body.password);
 
-    manager.signin(id, password, function (response, message) {
+    manager.signin(id, password, function (response,message) {
         if (response.success) {
             req.session.user = {
                 id: id,
@@ -43,19 +43,22 @@ router.route('/account/signin').post(function (req, res) {
             };
         }
         console.log(response, message);
+
         if (response.success) {
+            console.log('if');
             res.writeHead(201, {
                 'Content-Type': 'application/json'
             });
-            res.write(JSON.stringify(message));
-            res.end();
+            console.log('end if');
         } else {
+            console.log('else');
             res.writeHead(400, {
                 'Content-Type': 'application/json'
             });
-            res.write(JSON.stringify(message));
-            res.end();
+            console.log('end else');
         }
+        res.write(JSON.stringify(message));
+        res.end();
     });
 });
 
@@ -91,13 +94,12 @@ router.route('/account/idcheck').post(function (req, res) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
             });
-            res.end();
         } else {
             res.writeHead(204, {
                 'Content-Type': 'application/json'
             });
-            res.end();
         }
+        res.end();
     });
 });
 
@@ -110,13 +112,12 @@ router.route('/account/nameCheck').post(function (req, res) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
             });
-            res.end();
         } else {
             res.writeHead(204, {
                 'Content-Type': 'application/json'
             });
-            res.end();
         }
+        res.end();
     });
 });
 
@@ -129,13 +130,12 @@ router.route('/account/phonecheck').post(function (req, res) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
             });
-            res.end();
         } else {
             res.writeHead(204, {
                 'Content-Type': 'application/json'
             });
-            res.end();
         }
+        res.end();
     });
 });
 
@@ -149,15 +149,14 @@ router.route('/account/id').post(function (req, res) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
             });
-            res.write(JSON.stringify(response));
-            res.end();
         } else {
             res.writeHead(204, {
                 'Content-Type': 'application/json'
             });
-            res.write(JSON.stringify(response));
-            res.end();
         }
+
+        res.write(JSON.stringify(response));
+        res.end();
     });
 });
 
@@ -171,13 +170,12 @@ router.route('/account/password').put(function (req, res) {
             res.writeHead(201, {
                 'Content-Type': 'application/json'
             });
-            res.end();
         } else {
             res.writeHead(204, {
                 'Content-Type': 'application/json'
             });
-            res.end();
         }
+        res.end();
     });
 });
 
@@ -191,16 +189,13 @@ router.route('/account/good').get(function (req, res) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
             });
-            res.write(JSON.stringify(response));
-            res.end();
         } else {
             res.writeHead(204, {
                 'Content-Type': 'application/json'
             });
-            res.write(JSON.stringify(response));
-            res.end();
         }
-
+        res.write(JSON.stringify(response));
+        res.end();
     });
 });
 
