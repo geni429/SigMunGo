@@ -22,29 +22,28 @@ manager.signup = function (id, password, name, phone, callback) {
 //로그인
 manager.signin = function (id, password, callback) {
     let response = {
-        success:false
+        success: false
     };
-    let message={};
+    let message = {};
 
     conn.query('select * from account where id=?', id, function (err, rows) {
         if (err) {
             response.error = true;
-            callback(response,message);
-        }
-        else if (rows.length == 1) {
+            callback(response, message);
+        } else if (rows.length == 1) {
             conn.query('select * from account where id=? and password=?;', [id, password], function (err, rows1) {
                 if (err) {
-                    callback(response,message);
+                    callback(response, message);
                 } else if (rows1.length == 1) {
-                    callback(response,message);
+                    response.success=true;
+                    callback(response, message);
                 } else if (rows1.length) {
                     message.message = 'worngPassword';
-                    callback(response,message);
+                    callback(response, message);
                 }
             });
-        } else{
-            callback(response,message)
         }
+        callback(response, message)
     });
 }
 
