@@ -42,7 +42,7 @@ router.route('/account/signin').post(function (req, res) {
                 authorized: true
             };
         }
-        console.log(message)
+        console.log(response,message);
         if (response.success) {
             res.writeHead(201, {
                 'Content-Type': 'application/json'
