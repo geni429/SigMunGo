@@ -27,6 +27,7 @@ manager.signin = function (id, password, callback) {
     let message = {};
 
     conn.query('select * from account where id=?', id, function (err, rows) {
+        console.log(rows);
         if (err) {
             response.error = true;
             callback(response, message);
@@ -42,8 +43,9 @@ manager.signin = function (id, password, callback) {
                     callback(response, message);
                 }
             });
+        }else{
+            callback(response, message);
         }
-        callback(response, message)
     });
 }
 
