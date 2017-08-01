@@ -200,7 +200,7 @@ manager.getRestaurant = function (callback) {
     conn.query('select * from restaurant', null, function (err, rows) {
         if (err) response.error = true;
         else if (rows.length >= 0) {
-            for (var i = 0; i < 50; i++) {
+            for (var i = 0; i < 30; i++) {
                 let restaurant = {
                     contentid: rows[i].contentid,
                     img: rows[i].img,
