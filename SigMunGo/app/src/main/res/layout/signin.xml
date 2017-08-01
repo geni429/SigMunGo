@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.sigmungo.sigmungo.SignIn"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="168dp"
+        android:orientation="vertical"
+        android:id="@+id/input_area"
+        android:gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <EditText
+            android:id="@+id/input_id"
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="45dp"
+            android:layout_below="@+id/input_id"
+            android:layout_alignLeft="@+id/input_id"
+            android:hint="아이디입력"
+            android:textSize="20dp" />
+        <EditText
+            android:id="@+id/input_password"
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:hint="비밀번호입력(6~15자리)"
+            android:inputType="textPassword"
+            android:textSize="20dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:id="@+id/button"
+        android:layout_below="@+id/input_area"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:id="@+id/signin"
+            android:layout_width="275dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="15dp"
+            android:layout_alignBottom="@+id/button"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/primary_button"
+            android:text="로그인"
+            android:textColor="@drawable/text"
+            android:textSize="20dp" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="450dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/button"
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:weightSum="10">
+
+        <TextView
+            android:id="@+id/forget_password"
+            android:layout_width="0dp"
+            android:layout_weight="5.3"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_margin="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/button"
+            android:text="아이디/비밀번호 찾기"
+            android:textColor="#000000"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/signup"
+            android:layout_width="0dp"
+            android:layout_weight="4.7"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="left"
+            android:layout_below="@+id/button"
+            android:layout_toRightOf="@+id/singup"
+            android:textSize="12dp"
+            android:text="회원이 아니신가요?"
+            android:textColor="#000000"
+            android:onClick="signUp"/>
+    </LinearLayout>
+</RelativeLayout>
