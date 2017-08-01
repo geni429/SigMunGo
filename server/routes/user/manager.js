@@ -39,11 +39,11 @@ manager.signin = function (id, password, callback) {
                     response.success = true;
                     callback(response, message);
                 } else if (rows1.length == 0) {
-                    message.message = 'worngPassword';
                     callback(response, message);
                 }
             });
         }else{
+            message.message = 'nonexistentId';
             callback(response, message);
         }
     });
