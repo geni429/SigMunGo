@@ -21,27 +21,30 @@ manager.signup = function (id, password, name, phone, callback) {
 
 //로그인
 manager.signin = function (id, password, callback) {
-    let response = {};
+    let response = {
+        success:false
+    };
+    let message={};
 
     conn.query('select * from account where id=?', id, function (err, rows) {
         if (err) {
             response.error = true;
-            callback(response);
+            callback(response,message);
         }
         else if (rows.length == 1) {
             conn.query('select * from account where id=? and password=?;', [id, password], function (err, rows1) {
                 if (err) {
-                    callback(response);
+                    callback(response,message);
                 } else if (rows1.length == 1) {
-                    response.success = true;
-                    callback(response);
+                    callback(response,message);
                 } else if (rows1.length) {
-                    response.message = 'worngPassword';
-                    callback(response);
+                    message.message = 'worngPassword';
+                    callback(response,message);
                 }
             });
-        } 
-        callback(response);
+        } else{
+            callback(response,message)
+        }
     });
 }
 
@@ -105,7 +108,6 @@ manager.getId = function (name, phone, callback) {
     };
 
     conn.query('select id from account where name=? and phone=?;', [name, phone], function (err, rows) {
-        console.log(rows);
         if (err) response.error = true;
         else if (rows.length == 1) response.id = rows[0].id;
 

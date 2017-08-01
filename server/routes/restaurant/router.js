@@ -12,7 +12,7 @@ router.route('/good/:contentId').post(function (req, res) {
 
     manager.addGood(contentId,id, function (response) {
         if (response.success) {
-            res.writeHead(200, {
+            res.writeHead(201, {
                 'Content-Type': 'application/json'
             });
         } else {
@@ -20,7 +20,6 @@ router.route('/good/:contentId').post(function (req, res) {
                 'Content-Type': 'application/json'
             });
         }
-        res.write(JSON.stringify(response));
         res.end();
     });
 });
@@ -32,9 +31,15 @@ router.route('/good/:contentId').get(function (req, res) {
     let id = req.session.user.id;
 
     manager.getGood(contentId,id, function (response) {
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
-        });
+        if (!!response.good) {
+            res.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+        } else {
+            res.writeHead(204, {
+                'Content-Type': 'application/json'
+            });
+        }
         res.write(JSON.stringify(response));
         res.end();
     });
@@ -43,9 +48,15 @@ router.route('/good/:contentId').get(function (req, res) {
 //좋아요 많은 5개 음식점 
 router.route('/mostofrestaurant').get(function (req, res) {
     manager.getMostOfRestaurant(function (response) {
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
-        });
+        if (!!response) {
+            res.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+        } else {
+            res.writeHead(204, {
+                'Content-Type': 'application/json'
+            });
+        }
         res.write(JSON.stringify(response));
         res.end();
     });
@@ -54,9 +65,15 @@ router.route('/mostofrestaurant').get(function (req, res) {
 //처음 시작할 때
 router.route('/restaurantinfo').get(function (req, res) {
     manager.getContentId(function (response) {
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
-        });
+        if (!!response.contentId||!!response.name) {
+            res.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+        } else {
+            res.writeHead(204, {
+                'Content-Type': 'application/json'
+            });
+        }
         res.write(JSON.stringify(response));
         res.end();
     });
@@ -80,7 +97,7 @@ router.route('/restaurant').post(function (req, res) {
 
     manager.addRestaurant(contentId, name, place, phone, img, function (response) {
         if (response.success) {
-            res.writeHead(200, {
+            res.writeHead(201, {
                 'Content-Type': 'application/json'
             });
         } else {
@@ -88,16 +105,22 @@ router.route('/restaurant').post(function (req, res) {
                 'Content-Type': 'application/json'
             });
         }
-        res.write(JSON.stringify(response));
         res.end();
     });
 });
 
+//음식점 대략 정보 받아오기
 router.route('/restaurant').get(function(req,res){
     manager.getRestaurant(function(response){
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
-        });
+        if (!!response.restaurant) {
+            res.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+        } else {
+            res.writeHead(204, {
+                'Content-Type': 'application/json'
+            });
+        }
         res.write(JSON.stringify(response));
         res.end();
     });
@@ -107,11 +130,16 @@ router.route('/restaurant').get(function(req,res){
 router.route('/restaurant/detail/:contentId').get(function (req, res) {
     let contentId = req.params.contentId;
 
-    console.log(contentId);
     manager.getDetailRestaurant(contentId, function (response) {
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
-        });
+        if (asdf) {
+            res.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+        } else {
+            res.writeHead(204, {
+                'Content-Type': 'application/json'
+            });
+        }
         res.write(JSON.stringify(response));
         res.end();
     });
@@ -145,7 +173,6 @@ router.route('/restaurant/:contentId').delete(function (req, res) {
                 'Content-Type': 'application/json'
             });
         }
-        res.write(JSON.stringify(response));
         res.end();
     });
 });
@@ -172,7 +199,6 @@ router.route('/restaurant/manu/:contentid').post(function(req, res){
                 'Content-Type': 'application/json'
             });
         }
-        res.write(JSON.stringify(response));
         res.end(); 
     });
 });
@@ -182,9 +208,15 @@ router.route('/restaurant/manu/:contentid').get(function(req, res){
     let contentId = req.params.contentId;
 
     manager.getManu(contentId, manu, function(response){
-        res.writeHead(200, {
+        if (!!response.manu) {
+            res.writeHead(200, {
                 'Content-Type': 'application/json'
             });
+        } else {
+            res.writeHead(204, {
+                'Content-Type': 'application/json'
+            });
+        }
         res.write(JSON.stringify(response));
         res.end(); 
     });
@@ -205,7 +237,6 @@ router.route('/restaurant/manu/:contentid').delete(function(req, res){
                 'Content-Type': 'application/json'
             });
         }
-        res.write(JSON.stringify(response));
         res.end(); 
     });
 });
@@ -224,7 +255,6 @@ router.route('/restaurant/manu/:contentid').put(function(req, res){
                 'Content-Type': 'application/json'
             });
         }
-        res.write(JSON.stringify(response));
         res.end(); 
     }); 
 });
