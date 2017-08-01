@@ -37,7 +37,7 @@ manager.signin = function (id, password, callback) {
                 } else if (rows1.length == 1) {
                     response.success=true;
                     callback(response, message);
-                } else if (rows1.length) {
+                } else if (rows1.length==0) {
                     message.message = 'worngPassword';
                     callback(response, message);
                 }
