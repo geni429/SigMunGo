@@ -11,7 +11,7 @@ let app = express();
 let mysql = require('mysql');
 
 var user = require('./routes/user/router');
-var restaurant=require('./routes/restaurant/router');
+var restaurant = require('./routes/restaurant/router');
 
 var port = '5429';
 
@@ -28,7 +28,9 @@ app.use(expressSession({
 }));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(cookieParser());
 
 app.use('/', user);

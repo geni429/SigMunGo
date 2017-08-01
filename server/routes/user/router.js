@@ -35,7 +35,7 @@ router.route('/account/signin').post(function (req, res) {
     let id = req.body.id;
     let password = SHA256(req.body.password);
 
-    manager.signin(id, password, function (response,message) {
+    manager.signin(id, password, function (response, message) {
         if (response.success) {
             req.session.user = {
                 id: id,
@@ -136,7 +136,7 @@ router.route('/account/phonecheck').post(function (req, res) {
 });
 
 //아이디 찾기
-router.route('/account/id').post(function (req, res) {
+router.route('/account/id').get(function (req, res) {
     let name = req.body.name;
     let phone = req.body.phone;
 

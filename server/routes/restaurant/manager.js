@@ -52,8 +52,7 @@ manager.getMostOfRestaurant = function (callback) {
             img: null,
             name: null,
             place: null,
-            sympathy: null
-
+            sympathy: null,
         },
         1: {
             img: null,
@@ -81,7 +80,7 @@ manager.getMostOfRestaurant = function (callback) {
         }
     };
 
-    conn.query('select * from restaurant order by good', null, function (err, rows) {
+    conn.query('select * from restaurant where improved=1 order by good', null, function (err, rows) {
         if (err) response.error = true;
         else if (rows.length >= 0) {
             console.log(rows.length);
@@ -207,7 +206,8 @@ manager.getRestaurant = function (callback) {
                     img: rows[i].img,
                     name: rows[i].name,
                     place: rows[i].place,
-                    sympathy : rows[i].good
+                    sympathy: rows[i].good,
+                    improved: rows[i].improved
                 }
                 response.restaurant.push(restaurant);
             }
