@@ -117,7 +117,7 @@ manager.getId = function (name, phone, callback) {
 }
 
 //사용자가 누른 좋아요 갯수
-manager.goodCounts = function (id, callback) {
+manager.sympathyCounts = function (id, callback) {
     let response = {
         counts: null
     };

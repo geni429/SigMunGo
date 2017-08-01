@@ -5,12 +5,12 @@ let manager = require('./manager');
 let random = require('../../support/random');
 
 //좋아요 +1
-router.route('/good/:contentId').post(function (req, res) {
+router.route('/restaurant/sympathy/:contentId').post(function (req, res) {
     manager.sessionCheck(req,res);
     let contentId = req.params.contentId;
     let id = req.session.user.id;
 
-    manager.addGood(contentId,id, function (response) {
+    manager.addSympathy(contentId,id, function (response) {
         if (response.success) {
             res.writeHead(201, {
                 'Content-Type': 'application/json'
@@ -25,13 +25,13 @@ router.route('/good/:contentId').post(function (req, res) {
 });
 
 //좋아요 get
-router.route('/good/:contentId').get(function (req, res) {
+router.route('/restaurant/sympathy/:contentId').get(function (req, res) {
     manager.sessionCheck(req,res);
     let contentId = req.params.contentId;
     let id = req.session.user.id;
 
-    manager.getGood(contentId,id, function (response) {
-        if (!!response.good) {
+    manager.getSympathy(contentId,id, function (response) {
+        if (!!response.sympathy) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
             });

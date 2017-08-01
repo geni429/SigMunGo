@@ -20,7 +20,7 @@ manager.sessionCheck = function (req, res) {
 }
 
 //좋아요 +1
-manager.addGood = function (contentId, id, callback) {
+manager.addSympathy = function (contentId, id, callback) {
     let response = {
         success: false
     }
@@ -33,14 +33,14 @@ manager.addGood = function (contentId, id, callback) {
 }
 
 //좋아요 받아오기
-manager.getGood = function (contentId, id, callback) {
+manager.getSympathy = function (contentId, id, callback) {
     let response = {
-        good: null
+        sympathy: null
     };
 
     conn.query('select * from good where contentid=? and id=?;', [contentId, id], function (err, rows) {
         if (err) response.error = true;
-        else if (rows.length >= 0) response.good = rows.length;
+        else if (rows.length >= 0) response.sympathy = rows.length;
         callback(response);
     });
 }
@@ -52,32 +52,32 @@ manager.getMostOfRestaurant = function (callback) {
             img: null,
             name: null,
             place: null,
-            good: null
+            sympathy: null
 
         },
         1: {
             img: null,
             name: null,
             place: null,
-            good: null
+            sympathy: null
         },
         2: {
             img: null,
             name: null,
             place: null,
-            good: null
+            sympathy: null
         },
         3: {
             img: null,
             name: null,
             place: null,
-            good: null
+            sympathy: null
         },
         4: {
             img: null,
             name: null,
             place: null,
-            good: null
+            sympathy: null
         }
     };
 
@@ -89,7 +89,7 @@ manager.getMostOfRestaurant = function (callback) {
                 response[i].img = rows[i] ? rows[i].img : null;
                 response[i].name = rows[i] ? rows[i].name : null;
                 response[i].place = rows[i] ? rows[i].place : null;
-                response[i].good = rows[i] ? rows[i].good : null;
+                response[i].sympathy = rows[i] ? rows[i].good : null;
             }
         }
         callback(response);
@@ -142,7 +142,7 @@ manager.getDetailRestaurant = function (contentId, callback) {
         name: null,
         place: null,
         phone: null,
-        good: null,
+        sympathy: null,
         img: null,
         manu: []
     };
@@ -157,7 +157,7 @@ manager.getDetailRestaurant = function (contentId, callback) {
 
             conn.query('select * from good where contentid=?;', contentId, function (err, rows) {
                 if (err) response.error = true;
-                else if (rows.length >= 0) response.good = rows.length;
+                else if (rows.length >= 0) response.sympathy = rows.length;
             });
 
             conn.query('select * from manu where contentId=?', contentId, function (err, rows) {
@@ -207,7 +207,7 @@ manager.getRestaurant = function (callback) {
                     img: rows[i].img,
                     name: rows[i].name,
                     place: rows[i].place,
-                    good: rows[i].good
+                    sympathy : rows[i].good
                 }
                 response.restaurant.push(restaurant);
             }

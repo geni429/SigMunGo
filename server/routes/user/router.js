@@ -45,17 +45,13 @@ router.route('/account/signin').post(function (req, res) {
         console.log(response, message);
 
         if (response.success) {
-            console.log('if');
             res.writeHead(201, {
                 'Content-Type': 'application/json'
             });
-            console.log('end if');
         } else {
-            console.log('else');
             res.writeHead(400, {
                 'Content-Type': 'application/json'
             });
-            console.log('end else');
         }
         res.write(JSON.stringify(message));
         res.end();
@@ -180,11 +176,11 @@ router.route('/account/password').put(function (req, res) {
 });
 
 //사용자가 누른 좋아요 개수
-router.route('/account/good').get(function (req, res) {
+router.route('/account/sympathy').get(function (req, res) {
     manager.sessionCheck(req, res);
     let id = req.session.user.id;
 
-    manager.goodCounts(id, function (response) {
+    manager.sympathyCounts(id, function (response) {
         if (!!response.counts) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
