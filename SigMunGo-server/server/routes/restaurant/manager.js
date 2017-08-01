@@ -193,14 +193,12 @@ manager.deleteRestaurant = function (contentId, callback) {
 
 //음식점 대략 정보
 manager.getRestaurant = function (callback) {
-    let response = {
-        restaurant: []
-    };
+    let response = [];
 
     conn.query('select * from restaurant', null, function (err, rows) {
         if (err) response.error = true;
         else if (rows.length >= 0) {
-            for (var i = 0; i < 30; i++) {
+            for (var i = 0; i < 50; i++) {
                 let restaurant = {
                     contentid: rows[i].contentid,
                     img: rows[i].img,
@@ -209,7 +207,7 @@ manager.getRestaurant = function (callback) {
                     sympathy: rows[i].good,
                     improved: rows[i].improved
                 }
-                response.restaurant.push(restaurant);
+                response.push(restaurant);
             }
         }
         callback(response);
