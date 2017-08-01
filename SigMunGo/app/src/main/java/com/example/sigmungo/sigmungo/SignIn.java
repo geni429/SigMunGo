@@ -64,6 +64,8 @@ public class SignIn extends AppCompatActivity {
                 if(response.isSuccessful()){
                     //When Login Success
                     Log.d("SignIn POST", "Success");
+                    SignInRequest signInRequest = response.body();
+//                    Log.d("Signin test", "test" + response.body().success);
                     startActivity(new Intent(getApplicationContext(), Main.class));
                 } else {
                     //When Login Failure

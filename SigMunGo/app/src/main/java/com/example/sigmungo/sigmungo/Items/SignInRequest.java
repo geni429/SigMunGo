@@ -14,9 +14,9 @@ public class SignInRequest {
     @SerializedName("password")
     @Expose
     private String password;
-    @SerializedName("message")
+
     @Expose
-    private String messsage;
+    public String success;
 
     public String getId() {
         return id;
@@ -32,13 +32,5 @@ public class SignInRequest {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getMesssage() {
-        return messsage;
-    }
-
-    public void setMesssage(String messsage) {
-        this.messsage = messsage;
     }
 }
