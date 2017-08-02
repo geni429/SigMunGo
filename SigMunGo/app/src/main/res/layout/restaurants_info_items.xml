@@ -23,8 +23,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
-            android:textSize="20dp"
-            android:textColor="@android:color/tab_indicator_text"/>
+            android:textSize="16dp"
+            android:textColor="@android:color/tab_indicator_text"
+            android:ellipsize="end"
+            android:maxLines="1"/>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -39,15 +41,18 @@
                 android:id="@+id/restaurant_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
-                android:textColor="@android:color/tab_indicator_text"/>
+                android:textSize="9dp"
+                android:textColor="@android:color/tab_indicator_text"
+                android:maxLines="1"
+                android:ellipsize="end"/>
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="right|center_vertical"
-            android:layout_gravity="bottom">
+            android:layout_gravity="bottom"
+            android:layout_marginTop="5dp">
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="10dp"
