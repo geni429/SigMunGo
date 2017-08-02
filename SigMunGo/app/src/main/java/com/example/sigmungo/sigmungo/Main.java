@@ -100,19 +100,6 @@ public class Main extends AppCompatActivity {
         getRestaurantInfo();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        switch (id) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     public void setLocation(View v){
         startActivity(new Intent(getApplicationContext(), SetLocation.class));
     }

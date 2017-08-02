@@ -28,7 +28,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".SignUp"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/ToolbarTheme" />
         <activity
             android:name=".Certification"
             android:theme="@style/AppTheme" />

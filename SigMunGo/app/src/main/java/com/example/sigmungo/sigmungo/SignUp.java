@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +25,8 @@ import retrofit2.Response;
 
 public class SignUp extends AppCompatActivity {
     APIinterface apIinterface;
-    public EditText name;
+    Toolbar toolbar;
+    EditText name;
     EditText phone;
     EditText id;
     EditText password;
@@ -40,10 +43,12 @@ public class SignUp extends AppCompatActivity {
         cf_password = (EditText)findViewById(R.id.input_passwordOK);
         submit = (Button)findViewById(R.id.submit);
         apIinterface = APIclient.getClient().create(APIinterface.class);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
 
+        setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("                    회원가입");
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,14 +77,7 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    public void backButtonClicked(View v){
+        finish();
     }
 }
