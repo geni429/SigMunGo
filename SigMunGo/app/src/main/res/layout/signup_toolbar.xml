@@ -12,14 +12,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageButton
-            android:id="@+id/sidemenu_btn"
+            android:id="@+id/back_btn"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginLeft="5dp"
             android:src="@drawable/ic_action_name"
             android:background="@null"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true" />
-
+            android:layout_centerVertical="true"
+            android:onClick="backButtonClicked"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="회원가입"
+            android:textSize="20dp"
+            android:textColor="@android:color/white"/>
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

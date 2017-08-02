@@ -2,12 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
-    <Button
+    android:layout_height="45dp"
+    android:layout_margin="5dp">
+    <TextView
         android:id="@+id/location_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bg_set_location_btn"
         android:gravity="center_vertical|center_horizontal"
         android:textColor="@android:color/black"
-        android:textSize="23dp" />
+        android:textSize="18dp"
+        android:fontFamily="sans-serif-light"/>
 </LinearLayout>

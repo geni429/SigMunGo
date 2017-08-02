@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 
 import com.example.sigmungo.sigmungo.Adapter.SetLocationAdapter;
 
@@ -25,7 +26,7 @@ public class SetLocation extends Activity {
         setContentView(R.layout.set_location);
         initData();
         recyclerView = (RecyclerView) findViewById(R.id.set_location_recyclerview);
-        recyclerView.setAdapter(new SetLocationAdapter(locationNames));
+        recyclerView.setAdapter(new SetLocationAdapter(locationNames, getApplicationContext()));
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 

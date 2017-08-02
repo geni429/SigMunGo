@@ -11,24 +11,34 @@ import com.example.sigmungo.sigmungo.R;
  */
 
 public class MainItems {
-    private int restaurantImage;
+    private String contentID;
+    private String restaurantImage;
     private String restaurantName;
     private String restuarantLocation;
-    private int sympathyCount;
+    private String sympathyCount;
+    private String improved;
 
-    public int getSympathyCount() {
+    public String getContentID() {
+        return contentID;
+    }
+
+    public void setContentID(String contentID) {
+        this.contentID = contentID;
+    }
+
+    public String getSympathyCount() {
         return sympathyCount;
     }
 
-    public void setSympathyCount(int sympathyCount) {
+    public void setSympathyCount(String sympathyCount) {
         this.sympathyCount = sympathyCount;
     }
 
-    public int getRestaurantImage() {
+    public String getRestaurantImage() {
         return restaurantImage;
     }
 
-    public void setRestaurantImage(int restaurantImage) {
+    public void setRestaurantImage(String restaurantImage) {
         this.restaurantImage = restaurantImage;
     }
 
@@ -46,5 +56,13 @@ public class MainItems {
 
     public void setRestuarantLocation(String restuarantLocation) {
         this.restuarantLocation = restuarantLocation;
+    }
+
+    public String getImproved() {
+        return improved;
+    }
+
+    public void setImproved(String improved) {
+        this.improved = improved;
     }
 }
