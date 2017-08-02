@@ -47,7 +47,7 @@ tools:context="com.example.sigmungo.sigmungo.Certification">
             android:layout_gravity="right"
             android:layout_marginRight="45dp"
             android:layout_marginTop="-93dp"
-            android:text="@string/underline"
+            android:text="@string/refer_content"
             android:textColor="@color/colorButton" />
 
         <TextView
@@ -57,7 +57,7 @@ tools:context="com.example.sigmungo.sigmungo.Certification">
             android:layout_gravity="right"
             android:layout_marginRight="45dp"
             android:layout_marginTop="47dp"
-            android:text="@string/underline"
+            android:text="@string/refer_content"
             android:textColor="@color/colorButton" />
 
         <TextView
@@ -67,7 +67,7 @@ tools:context="com.example.sigmungo.sigmungo.Certification">
             android:layout_gravity="right"
             android:layout_marginRight="45dp"
             android:layout_marginTop="-63dp"
-            android:text="@string/underline"
+            android:text="@string/refer_content"
             android:textColor="@color/colorButton" />
 
         <CheckBox

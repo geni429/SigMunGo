@@ -77,7 +77,7 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    public void backButtonClicked(View v){
+    public void onBackBtnClicked(View v){
         finish();
     }
 }
