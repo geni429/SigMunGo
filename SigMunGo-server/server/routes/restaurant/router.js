@@ -91,7 +91,7 @@ router.route('/restaurant').post(function (req, res) {
     let bool = true;
 
     while (bool) {
-        contentId = random.randomString();
+        contentId = random.randomString(10);
         bool = manager.checkId(contentId);
     }
 

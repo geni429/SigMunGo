@@ -7,6 +7,11 @@ let AES256 = require('nodejs-aes256');
 let SHA256 = require('sha256');
 let random = require('../../support/random');
 const key = 'this_is_key';
+// let apistore = require('apistore-sms').createClient({
+//     apiKey: 'YOUR_API_KEY',
+//     apiId: 'YOUR_ID'
+// });
+let certifyString;
 
 //회원가입
 router.route('/account/signup').post(function (req, res) {
@@ -28,6 +33,51 @@ router.route('/account/signup').post(function (req, res) {
         }
         res.end();
     });
+});
+
+router.route('/account/phonecertify/:phone').get(function (req, res) {
+    let phone = req.params.phone;
+    certifyString = random.randomString(6);
+
+    let response = {
+        certifyString: certifyString
+    };
+
+    res.writeHead(200, {
+        'Content-Type': 'application/json'
+    });
+    res.write(JSON.stringify(response));
+    res.end();
+
+    // // SMS 전송 (단일 수신자)
+    // apistore.sendSMS({
+    //     from: '01028962001', // 발신자 번호
+    //     to: phone, // 수신자 번호
+    //     text: certifyString, // 내용
+    //     subject: '인증번호', // 제목(optional)
+    //     at: '20160801235959', // 예약시간(optional)
+    //     author: '식문고' // 발신자 이름(optional)
+    // }).then(function (cmid) {
+    //     console.log(cmid); // 메시지 아이디
+    // }).catch(function (error) {
+    //     console.log(error);
+    // });
+
+});
+
+router.route('/account/phonecertify/:certifyString').post(function (req, res) {
+    let str = req.params.certifyString;
+
+    if (str == certifyString) {
+        res.writeHead(200, {
+            'Content-Type': 'application/json'
+        });
+    } else {
+        res.writeHead(400, {
+            'Content-Type': 'application/json'
+        });
+    }
+    res.end();
 });
 
 //로그인
@@ -84,8 +134,8 @@ router.route('/account/signout').delete(function (req, res) {
 //아이디 중복 체크
 router.route('/account/idcheck').post(function (req, res) {
     let id = req.body.id;
-
-    manager.checkId(id, function (response) {
+    manager.idCheck(id, function (response) {
+        console.log(response);
         if (response.overlap) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
@@ -103,7 +153,7 @@ router.route('/account/idcheck').post(function (req, res) {
 router.route('/account/nameCheck').post(function (req, res) {
     let name = req.body.name;
 
-    manager.checkName(name, function (response) {
+    manager.nameCheck(name, function (response) {
         if (response.overlap) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
@@ -121,7 +171,7 @@ router.route('/account/nameCheck').post(function (req, res) {
 router.route('/account/phonecheck').post(function (req, res) {
     let phone = req.body.phone;
 
-    manager.checkPhone(phone, function (response) {
+    manager.phonecheck(phone, function (response) {
         if (response.overlap) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
@@ -193,6 +243,13 @@ router.route('/account/sympathy').get(function (req, res) {
         res.write(JSON.stringify(response));
         res.end();
     });
+});
+
+//사용자 정보 가져오기
+router.route('/account/user').get(function (req, res) {
+    manager.sessionCheck(req, res);
+    let id = req.session.user.id;
+
 });
 
 module.exports = router;
