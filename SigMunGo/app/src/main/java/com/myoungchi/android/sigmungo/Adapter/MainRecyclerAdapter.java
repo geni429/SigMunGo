@@ -42,6 +42,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         if(items.getRestaurantImage() != null){
             Glide.with(mContext)
                     .load(items.getRestaurantImage())
+                    .error(R.drawable.img_load_fail2)
                     .centerCrop()
                     .into(holder.restaurantImg);
         }
