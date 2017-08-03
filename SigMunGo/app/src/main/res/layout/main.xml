@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:weightSum="10">
         <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:layout_alignParentTop="true"

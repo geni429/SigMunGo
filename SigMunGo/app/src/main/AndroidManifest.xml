@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sigmungo.sigmungo">
+    package="com.myoungchi.android.sigmungo">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security_config">
         <activity
-            android:name=".Splash"
+            android:name="com.myoungchi.android.sigmungo.Splash"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,22 +21,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Landing"
+            android:name="com.myoungchi.android.sigmungo.Landing"
             android:theme="@style/LandingTheme" />
         <activity
-            android:name=".SignIn"
+            android:name="com.myoungchi.android.sigmungo.SignIn"
             android:theme="@style/ToolbarTheme" />
         <activity
-            android:name=".SignUp"
+            android:name="com.myoungchi.android.sigmungo.SignUp"
             android:theme="@style/ToolbarTheme" />
         <activity
-            android:name=".Certification"
+            android:name="com.myoungchi.android.sigmungo.Certification"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Main"
+            android:name="com.myoungchi.android.sigmungo.Main"
             android:theme="@style/ToolbarTheme" />
         <activity
-            android:name=".SetLocation"
+            android:name="com.myoungchi.android.sigmungo.SetLocation"
             android:theme="@style/ToolbarTheme"
             android:windowSoftInputMode="adjustPan" />
     </application>
