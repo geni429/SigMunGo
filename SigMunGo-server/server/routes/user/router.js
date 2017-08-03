@@ -35,7 +35,7 @@ router.route('/account/signup').post(function (req, res) {
     });
 });
 
-router.route('/account/phonecertify/:phone').get(function (req, res) {
+router.route('/account/certify/demand/:phone').post(function (req, res) {
     let phone = req.params.phone;
     certifyString = random.randomString(6);
 
@@ -65,7 +65,7 @@ router.route('/account/phonecertify/:phone').get(function (req, res) {
 
 });
 
-router.route('/account/phonecertify/:certifyString').post(function (req, res) {
+router.route('/account/certify/verify/:certifyString').post(function (req, res) {
     let str = req.params.certifyString;
 
     if (str == certifyString) {
