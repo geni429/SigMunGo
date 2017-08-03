@@ -25,8 +25,8 @@
             android:layout_marginBottom="10dp"
             android:gravity="center_vertical">
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="@dimen/primary_ic_width"
+                android:layout_height="@dimen/primary_ic_height"
                 android:src="@drawable/ic_sympathy"/>
             <TextView
                 android:id="@+id/sympathy_count"
@@ -67,7 +67,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -75,9 +75,10 @@
                 android:textSize="20dp" />
 
             <TextView
+                android:id="@+id/user_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/name"
+                android:layout_toRightOf="@+id/user_name"
                 android:layout_alignParentBottom="true"
                 android:text="(sigmungo)"
                 android:textSize="13dp"/>

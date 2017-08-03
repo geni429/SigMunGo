@@ -22,6 +22,7 @@ import com.myoungchi.android.sigmungo.Items.MainItems;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.myoungchi.android.sigmungo.Items.UserInformation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +41,19 @@ public class Main extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private APIinterface apIinterface;
     private List<MainItems> restaurantsInfo = new ArrayList<>();
-    ViewPager pager;
+    private UserInformation userInformation;
+    private ViewPager pager;
+
+    private TextView sympathyCount;
+    private TextView writingCount;
+    private TextView userName;
+    private TextView userId;
 
     @Override
     protected void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
         setContentView(R.layout.main);
+        userInformation = new UserInformation();
         recyclerView = (RecyclerView) findViewById(R.id.restaurants_info);
         pager = (ViewPager)findViewById(R.id.main_pager);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -55,18 +63,14 @@ public class Main extends AppCompatActivity {
         //Navigation Drawer Layout
         setSupportActionBar(toolbar);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         View navHeaderView = navigationView.getHeaderView(0);
 
-        TextView sympathyCount = (TextView)navHeaderView.findViewById(R.id.sympathy_count);
-        TextView writingCount = (TextView)navHeaderView.findViewById(R.id.writing_count);
-        SpannableString sympathyCountNumber = new SpannableString("2");
-        SpannableString writingCountNumber = new SpannableString("2");
-        sympathyCountNumber.setSpan(new UnderlineSpan(), 0, sympathyCountNumber.length(), 0);
-        writingCountNumber.setSpan(new UnderlineSpan(), 0, writingCountNumber.length(), 0);
-        sympathyCount.setText(sympathyCountNumber);
-        writingCount.setText(writingCountNumber);
+        sympathyCount = (TextView)navHeaderView.findViewById(R.id.sympathy_count);
+        writingCount = (TextView)navHeaderView.findViewById(R.id.writing_count);
+        userName = (TextView)navHeaderView.findViewById(R.id.user_name);
+        userId = (TextView)navHeaderView.findViewById(R.id.user_id);
+        setUserInfo();
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -93,6 +97,7 @@ public class Main extends AppCompatActivity {
         PagerThread thread = new PagerThread();
         thread.start();
         getRestaurantInfo();
+        getUserInfo();
     }
 
     public void setLocation(View v){
@@ -156,5 +161,35 @@ public class Main extends AppCompatActivity {
                 Log.d("Main GET", "onFailure");
             }
         });
+    }
+
+    public void getUserInfo(){
+        apIinterface.getUserInfo().enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if(response.isSuccessful()){
+                    userInformation.setUserName(response.body().get("name").getAsString());
+                    userInformation.setUserId(response.body().get("id").getAsString());
+                    userInformation.setMyWritingCount(response.body().get("writing").getAsString());
+                    userInformation.setMySympathyCount(response.body().get("sympathy").getAsString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void setUserInfo(){
+        userName.setText(userInformation.getUserName());
+        userId.setText(userInformation.getUserId());
+        SpannableString sympathyCountNumber = new SpannableString(userInformation.getMySympathyCount());
+        SpannableString writingCountNumber = new SpannableString(userInformation.getMyWritingCount());
+        sympathyCountNumber.setSpan(new UnderlineSpan(), 0, sympathyCountNumber.length(), 0);
+        writingCountNumber.setSpan(new UnderlineSpan(), 0, writingCountNumber.length(), 0);
+        sympathyCount.setText(sympathyCountNumber);
+        writingCount.setText(writingCountNumber);
     }
 }

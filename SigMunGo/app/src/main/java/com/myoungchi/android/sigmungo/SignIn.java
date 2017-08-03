@@ -28,12 +28,12 @@ import retrofit2.Response;
  */
 
 public class SignIn extends AppCompatActivity {
-    Toolbar toolbar;
-    APIinterface apIinterface;
-    TextView signUp;
-    EditText inputId;
-    EditText inputPw;
-    Button signIn;
+    private Toolbar toolbar;
+    private APIinterface apIinterface;
+    private TextView signUp;
+    private EditText inputId;
+    private EditText inputPw;
+    private Button signIn;
 
     protected void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
@@ -57,9 +57,9 @@ public class SignIn extends AppCompatActivity {
 
     public void doSignIn(String id, String password){
         Log.d("ID and Password", id + " " + password);
-        apIinterface.doSignIn(id, password).enqueue(new Callback<SignInRequest>() {
+        apIinterface.doSignIn(id, password).enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<SignInRequest> call, Response<SignInRequest> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 Log.d("SignIn status code", response.code()+"");
                 if(response.isSuccessful()){
                     //When Login Success
@@ -86,7 +86,7 @@ public class SignIn extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<SignInRequest> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Log.d("SignIn POST Fail", "Failure");
                 t.printStackTrace();
             }

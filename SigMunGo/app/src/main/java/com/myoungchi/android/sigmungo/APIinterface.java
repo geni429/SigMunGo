@@ -14,11 +14,13 @@ import retrofit2.http.POST;
  */
 
 interface APIinterface {
+    //SignIn activity
     @FormUrlEncoded
     @POST("/account/signin")
-    Call<SignInRequest> doSignIn(@Field("id") String id,
-                                 @Field("password") String password);
+    Call<Void> doSignIn(@Field("id") String id,
+                        @Field("password") String password);
 
+    //PhoneCertify activity
     @FormUrlEncoded
     @POST("/account/signup")
     Call<Void> doSignUp(@Field("name") String name,
@@ -26,14 +28,21 @@ interface APIinterface {
                          @Field("id") String id,
                          @Field("password") String password);
 
+    //SignUp activity
     @FormUrlEncoded
     @POST("/account/idcheck")
     Call<Void> doIdCheck(@Field("id") String id);
 
+    //SignUp activity
     @FormUrlEncoded
     @POST("/account/phonecertify")
     Call<Void> doPhoneCertify(@Field("phone") String phone);
 
+    //Main activity
     @GET("/restaurant")
     Call<JsonObject> getRestaurantInfo();
+
+    //Main activity
+    @GET("/userinfo")
+    Call<JsonObject> getUserInfo();
 }
