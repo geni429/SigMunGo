@@ -190,7 +190,7 @@ router.route('/account/phonecheck').post(function (req, res) {
 });
 
 //아이디 찾기
-router.route('/account/id').get(function (req, res) {
+router.route('/account/findid').get(function (req, res) {
     let name = req.body.name;
     let phone = req.body.phone;
 
@@ -211,7 +211,7 @@ router.route('/account/id').get(function (req, res) {
 });
 
 //비밀번호 변경
-router.route('/account/password').put(function (req, res) {
+router.route('/account/findpassword').put(function (req, res) {
     let id = req.params.id;
     let password = SHA256(req.body.password);
 
