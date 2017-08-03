@@ -103,8 +103,12 @@ router.route('/account/signin').post(function (req, res) {
                 'Content-Type': 'application/json'
             });
         }
-        res.write(JSON.stringify(message));
+        if (!!message.message) {
+            res.write(JSON.stringify(message));
+            res.end();
+        }
         res.end();
+
     });
 });
 
