@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.myoungchi.android.sigmungo.Adapter.SetLocationAdapter;
 
@@ -15,8 +16,8 @@ import java.util.List;
  */
 
 public class SetLocation extends Activity {
-    public RecyclerView recyclerView;
-    public List<String> locationNames = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private List<String> locationNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstance){
@@ -32,5 +33,9 @@ public class SetLocation extends Activity {
         for(int i=0; i<5; i++){
             locationNames.add(i, "hello");
         }
+    }
+
+    public void onBackBtnClicked(View v){
+        finish();
     }
 }

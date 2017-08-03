@@ -1,6 +1,5 @@
 package com.myoungchi.android.sigmungo;
 
-import com.myoungchi.android.sigmungo.Items.SignInRequest;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;

@@ -70,7 +70,7 @@ public class Main extends AppCompatActivity {
         writingCount = (TextView)navHeaderView.findViewById(R.id.writing_count);
         userName = (TextView)navHeaderView.findViewById(R.id.user_name);
         userId = (TextView)navHeaderView.findViewById(R.id.user_id);
-        setUserInfo();
+//        setUserInfo();
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -97,7 +97,7 @@ public class Main extends AppCompatActivity {
         PagerThread thread = new PagerThread();
         thread.start();
         getRestaurantInfo();
-        getUserInfo();
+//        getUserInfo();
     }
 
     public void setLocation(View v){
