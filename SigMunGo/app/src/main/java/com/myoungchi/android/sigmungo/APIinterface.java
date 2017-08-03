@@ -22,13 +22,17 @@ interface APIinterface {
     @FormUrlEncoded
     @POST("/account/signup")
     Call<Void> doSignUp(@Field("name") String name,
-                                 @Field("phone") String phone,
-                                 @Field("id") String id,
-                                 @Field("password") String password);
+                         @Field("phone") String phone,
+                         @Field("id") String id,
+                         @Field("password") String password);
 
     @FormUrlEncoded
     @POST("/account/idcheck")
     Call<Void> doIdCheck(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("/account/phonecertify")
+    Call<Void> doPhoneCertify(@Field("phone") String phone);
 
     @GET("/restaurant")
     Call<JsonObject> getRestaurantInfo();

@@ -32,6 +32,7 @@ public class SignUp extends AppCompatActivity {
     Button submit;
 
     private boolean cf_check;
+    private boolean pw_null_check;
 
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
@@ -50,7 +51,7 @@ public class SignUp extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cf_check){
+                if(cf_check && pw_null_check){
                     doSignUp(id.getText().toString(),
                             name.getText().toString(),
                             password.getText().toString(),
@@ -95,6 +96,9 @@ public class SignUp extends AppCompatActivity {
                     if(password.getText().toString().equals("")){
                         password.setHint("비밀번호를 설정해주세요");
                         password.setHintTextColor(Color.parseColor("#FF7C4E"));
+                        pw_null_check = false;
+                    } else {
+                        pw_null_check = true;
                     }
                 }
             }
