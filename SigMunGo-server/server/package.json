@@ -6,6 +6,7 @@
     "start": "node ./app.js"
   },
   "dependencies": {
+    "apistore-sms": "^0.10.29",
     "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
     "crypto": "0.0.3",

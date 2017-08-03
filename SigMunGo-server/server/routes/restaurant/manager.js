@@ -143,7 +143,7 @@ manager.getDetailRestaurant = function (contentId, callback) {
         phone: null,
         sympathy: null,
         img: null,
-        manu: []
+        menu: []
     };
 
     conn.query('select * from restaurant where contentId=?', contentId, function (err, rows) {
@@ -159,11 +159,11 @@ manager.getDetailRestaurant = function (contentId, callback) {
                 else if (rows.length >= 0) response.sympathy = rows.length;
             });
 
-            conn.query('select * from manu where contentId=?', contentId, function (err, rows) {
+            conn.query('select * from menu where contentId=?', contentId, function (err, rows) {
                 if (err) response.error = true;
                 else if (rows.length >= 1) {
                     for (let i = 0; i < rows.length; i++) {
-                        response.manu[i] = rows[i].manu;
+                        response.menu[i] = rows[i].menu;
                     }
                 }
             });
@@ -173,7 +173,7 @@ manager.getDetailRestaurant = function (contentId, callback) {
 }
 
 //음식점 정보 업데이트
-manager.updateRestaurant = function (contentId, name, place, phone, manu, callback) {
+manager.updateRestaurant = function (contentId, name, place, phone, menu, callback) {
 
 }
 
@@ -193,7 +193,9 @@ manager.deleteRestaurant = function (contentId, callback) {
 
 //음식점 대략 정보
 manager.getRestaurant = function (callback) {
-    let response = [];
+    let response = {
+        restaurant: []
+    };
 
     conn.query('select * from restaurant', null, function (err, rows) {
         if (err) response.error = true;
@@ -207,7 +209,7 @@ manager.getRestaurant = function (callback) {
                     sympathy: rows[i].good,
                     improved: rows[i].improved
                 }
-                response.push(restaurant);
+                response.restaurant.push(restaurant);
             }
         }
         callback(response);
@@ -215,12 +217,12 @@ manager.getRestaurant = function (callback) {
 }
 
 //음식점 메뉴 추가
-manager.addManu = function (contentId, manu, callback) {
+manager.addMenu = function (contentId, menu, callback) {
     let response = {
         success: false
     };
 
-    conn.query('insert into manu value(?,?);', [contentId, manu], function (err, result) {
+    conn.query('insert into menu value(?,?);', [contentId, menu], function (err, result) {
         if (err) response.error = true;
         else if (result.affectedRows) response.success = true;
         callback(response);
@@ -228,16 +230,16 @@ manager.addManu = function (contentId, manu, callback) {
 }
 
 //음식점 메뉴 요청
-manager.getManu = function (contentId, callback) {
+manager.getMenu = function (contentId, callback) {
     let response = {
-        manu: []
+        menu: []
     };
 
-    conn.query('select * from manu where contentid=?;', contentId, function (err, rows) {
+    conn.query('select * from menu where contentid=?;', contentId, function (err, rows) {
         if (err) response.error = true;
         else if (rows.length >= 0) {
             for (var i = 0; i < rows.length; i++) {
-                response.manu.push(rows[i].manu);
+                response.menu.push(rows[i].menu);
             }
         }
 
@@ -246,21 +248,16 @@ manager.getManu = function (contentId, callback) {
 }
 
 //음식점 메뉴 삭제
-manager.deleteManu = function (contentId, manu) {
+manager.deleteMenu = function (contentId, menu) {
     let response = {
         success: false
     };
 
-    conn.query('delete from manu where contentid=? and manu=?;', [contentId, manu], function (err, result) {
+    conn.query('delete from menu where contentid=? and menu=?;', [contentId, menu], function (err, result) {
         if (err) response.error = true;
         else if (result.affectedRows) response.success = true;
         callback(response);
     });
-}
-
-//음식점 메뉴 수정
-manager.updateManu = function () {
-
 }
 
 //불만 작성

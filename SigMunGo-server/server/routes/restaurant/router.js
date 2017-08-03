@@ -91,7 +91,7 @@ router.route('/restaurant').post(function (req, res) {
     let bool = true;
 
     while (bool) {
-        contentId = random.randomString();
+        contentId = random.randomString(10);
         bool = manager.checkId(contentId);
     }
 
@@ -185,11 +185,11 @@ router.route('/restaurant/:contentId').delete(function (req, res) {
 // });
 
 //음식점 메뉴 추가
-router.route('/restaurant/manu/:contentid').post(function (req, res) {
+router.route('/restaurant/menu/:contentid').post(function (req, res) {
     let contentId = req.params.contentId;
-    let manu = req.body.manu;
+    let menu = req.body.menu;
 
-    manager.addManu(contentId, manu, function (response) {
+    manager.addMenu(contentId, menu, function (response) {
         if (response.success) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
@@ -204,11 +204,11 @@ router.route('/restaurant/manu/:contentid').post(function (req, res) {
 });
 
 //음식점 메뉴 요청
-router.route('/restaurant/manu/:contentid').get(function (req, res) {
+router.route('/restaurant/menu/:contentid').get(function (req, res) {
     let contentId = req.params.contentId;
 
-    manager.getManu(contentId, manu, function (response) {
-        if (!!response.manu) {
+    manager.getMenu(contentId, menu, function (response) {
+        if (!!response.menu) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
             });
@@ -223,29 +223,11 @@ router.route('/restaurant/manu/:contentid').get(function (req, res) {
 });
 
 //음식점 메뉴 삭제
-router.route('/restaurant/manu/:contentid').delete(function (req, res) {
+router.route('/restaurant/menu/:contentid').delete(function (req, res) {
     let contentId = req.params.contentId;
-    let manu = req.body.manu;
+    let menu = req.body.menu;
 
-    manager.deleteManu(contentId, manu, function (response) {
-        if (response.success) {
-            res.writeHead(200, {
-                'Content-Type': 'application/json'
-            });
-        } else {
-            res.writeHead(400, {
-                'Content-Type': 'application/json'
-            });
-        }
-        res.end();
-    });
-});
-
-//음식점 메뉴 수정
-router.route('/restaurant/manu/:contentid').put(function (req, res) {
-    let contentId = req.params.contentId;
-
-    manager.updateManu(contentId, manu, function (response) {
+    manager.deleteMenu(contentId, menu, function (response) {
         if (response.success) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
