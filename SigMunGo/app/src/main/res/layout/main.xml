@@ -11,8 +11,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="10">
-        <include android:id="@+id/toolbar"
-            layout="@layout/main_toolbar" />
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimary"
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:contentInsetStart="0dp"
+            app:contentInsetEnd="0dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageButton
+                    android:id="@+id/sidemenu_btn"
+                    android:layout_width="@android:dimen/app_icon_size"
+                    android:layout_height="@android:dimen/app_icon_size"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/ic_action_sidemenu"
+                    android:background="@null"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:onClick="toolbarItemOnClick"/>
+
+                <ImageButton
+                    android:id="@+id/simplewrite_btn"
+                    android:layout_width="@android:dimen/app_icon_size"
+                    android:layout_height="@android:dimen/app_icon_size"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_action_simplewrite"
+                    android:background="@null"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:onClick="toolbarItemOnClick"/>
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
 
         <LinearLayout
             android:layout_width="match_parent"
