@@ -32,19 +32,6 @@ manager.addSympathy = function (contentId, id, callback) {
     });
 }
 
-//좋아요 받아오기
-manager.getSympathy = function (contentId, id, callback) {
-    let response = {
-        sympathy: null
-    };
-
-    conn.query('select * from good where contentid=? and id=?;', [contentId, id], function (err, rows) {
-        if (err) response.error = true;
-        else if (rows.length >= 0) response.sympathy = rows.length;
-        callback(response);
-    });
-}
-
 //좋아요 높은 5개 음식점 
 manager.getMostOfRestaurant = function (callback) {
     let response = {
@@ -201,15 +188,18 @@ manager.getRestaurant = function (callback) {
         if (err) response.error = true;
         else if (rows.length >= 0) {
             for (var i = 0; i < 50; i++) {
-                let restaurant = {
-                    contentid: rows[i].contentid,
-                    img: rows[i].img,
-                    name: rows[i].name,
-                    place: rows[i].place,
-                    sympathy: rows[i].good,
-                    improved: rows[i].improved
-                }
-                response.restaurant.push(restaurant);
+                conn.query('select * from post where contentid=?', rows[i].contentid, function (err, rows2) {
+                    let restaurant = {
+                        contentid: rows[i].contentid,
+                        img: rows[i].img,
+                        name: rows[i].name,
+                        place: rows[i].place,
+                        sympathy: rows[i].good,
+                        improved: rows[i].improved,
+                        discontent: rows2[i].length
+                    }
+                    response.restaurant.push(restaurant);
+                });
             }
         }
         callback(response);

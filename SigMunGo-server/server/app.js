@@ -12,7 +12,7 @@ let mysql = require('mysql');
 
 var user = require('./routes/user/router');
 var restaurant = require('./routes/restaurant/router');
-
+var mypage= require('./routes/mypage/router');
 var port = '5429';
 
 app.set('port', port);
@@ -35,7 +35,7 @@ app.use(cookieParser());
 
 app.use('/', user);
 app.use('/', restaurant);
-
+app.use('/',mypage);
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Server started on ' + app.get('port') + 'port');

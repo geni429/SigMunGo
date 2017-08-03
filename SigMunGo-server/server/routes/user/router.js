@@ -153,24 +153,6 @@ router.route('/account/idcheck').post(function (req, res) {
     });
 });
 
-//이름 중복 체크
-router.route('/account/nameCheck').post(function (req, res) {
-    let name = req.body.name;
-
-    manager.nameCheck(name, function (response) {
-        if (response.overlap) {
-            res.writeHead(200, {
-                'Content-Type': 'application/json'
-            });
-        } else {
-            res.writeHead(204, {
-                'Content-Type': 'application/json'
-            });
-        }
-        res.end();
-    });
-});
-
 //전화번호 중복 체크
 router.route('/account/phonecheck').post(function (req, res) {
     let phone = req.body.phone;
@@ -227,33 +209,6 @@ router.route('/account/findpassword').put(function (req, res) {
         }
         res.end();
     });
-});
-
-//사용자가 누른 좋아요 개수
-router.route('/account/sympathy').get(function (req, res) {
-    manager.sessionCheck(req, res);
-    let id = req.session.user.id;
-
-    manager.sympathyCounts(id, function (response) {
-        if (!!response.counts) {
-            res.writeHead(200, {
-                'Content-Type': 'application/json'
-            });
-        } else {
-            res.writeHead(204, {
-                'Content-Type': 'application/json'
-            });
-        }
-        res.write(JSON.stringify(response));
-        res.end();
-    });
-});
-
-//사용자 정보 가져오기
-router.route('/account/user').get(function (req, res) {
-    manager.sessionCheck(req, res);
-    let id = req.session.user.id;
-
 });
 
 module.exports = router;
