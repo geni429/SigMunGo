@@ -1,18 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:weightSum="15"
+tools:context="com.example.sigmungo.sigmungo.Certification">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="13"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/use" />
+
+        <CheckBox
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginTop="-180dp"
+            android:text="서비스약관(필수)" />
+
+        <CheckBox
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="37dp"
+            android:text="개인정보 취급방침(필수)" />
+
+        <CheckBox
+            android:layout_width="230dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginTop="5dp"
+            android:text="위치기반서비스 이용약관(필수)" />
+
+        <TextView
+            android:id="@+id/termofservice"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="45dp"
+            android:layout_marginTop="-93dp"
+            android:text="@string/refer_content"
+            android:textColor="@color/colorButton" />
+
+        <TextView
+            android:id="@+id/gpsterm"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="45dp"
+            android:layout_marginTop="47dp"
+            android:text="@string/refer_content"
+            android:textColor="@color/colorButton" />
+
+        <TextView
+            android:id="@+id/privacyterm"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="45dp"
+            android:layout_marginTop="-63dp"
+            android:text="@string/refer_content"
+            android:textColor="@color/colorButton" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="43dp"
+            android:layout_marginTop="60dp"
+            android:text="개인정보 취급방침(필수)" />
+    </LinearLayout>
+
+    <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.sigmungo.sigmungo.Certification">
+    android:layout_height="0dp"
+    android:layout_gravity="center"
+    android:layout_weight="2"
+    android:gravity="center_horizontal">
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="275dp"
-        android:layout_height="55dp"
+        android:id="@+id/startbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:background="@drawable/primary_button"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="43dp"
         android:text="시작하기"
-        android:textSize="20dp"/>
-</RelativeLayout>
+        android:textSize="20dp" />
+</LinearLayout>
+</LinearLayout>

@@ -2,10 +2,12 @@ package com.example.sigmungo.sigmungo;
 
 import com.example.sigmungo.sigmungo.Items.SignInRequest;
 import com.example.sigmungo.sigmungo.Items.SignUpRequest;
+import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -24,4 +26,7 @@ interface APIinterface {
                                  @Field("phone") String phone,
                                  @Field("id") String id,
                                  @Field("password") String password);
+
+    @GET("/restaurant")
+    Call<JsonObject> getRestaurantInfo();
 }

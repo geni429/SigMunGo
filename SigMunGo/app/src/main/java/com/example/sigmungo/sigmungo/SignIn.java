@@ -2,7 +2,10 @@ package com.example.sigmungo.sigmungo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +35,7 @@ import retrofit2.Response;
  */
 
 public class SignIn extends AppCompatActivity {
+    Toolbar toolbar;
     APIinterface apIinterface;
     TextView signUp;
     EditText inputId;
@@ -41,11 +45,16 @@ public class SignIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
         setContentView(R.layout.signin);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
         signUp = (TextView)findViewById(R.id.signup);
         inputId = (EditText)findViewById(R.id.input_id);
         inputPw = (EditText)findViewById(R.id.input_password);
         signIn = (Button) findViewById(R.id.signin);
         apIinterface = APIclient.getClient().create(APIinterface.class);
+
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,5 +117,9 @@ public class SignIn extends AppCompatActivity {
 
     public void signUp(View view){
         startActivity(new Intent(getApplicationContext(), SignUp.class));
+    }
+
+    public void onBackBtnClicked(View v){
+        finish();
     }
 }

@@ -46,7 +46,7 @@ public class MainPagerAdapter extends PagerAdapter {
         TextView restaurantName = (TextView) view.findViewById(R.id.restaurant_name);
         TextView restaurantLocation = (TextView)view.findViewById(R.id.restaurant_location);
         TextView sympathyCount = (TextView)view.findViewById(R.id.sympathy_count);
-        Glide.with(view).load(R.drawable.landing_img_1+position).into(img);
+        Glide.with(mContext).load(R.drawable.landing_img_1+position).into(img);
         img.setScaleType(CENTER_CROP);
         img.setBackgroundResource(R.drawable.main_recyclerview);
         restaurantName.setText("식문고 치킨점");
