@@ -24,27 +24,6 @@ router.route('/restaurant/sympathy/:contentId').post(function (req, res) {
     });
 });
 
-//좋아요 get
-router.route('/restaurant/sympathy/:contentId').get(function (req, res) {
-    manager.sessionCheck(req, res);
-    let contentId = req.params.contentId;
-    let id = req.session.user.id;
-
-    manager.getSympathy(contentId, id, function (response) {
-        if (!!response.sympathy) {
-            res.writeHead(200, {
-                'Content-Type': 'application/json'
-            });
-        } else {
-            res.writeHead(204, {
-                'Content-Type': 'application/json'
-            });
-        }
-        res.write(JSON.stringify(response));
-        res.end();
-    });
-});
-
 //좋아요 많은 5개 음식점 
 router.route('/restaurant/mostofsympathy').get(function (req, res) {
     manager.getMostOfRestaurant(function (response) {

@@ -11,7 +11,7 @@ manager.signup = function (id, password, name, phone, callback) {
         success: false
     };
 
-    conn.query('insert into account values(?,?,?,?);', [id, password, name, phone], function (err, result) {
+    conn.query('insert into account (id, password, name, phone) values(?,?,?,?);', [id, password, name, phone], function (err, result) {
         if (err) response.error = true;
         else if (result.affectedRows) response.success = true;
 
@@ -63,19 +63,6 @@ manager.idCheck = function (id, callback) {
     });
 }
 
-//이름 중복 체크
-manager.nameCheck = function (name, callback) {
-    let response = {
-        overlap: false
-    };
-    conn.query('select * from account where name=?', name, function (err, rows) {
-        if (err) response.error = true;
-        else if (rows.length == 1) response.overlap = true;
-
-        callback(response);
-    });
-}
-
 //전화번호 중복 체크
 manager.phonecheck = function (phone, callback) {
     let response = {
@@ -113,19 +100,6 @@ manager.getId = function (name, phone, callback) {
         if (err) response.error = true;
         else if (rows.length == 1) response.id = rows[0].id;
 
-        callback(response);
-    });
-}
-
-//사용자가 누른 좋아요 갯수
-manager.sympathyCounts = function (id, callback) {
-    let response = {
-        counts: null
-    };
-
-    conn.query('select * from good where id=?', id, function (err, rows) {
-        if (err) response.error = true;
-        else if (rows.length >= 0) response.counts = rows.length;
         callback(response);
     });
 }
