@@ -59,8 +59,6 @@ router.route('/restaurant/base').get(function (req, res) {
 
 //음식점 생성
 router.route('/restaurant').post(function (req, res) {
-    manager.sessionCheck(req, res);
-
     let contentId;
     let name = req.body.name;
     let place = req.body.place;
@@ -125,7 +123,6 @@ router.route('/restaurant/detail/:contentId').get(function (req, res) {
 
 //음식점 업데이트
 router.route('/restaurant/:contentId').put(function (req, res) {
-    manager.sessionCheck(req);
     let contentId = req.params.contentId;
     let name = req.body.name;
     let place = req.body.place;
@@ -137,8 +134,6 @@ router.route('/restaurant/:contentId').put(function (req, res) {
 
 //음식점 삭제
 router.route('/restaurant/:contentId').delete(function (req, res) {
-    manager.sessionCheck(req);
-
     let contentId = req.params.contentId;
 
     manager.deleteRestaurant(contentId, function (response) {
