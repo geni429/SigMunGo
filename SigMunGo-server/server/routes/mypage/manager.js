@@ -1,6 +1,7 @@
 "use strict";
 let conn = require('../../DBConnection');
 
+let manager={};
 //세션 체크
 manager.sessionCheck = function (req, res) {
     if (!req.session.user) {
