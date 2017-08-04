@@ -4,6 +4,7 @@ let conn = require('../../DBConnection');
 let manager={};
 //세션 체크
 manager.sessionCheck = function (req, res) {
+    console.log(req.session);
     if (!req.session.user) {
         res.writeHead(200, {
             'Content-Type': 'application/json'
@@ -18,7 +19,7 @@ manager.sessionCheck = function (req, res) {
     }
 };
 
-manager.getUserInfo = function (id, callbac) {
+manager.getUserInfo = function (id, callback) {
     let response = {
         name: null,
         id: id,
