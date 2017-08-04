@@ -2,22 +2,6 @@
 let conn = require('../../DBConnection');
 
 let manager={};
-//세션 체크
-manager.sessionCheck = function (req, res) {
-    console.log(req.session);
-    if (!req.session.user) {
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
-        });
-        res.write(JSON.stringify({
-            session: false
-        }));
-        res.end();
-        return;
-    } else {
-        return;
-    }
-};
 
 manager.getUserInfo = function (id, callback) {
     let response = {

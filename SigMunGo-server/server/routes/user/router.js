@@ -93,14 +93,6 @@ router.route('/account/signin').post(function (req, res) {
 
     manager.signin(id, password, function (response, message) {
         if (response.success) {
-            req.session.user = {
-                id: id,
-                authorized: true
-            };
-        }
-        console.log(req.session);
-
-        if (response.success) {
             res.writeHead(201, {
                 'Content-Type': 'application/json'
             });
@@ -116,29 +108,6 @@ router.route('/account/signin').post(function (req, res) {
         res.end();
 
     });
-});
-
-//로그아웃
-router.route('/account/signout').delete(function (req, res) {
-    let response = {
-        success: false
-    };
-
-    req.session.destroy();
-
-    if (req.session) {
-        res.writeHead(400, {
-            'Content-Type': 'application/json'
-        });
-        res.end();
-    } else {
-        response.success = true;
-
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
-        });
-        res.end();
-    }
 });
 
 //아이디 중복 체크

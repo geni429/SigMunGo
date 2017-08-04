@@ -6,9 +6,8 @@ let random = require('../../support/random');
 
 //좋아요 +1
 router.route('/restaurant/sympathy/:contentId').post(function (req, res) {
-    manager.sessionCheck(req, res);
     let contentId = req.params.contentId;
-    let id = req.session.user.id;
+    let id = req.body.id;
 
     manager.addSympathy(contentId, id, function (response) {
         if (response.success) {

@@ -104,19 +104,4 @@ manager.getId = function (name, phone, callback) {
     });
 }
 
-//세션 체크
-manager.sessionCheck = function (req, res) {
-    if (!req.session.user) {
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
-        });
-        res.write(JSON.stringify({
-            session: false
-        }));
-        res.end();
-        return;
-    } else {
-        return;
-    }
-}
 module.exports = manager;
