@@ -35,6 +35,7 @@ router.route('/account/signup').post(function (req, res) {
     });
 });
 
+//인증번호 발송
 router.route('/account/certify/demand/:phone').post(function (req, res) {
     let phone = req.params.phone;
     certifyString = random.randomString(6);
@@ -55,22 +56,9 @@ router.route('/account/certify/demand/:phone').post(function (req, res) {
         res.write(JSON.stringify(response));
     }
     res.end();
-    // // SMS 전송 (단일 수신자)
-    // apistore.sendSMS({
-    //     from: '01028962001', // 발신자 번호
-    //     to: phone, // 수신자 번호
-    //     text: certifyString, // 내용
-    //     subject: '인증번호', // 제목(optional)
-    //     at: '20160801235959', // 예약시간(optional)
-    //     author: '식문고' // 발신자 이름(optional)
-    // }).then(function (cmid) {
-    //     console.log(cmid); // 메시지 아이디
-    // }).catch(function (error) {
-    //     console.log(error);
-    // });
-
 });
 
+//인증번호 검증
 router.route('/account/certify/verify/:certifyString').post(function (req, res) {
     let str = req.params.certifyString;
 

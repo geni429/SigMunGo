@@ -215,23 +215,41 @@ router.route('/restaurant/menu/:contentid').delete(function (req, res) {
 });
 
 //불만 작성
-router.route('/post/:contentId').post(function (req, res) {
+router.route('/restaurant/post/:contentId').post(function (req, res) {
 
 });
 
 //불만 개수 
-router.route('/post/:contentId').get(function (req, res) {
+router.route('/restaurant/post/:contentId').get(function (req, res) {
 
 });
 
 //불만 수정
-router.route('/post/:contentId').put(function (req, res) {
+router.route('/restaurant/post/:contentId').put(function (req, res) {
 
 });
 
 //불만 삭제
-router.route('/post/:contentId').delete(function (req, res) {
+router.route('/restaurant/post/:contentId').delete(function (req, res) {
 
 });
 
+//음식점 검색
+router.route('/restaurant/search').get(function (req, res) {
+    let search_word=req.query.searchword;
+
+    manager.restaurantSearch(search_word,function (response) {
+        if (!!response.restaurant) {
+            res.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+        } else {
+            res.writeHead(204, {
+                'Content-Type': 'application/json'
+            });
+        }
+        res.write(JSON.stringify(response));
+        res.end();
+    });
+});
 module.exports = router;

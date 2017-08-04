@@ -3,6 +3,7 @@ let conn = require('../../DBConnection');
 
 let manager = {};
 
+//유저정보
 manager.getUserInfo = function (id, callback) {
     let response = {
         name: null,
@@ -30,6 +31,7 @@ manager.getUserInfo = function (id, callback) {
     });
 };
 
+//유저가 불만을 단 음식점
 manager.getPostList = function (id, callback) {
     let response = {
         restaurant: []
@@ -60,6 +62,7 @@ manager.getPostList = function (id, callback) {
     });
 };
 
+//프로필 수정
 manager.putProfile = function (id, profile, callback) {
     let response = {
         success: false
@@ -73,6 +76,7 @@ manager.putProfile = function (id, profile, callback) {
     });
 };
 
+//프로필 삭제
 manager.deleteProfile = function (id, callback) {
     let response = {
         success: false

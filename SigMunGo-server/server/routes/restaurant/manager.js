@@ -253,8 +253,29 @@ manager.updatePost = function (callback) {
 
 }
 
+//불만 삭제
 manager.deletePost = function (contentId, callback) {
 
+}
+
+//음식점 검색
+manager.restaurantSearch = function (search_word, callback) {
+    let response = {
+        restaurant: []
+    };
+    conn.query("select * from restaurant where name like '%" + search_word + "%';", null, function (err, rows) {
+        if (err) response.error = true;
+        else if (rows.length >= 0) {
+            for (var i = 0; i < rows.length; i++) {
+                let restaurant = {
+                    name: rows[i].name,
+                    contentid: rows[i].contentid
+                };
+                response.restaurant.push(restaurant);
+            }
+        }
+        callback(response);
+    });
 }
 
 module.exports = manager;

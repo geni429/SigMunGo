@@ -3,6 +3,7 @@ let express = require('express');
 let router = express.Router();
 let manager = require('./manager');
 
+//유저 정보
 router.route('/userinfo/:id').get(function (req, res) {
     let id = req.params.id;
     console.log(id);
@@ -16,10 +17,12 @@ router.route('/userinfo/:id').get(function (req, res) {
 
 });
 
+//불만 단 음식점
 router.route('/mypage/postlist').get(function (req, res) {
 
 });
 
+//프로필 수정
 router.route('/mypage/profile/:id/').put(function (req, res) {
     let id = req.params.id;
     let profile = req.body.profile;
@@ -38,6 +41,7 @@ router.route('/mypage/profile/:id/').put(function (req, res) {
     });
 });
 
+//프로필 삭제
 router.route('/mypage/profile/:id').delete(function (req, res) {
     let id = req.params.id;
 
@@ -56,5 +60,3 @@ router.route('/mypage/profile/:id').delete(function (req, res) {
 });
 
 module.exports = router;
-
-//이름 id 불만 작성수 공감단 횟수 프로필 이미지
