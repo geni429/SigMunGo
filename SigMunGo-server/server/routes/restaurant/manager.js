@@ -2,23 +2,7 @@
 let conn = require('../../DBConnection');
 var Promise = require('promise');
 
-let manager = {}
-
-//세션 체크
-manager.sessionCheck = function (req, res) {
-    if (!req.session.user) {
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
-        });
-        res.write(JSON.stringify({
-            session: false
-        }));
-        res.end();
-        return;
-    } else {
-        return;
-    }
-}
+let manager = {};
 
 //좋아요 +1
 manager.addSympathy = function (contentId, id, callback) {

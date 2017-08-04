@@ -3,9 +3,8 @@ let express = require('express');
 let router = express.Router();
 let manager = require('./manager');
 
-router.route('/userinfo').get(function (req, res) {
-    manager.sessionCheck(req, res);
-    let id = req.session.user.id;
+router.route('/userinfo/:id').get(function (req, res) {
+    let id = req.params.id;
     manager.getUserInfo(id, function (response) {
         res.writeHead(200, {
             'Content-Type': 'application/json'
@@ -20,10 +19,9 @@ router.route('/mypage/postlist').get(function (req, res) {
 
 });
 
-router.route('/mypage/profile').put(function (req, res) {
-    manager.sessionCheck(req, res);
-
-    let id = req.session.user.id;
+router.route('/mypage/profile/:id/').put(function (req, res) {
+    let id = req.params.id;
+    let profile = req.body.profile;
 
     manager.deleteProfile(id, profile, function (response) {
         if (response.success) {
@@ -39,10 +37,8 @@ router.route('/mypage/profile').put(function (req, res) {
     });
 });
 
-router.route('/mypage/profile').delete(function (req, res) {
-    manager.sessionCheck(req, res);
-
-    let id = req.session.user.id;
+router.route('/mypage/profile/:id').delete(function (req, res) {
+    let id = req.params.id;
 
     manager.deleteProfile(id, function (response) {
         if (response.success) {

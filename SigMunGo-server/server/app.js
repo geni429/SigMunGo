@@ -7,10 +7,6 @@ let cookieParser = require('cookie-parser');
 let errorHandler = require('errorhandler');
 let expressSession = require('express-session');
 let app = express();
-
-let mysql = require('mysql');
-
-var user = require('./routes/user/router');
 var restaurant = require('./routes/restaurant/router');
 var mypage= require('./routes/mypage/router');
 var port = '5429';
