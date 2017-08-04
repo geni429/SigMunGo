@@ -189,7 +189,6 @@ manager.getRestaurant = function (callback) {
         if (err) response.error = true;
         else if (rows.length >= 0) {
             for (var i = 0; i < 50; i++) {
-                console.log(i);
                 conn.query('select * from post where contentid=?', rows[i].contentid, function (err, rows2) {});
                 let restaurant = {
                     contentid: rows[i].contentid,

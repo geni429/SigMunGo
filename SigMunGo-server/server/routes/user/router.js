@@ -43,12 +43,18 @@ router.route('/account/certify/demand/:phone').post(function (req, res) {
         certifyString: certifyString
     };
 
-    res.writeHead(200, {
-        'Content-Type': 'application/json'
-    });
-    res.write(JSON.stringify(response));
+    if (!!response.certifyString) {
+        res.writeHead(200, {
+            'Content-Type': 'application/json'
+        });
+        res.write(JSON.stringify(response));
+    }else{
+         res.writeHead(204, {
+            'Content-Type': 'application/json'
+        });
+        res.write(JSON.stringify(response));
+    }
     res.end();
-
     // // SMS 전송 (단일 수신자)
     // apistore.sendSMS({
     //     from: '01028962001', // 발신자 번호
