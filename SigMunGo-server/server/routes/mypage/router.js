@@ -5,9 +5,8 @@ let manager = require('./manager');
 
 router.route('/userinfo').get(function (req, res) {
     manager.sessionCheck(req, res);
-
     let id = req.session.user.id;
-    manager.getUserInfo(id, function (reponse) {
+    manager.getUserInfo(id, function (response) {
         res.writeHead(200, {
             'Content-Type': 'application/json'
         });
