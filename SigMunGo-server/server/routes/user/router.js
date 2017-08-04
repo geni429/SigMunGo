@@ -92,7 +92,7 @@ router.route('/account/signin').post(function (req, res) {
                 authorized: true
             };
         }
-        console.log(response, message);
+        console.log(req.session);
 
         if (response.success) {
             res.writeHead(201, {
