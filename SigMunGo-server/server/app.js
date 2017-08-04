@@ -9,6 +9,7 @@ let expressSession = require('express-session');
 let app = express();
 var restaurant = require('./routes/restaurant/router');
 var mypage= require('./routes/mypage/router');
+var user=require('./routes/user/router');
 var port = '5429';
 
 app.set('port', port);
