@@ -1,5 +1,6 @@
 "use strict";
 let conn = require('../../DBConnection');
+var Promise = require('promise');
 
 let manager = {}
 
@@ -188,22 +189,26 @@ manager.getRestaurant = function (callback) {
         if (err) response.error = true;
         else if (rows.length >= 0) {
             for (var i = 0; i < 50; i++) {
-                conn.query('select * from post where contentid=?', rows[i].contentid, function (err, rows2) {
-                    let restaurant = {
-                        contentid: rows[i].contentid,
-                        img: rows[i].img,
-                        name: rows[i].name,
-                        place: rows[i].place,
-                        sympathy: rows[i].good,
-                        improved: rows[i].improved,
-                        discontent: rows2[i].length
-                    }
-                    response.restaurant.push(restaurant);
-                });
+                console.log(i);
+                conn.query('select * from post where contentid=?', rows[i].contentid, function (err, rows2) {});
+                let restaurant = {
+                    contentid: rows[i].contentid,
+                    img: rows[i].img,
+                    name: rows[i].name,
+                    place: rows[i].place,
+                    sympathy: rows[i].good,
+                    improved: rows[i].improved,
+                    discontent: 0
+                }
+                response.restaurant.push(restaurant);
+                if (i == 49) {
+                    console.log(response);
+                    callback(response);
+                }
             }
         }
-        callback(response);
     });
+
 }
 
 //음식점 메뉴 추가
