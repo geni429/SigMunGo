@@ -11,14 +11,19 @@
         android:roundIcon="@mipmap/ic_sigmungo"
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security_config">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDuCt8773Dq8rvP-ZtTPw6UlH-nnKoMOKI" />
+
         <activity
             android:name="com.myoungchi.android.sigmungo.Splash"
             android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name="com.myoungchi.android.sigmungo.Landing"
@@ -51,6 +56,22 @@
         <activity
             android:name="com.myoungchi.android.sigmungo.CertifyCode"
             android:theme="@style/ToolbarTheme" />
+        <activity
+            android:name="com.myoungchi.android.sigmungo.RestaurantDetail"
+            android:theme="@style/ToolbarTheme">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity android:name="com.myoungchi.android.sigmungo.MyPage" android:theme="@style/ToolbarTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

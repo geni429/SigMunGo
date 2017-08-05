@@ -49,11 +49,8 @@ public class SignIn extends AppCompatActivity {
         signIn = (Button) findViewById(R.id.signin);
         apIinterface = APIclient.getClient().create(APIinterface.class);
 
+        realm.init(getApplicationContext());
         realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
-        final ValueObject vo = realm.createObject(ValueObject.class);
-        realm.commitTransaction();
-        userInformation = new UserInformation();
 
         setSupportActionBar(toolbar);
 
@@ -61,19 +58,19 @@ public class SignIn extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doSignIn(inputId.getText().toString(), inputPw.getText().toString(), vo);
+                doSignIn(inputId.getText().toString(), inputPw.getText().toString());
             }
         });
     }
 
-    public void doSignIn(String id, String password, final ValueObject vo){
+    public void doSignIn(String id, String password){
         apIinterface.doSignIn(id, password).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()){
                     //로그인 성공시 코드
                     userInformation.setUserId(inputId.getText().toString());
-                    autoSignIn(realm, vo);
+                    autoSignIn(realm);
                     startActivity(new Intent(getApplicationContext(), Main.class));
                 } else {
                     //로그인 실패시 코드
@@ -120,11 +117,10 @@ public class SignIn extends AppCompatActivity {
         finish();
     }
 
-    private void autoSignIn(Realm realm, ValueObject vo){
-        Log.d("VO", vo+"");
-        Log.d("vo setid", inputId.getText().toString());
-        Log.d("realm status", realm.toString());
+    private void autoSignIn(Realm realm){
         realm.beginTransaction();
+        ValueObject vo = realm.createObject(ValueObject.class);
+        userInformation = new UserInformation();
         vo.setLogin(true);
         vo.setId(inputId.getText().toString());
         realm.commitTransaction();

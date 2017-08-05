@@ -7,4 +7,8 @@
     <string name="setting">환경설정</string>
     <string name="help">도움말</string>
     <string name="refer_content"><u>내용보기</u></string>
+    <string name="set_push_notification">푸시알림 설정</string>
+    <string name="logout">로그아웃</string>
+    <string name="settime">시간대 설정</string>
+    <string name="setgps">GPS 설정</string>
 </resources>
