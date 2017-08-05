@@ -1,18 +1,25 @@
-package com.myoungchi.android.sigmungo;
+package com.myoungchi.android.sigmungo.http_client;
 
 import com.google.gson.JsonObject;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
+import retrofit2.http.QueryName;
 
 /**
  * Created by geni on 2017. 7. 28..
  */
 
-interface APIinterface {
+public interface APIinterface {
     //SignIn activity
     @FormUrlEncoded
     @POST("/account/signin")
@@ -42,6 +49,19 @@ interface APIinterface {
     Call<JsonObject> getRestaurantInfo();
 
     //Main activity
-    @GET("/userinfo")
-    Call<JsonObject> getUserInfo();
+    @GET("/userinfo/{id}")
+    Call<JsonObject> getUserInfo(@Path("id") String id);
+
+    //FindId
+    @GET("/account/id")
+    Call<JsonObject> getIdCertifyCode();
+
+    //FindPw
+    @PUT("/account/password")
+
+    //get CertifyCode
+    @POST("/certify/demand")
+    Call<Void> getCertifyCode();
+
+    //Verify CertifyCode
 }

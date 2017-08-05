@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.myoungchi.android.sigmungo.Adapter.LandingAdapter;
+import com.myoungchi.android.sigmungo.adapter.LandingAdapter;
+import com.myoungchi.android.sigmungo.account.SignIn;
 
 /**
  * Created by geni on 2017. 7. 24..

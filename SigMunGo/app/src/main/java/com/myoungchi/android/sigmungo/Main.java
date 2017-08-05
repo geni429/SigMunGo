@@ -16,13 +16,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.myoungchi.android.sigmungo.Adapter.MainPagerAdapter;
-import com.myoungchi.android.sigmungo.Adapter.MainRecyclerAdapter;
+import com.myoungchi.android.sigmungo.adapter.MainPagerAdapter;
+import com.myoungchi.android.sigmungo.adapter.MainRecyclerAdapter;
 import com.myoungchi.android.sigmungo.Items.MainItems;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.myoungchi.android.sigmungo.Items.UserInformation;
+import com.myoungchi.android.sigmungo.http_client.APIclient;
+import com.myoungchi.android.sigmungo.http_client.APIinterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +72,6 @@ public class Main extends AppCompatActivity {
         writingCount = (TextView)navHeaderView.findViewById(R.id.writing_count);
         userName = (TextView)navHeaderView.findViewById(R.id.user_name);
         userId = (TextView)navHeaderView.findViewById(R.id.user_id);
-//        setUserInfo();
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -97,7 +98,6 @@ public class Main extends AppCompatActivity {
         PagerThread thread = new PagerThread();
         thread.start();
         getRestaurantInfo();
-//        getUserInfo();
     }
 
     public void setLocation(View v){
@@ -122,6 +122,7 @@ public class Main extends AppCompatActivity {
         }
     }
 
+    //method part
     public void toolbarItemOnClick(View v){
         switch (v.getId()){
             case R.id.sidemenu_btn:
@@ -154,6 +155,7 @@ public class Main extends AppCompatActivity {
                 }
                 recyclerView.setAdapter(new MainRecyclerAdapter(restaurantsInfo, getApplicationContext()));
                 recyclerView.setLayoutManager(new MainGridLayoutManager(getApplicationContext(), 2, true));
+                getUserInfo();
             }
 
             @Override
@@ -164,14 +166,16 @@ public class Main extends AppCompatActivity {
     }
 
     public void getUserInfo(){
-        apIinterface.getUserInfo().enqueue(new Callback<JsonObject>() {
+        apIinterface.getUserInfo("nn").enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.d("getUserInfo Status", response.code()+"");
                 if(response.isSuccessful()){
                     userInformation.setUserName(response.body().get("name").getAsString());
-                    userInformation.setUserId(response.body().get("id").getAsString());
-                    userInformation.setMyWritingCount(response.body().get("writing").getAsString());
+                    userInformation.setUserId("("+response.body().get("id").getAsString()+")");
+                    userInformation.setMyWritingCount(response.body().get("discontents").getAsString());
                     userInformation.setMySympathyCount(response.body().get("sympathy").getAsString());
+                    setUserInfo();
                 }
             }
 

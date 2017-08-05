@@ -1,4 +1,4 @@
-package com.myoungchi.android.sigmungo.Adapter;
+package com.myoungchi.android.sigmungo.adapter;
 
 import android.content.Context;
 import android.content.Intent;

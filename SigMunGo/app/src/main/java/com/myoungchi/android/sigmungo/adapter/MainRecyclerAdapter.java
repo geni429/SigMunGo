@@ -1,4 +1,4 @@
-package com.myoungchi.android.sigmungo.Adapter;
+package com.myoungchi.android.sigmungo.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -38,7 +38,6 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         MainItems items = mDataset.get(position);
-        Log.d("image", items.getRestaurantImage());
         if(items.getRestaurantImage() != null){
             Glide.with(mContext)
                     .load(items.getRestaurantImage())
@@ -53,7 +52,6 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     @Override
     public int getItemCount() {
-        Log.d("mDataset size", mDataset.size() + "");
         return mDataset.size();
     }
 

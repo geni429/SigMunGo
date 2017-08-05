@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.myoungchi.android.sigmungo.Adapter.SetLocationAdapter;
+import com.myoungchi.android.sigmungo.adapter.SetLocationAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

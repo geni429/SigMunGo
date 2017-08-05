@@ -71,17 +71,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:text="정근철"
                 android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/user_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="2dp"
                 android:layout_toRightOf="@+id/user_name"
                 android:layout_alignParentBottom="true"
-                android:text="(sigmungo)"
-                android:textSize="13dp"/>
+                android:textSize="13dp" />
         </RelativeLayout>
     </LinearLayout>
     <LinearLayout

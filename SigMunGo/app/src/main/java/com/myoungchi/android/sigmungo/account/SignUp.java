@@ -1,4 +1,4 @@
-package com.myoungchi.android.sigmungo;
+package com.myoungchi.android.sigmungo.account;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -7,12 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.myoungchi.android.sigmungo.http_client.APIclient;
+import com.myoungchi.android.sigmungo.http_client.APIinterface;
+import com.myoungchi.android.sigmungo.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -1,4 +1,4 @@
-package com.myoungchi.android.sigmungo;
+package com.myoungchi.android.sigmungo.http_client;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

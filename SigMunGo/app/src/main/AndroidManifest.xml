@@ -24,10 +24,10 @@
             android:name="com.myoungchi.android.sigmungo.Landing"
             android:theme="@style/LandingTheme" />
         <activity
-            android:name="com.myoungchi.android.sigmungo.SignIn"
+            android:name="com.myoungchi.android.sigmungo.account.SignIn"
             android:theme="@style/ToolbarTheme" />
         <activity
-            android:name="com.myoungchi.android.sigmungo.SignUp"
+            android:name="com.myoungchi.android.sigmungo.account.SignUp"
             android:theme="@style/ToolbarTheme" />
         <activity
             android:name="com.myoungchi.android.sigmungo.Certification"
@@ -39,6 +39,18 @@
             android:name="com.myoungchi.android.sigmungo.SetLocation"
             android:theme="@style/ToolbarTheme"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.myoungchi.android.sigmungo.account.FindIdPassword"
+            android:theme="@style/ToolbarTheme" />
+        <activity
+            android:name="com.myoungchi.android.sigmungo.account.FindId"
+            android:theme="@style/ToolbarTheme" />
+        <activity
+            android:name="com.myoungchi.android.sigmungo.account.FindPassword"
+            android:theme="@style/ToolbarTheme" />
+        <activity
+            android:name="com.myoungchi.android.sigmungo.CertifyCode"
+            android:theme="@style/ToolbarTheme" />
     </application>
 
 </manifest>
