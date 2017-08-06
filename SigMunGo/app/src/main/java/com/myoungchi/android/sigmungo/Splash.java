@@ -42,8 +42,13 @@ public class Splash extends AppCompatActivity {
 //            updateFirst(mRealm, vo);
 //            startActivity(new Intent(getApplicationContext(), Landing.class));
 //        }
-        startActivity(new Intent(getApplicationContext(), Landing.class));
-        finish();
+        try {
+            Thread.sleep(1000);
+            startActivity(new Intent(getApplicationContext(), Landing.class));
+            finish();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

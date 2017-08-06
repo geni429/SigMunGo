@@ -35,7 +35,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, RestaurantDetail.class));
+                mContext.startActivity(new Intent(mContext, RestaurantDetail.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
         return new ViewHolder(v);
