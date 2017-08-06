@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.myoungchi.android.sigmungo.RestaurantDetail"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="10">
+    android:layout_height="match_parent">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -27,7 +26,8 @@
                 android:src="@drawable/ic_action_name"
                 android:background="@null"
                 android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"
+                android:onClick="onBackBtnClicked"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,15 +44,13 @@
         android:fillViewport="true">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="10">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="200dp"
                 android:padding="10dp">
 
                 <ImageView
@@ -64,9 +62,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="0.2">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/restaurant_name"
@@ -77,29 +75,36 @@
             </LinearLayout>
 
             <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.1">
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical">
 
                 <ImageView
                     android:layout_width="@dimen/primary_ic_width"
-                    android:layout_height="@dimen/primary_ic_height" />
+                    android:layout_height="@dimen/primary_ic_height"
+                    android:src="@drawable/ic_phone"/>
 
                 <TextView
                     android:id="@+id/restaurant_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:text="010-2896-2001" />
             </LinearLayout>
 
             <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.1">
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical">
 
                 <ImageView
                     android:layout_width="@dimen/primary_ic_width"
-                    android:layout_height="@dimen/primary_ic_height" />
+                    android:layout_height="@dimen/primary_ic_height"
+                    android:src="@drawable/ic_location"/>
 
                 <TextView
                     android:id="@+id/restaurant_location"
@@ -107,14 +112,13 @@
                     android:layout_height="wrap_content"
                     android:text="대전광역시 식문동 식문구" />
             </LinearLayout>
-
-            <LinearLayout
+            <fragment
+                android:id="@+id/map"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-            </LinearLayout>
+                android:layout_height="200dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                class="com.google.android.gms.maps.MapFragment" />
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

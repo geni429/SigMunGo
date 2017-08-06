@@ -46,10 +46,7 @@ public class Main extends AppCompatActivity {
     private UserInformation userInformation;
     private ViewPager pager;
 
-    private TextView sympathyCount;
-    private TextView writingCount;
-    private TextView userName;
-    private TextView userId;
+    private TextView sympathyCount, writingCount, userName, userId;
 
     @Override
     protected void onCreate(Bundle savedInstance){
@@ -68,18 +65,24 @@ public class Main extends AppCompatActivity {
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         View navHeaderView = navigationView.getHeaderView(0);
 
+        navHeaderView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MyPage.class));
+            }
+        });
+
         sympathyCount = (TextView)navHeaderView.findViewById(R.id.sympathy_count);
         writingCount = (TextView)navHeaderView.findViewById(R.id.writing_count);
         userName = (TextView)navHeaderView.findViewById(R.id.user_name);
         userId = (TextView)navHeaderView.findViewById(R.id.user_id);
 
+        //navigationDrawer의 아이템들의 클릭이벤트를 처리해주는 코드
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 mDrawerLayout.closeDrawers();
-
-                int id = menuItem.getItemId();
-                switch (id) {
+                switch (menuItem.getItemId()) {
                     case R.id.nav_item_restaurant:
                         Log.d("nav_item_restaurant", "clicked");
                         break;
@@ -90,7 +93,6 @@ public class Main extends AppCompatActivity {
                         Log.d("nav_item_help", "clicked");
                         break;
                 }
-
                 return true;
             }
         });
@@ -100,10 +102,12 @@ public class Main extends AppCompatActivity {
         getRestaurantInfo();
     }
 
+    //위치설정 액티비티로 넘어갈때 실행되는 코드
     public void setLocation(View v){
         startActivity(new Intent(getApplicationContext(), SetLocation.class));
     }
 
+    //음식점정보를 넣어줄때 호출되는 메소드
     public void initData(int index, String contentid, String img, String name, String place, String sympathy, String improved){
         MainItems items = new MainItems();
         items.setContentID(contentid);
@@ -115,6 +119,7 @@ public class Main extends AppCompatActivity {
         this.restaurantsInfo.add(index, items);
     }
 
+    //이달의 음식점 ViewPager실행시에 작동되는 스레드 (AsyncTask로 마이그레이션 필요)
     class PagerThread extends Thread{
         public void run(){
             MainPagerAdapter adapter = new MainPagerAdapter(getApplicationContext());
@@ -122,7 +127,7 @@ public class Main extends AppCompatActivity {
         }
     }
 
-    //method part
+    //툴바에 있는 각각의 아이템이 선택되었을 때의 이벤트를 실행시켜주는 메소드
     public void toolbarItemOnClick(View v){
         switch (v.getId()){
             case R.id.sidemenu_btn:
@@ -135,6 +140,7 @@ public class Main extends AppCompatActivity {
         }
     }
 
+    //음식점 정보를 통신을 통해서 불러오는 메소드
     public void getRestaurantInfo(){
         apIinterface.getRestaurantInfo().enqueue(new Callback<JsonObject>() {
             @Override
@@ -165,6 +171,7 @@ public class Main extends AppCompatActivity {
         });
     }
 
+    //user정보를 불러오는 코드 (Realm사용 예정)
     public void getUserInfo(){
         apIinterface.getUserInfo("nn").enqueue(new Callback<JsonObject>() {
             @Override
@@ -186,6 +193,7 @@ public class Main extends AppCompatActivity {
         });
     }
 
+    //받아온 데이터를 바탕으로 내정보를 세팅해주는 메소드
     public void setUserInfo(){
         userName.setText(userInformation.getUserName());
         userId.setText(userInformation.getUserId());

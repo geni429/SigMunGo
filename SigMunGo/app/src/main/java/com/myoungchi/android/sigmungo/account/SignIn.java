@@ -1,7 +1,9 @@
 package com.myoungchi.android.sigmungo.account;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import com.myoungchi.android.sigmungo.Items.UserInformation;
 import com.myoungchi.android.sigmungo.Items.ValueObject;
+import com.myoungchi.android.sigmungo.Landing;
 import com.myoungchi.android.sigmungo.http_client.APIclient;
 import com.myoungchi.android.sigmungo.http_client.APIinterface;
 import com.myoungchi.android.sigmungo.Main;
@@ -34,13 +37,13 @@ import retrofit2.Response;
 public class SignIn extends AppCompatActivity {
     private Toolbar toolbar;
     private APIinterface apIinterface;
-    private EditText inputId;
-    private EditText inputPw;
+    private EditText inputId, inputPw;
     private Button signIn;
     private UserInformation userInformation;
     private Realm realm;
 
-    protected void onCreate(Bundle savedInstance){
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstance){
         super.onCreate(savedInstance);
         setContentView(R.layout.signin);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -48,6 +51,7 @@ public class SignIn extends AppCompatActivity {
         inputPw = (EditText)findViewById(R.id.input_password);
         signIn = (Button) findViewById(R.id.signin);
         apIinterface = APIclient.getClient().create(APIinterface.class);
+        userInformation = new UserInformation();
 
         realm.init(getApplicationContext());
         realm = Realm.getDefaultInstance();
@@ -70,8 +74,9 @@ public class SignIn extends AppCompatActivity {
                 if(response.isSuccessful()){
                     //로그인 성공시 코드
                     userInformation.setUserId(inputId.getText().toString());
-                    autoSignIn(realm);
+//                    autoSignIn(realm); (이슈발생)
                     startActivity(new Intent(getApplicationContext(), Main.class));
+                    finish();
                 } else {
                     //로그인 실패시 코드
                     try {
@@ -112,11 +117,13 @@ public class SignIn extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), FindIdPassword.class));
     }
 
-    //툴바에서 back버튼을 클릭할시에 종료시켜주는 코드
+    //툴바에서 back버튼을 클릭할시에 랜딩으로 돌아가는 코드
     public void onBackBtnClicked(View v){
+        startActivity(new Intent(getApplicationContext(), Landing.class));
         finish();
     }
 
+    //자동로그인 기능 (이슈있음)
     private void autoSignIn(Realm realm){
         realm.beginTransaction();
         ValueObject vo = realm.createObject(ValueObject.class);

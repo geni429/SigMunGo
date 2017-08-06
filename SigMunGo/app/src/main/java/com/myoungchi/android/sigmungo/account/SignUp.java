@@ -3,6 +3,7 @@ package com.myoungchi.android.sigmungo.account;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -29,13 +30,8 @@ import retrofit2.Response;
 public class SignUp extends AppCompatActivity {
     private APIinterface apIinterface;
     private Toolbar toolbar;
-    private EditText name;
-    private EditText phone;
-    private EditText id;
-    private EditText password;
-    private EditText cf_password;
-    private TextView checkIdOverlap;
-    private TextView checkPassword;
+    private EditText name, phone, id, password, cf_password;
+    private TextView checkIdOverlap, checkPassword;
     private Button submit;
 
     //비밀번호 재확인 여부
@@ -43,7 +39,8 @@ public class SignUp extends AppCompatActivity {
     //비밀번호 입력 여부
     private boolean pw_null_check;
 
-    protected void onCreate(Bundle savedInstance) {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstance) {
         super.onCreate(savedInstance);
         setContentView(R.layout.signup);
         name = (EditText)findViewById(R.id.input_name);

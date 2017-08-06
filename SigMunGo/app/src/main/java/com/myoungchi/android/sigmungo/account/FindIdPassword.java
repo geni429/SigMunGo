@@ -15,9 +15,8 @@ import com.myoungchi.android.sigmungo.R;
  */
 
 public class FindIdPassword extends AppCompatActivity {
-    Toolbar toolbar;
-    Button findId;
-    Button findPw;
+    private Toolbar toolbar;
+    private Button findId, findPw;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

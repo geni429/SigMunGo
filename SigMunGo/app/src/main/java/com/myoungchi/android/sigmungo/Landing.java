@@ -2,6 +2,7 @@ package com.myoungchi.android.sigmungo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,14 +17,13 @@ import com.myoungchi.android.sigmungo.account.SignIn;
  */
 
 public class Landing extends AppCompatActivity {
-    ViewPager pager;
-    Button btnGroup[] = new Button[4];
-    TextView landingExplain;
-    Button loginBtn;
-    Button kakaoLoginBtn;
+    private ViewPager pager;
+    private Button btnGroup[] = new Button[4];
+    private TextView landingExplain;
+    private Button loginBtn, kakaoLoginBtn;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing);
         pager = (ViewPager)findViewById(R.id.landing_pager);
@@ -38,10 +38,12 @@ public class Landing extends AppCompatActivity {
         PagerThread thread = new PagerThread();
         thread.start();
 
+        //로그인 버튼 클릭
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), SignIn.class));
+                finish();
             }
         });
     }
@@ -91,5 +93,6 @@ public class Landing extends AppCompatActivity {
 
     public void skipLogin(View v){
         startActivity(new Intent(getApplicationContext(), Main.class));
+        finish();
     }
 }

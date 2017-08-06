@@ -1,8 +1,8 @@
 package com.myoungchi.android.sigmungo.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.myoungchi.android.sigmungo.Items.MainItems;
 import com.myoungchi.android.sigmungo.R;
+import com.myoungchi.android.sigmungo.RestaurantDetail;
 
 import java.util.List;
 
@@ -31,8 +32,13 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurants_info_items, parent, false);
-        ViewHolder holder = new ViewHolder(v);
-        return holder;
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, RestaurantDetail.class));
+            }
+        });
+        return new ViewHolder(v);
     }
 
     @Override
@@ -41,7 +47,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         if(items.getRestaurantImage() != null){
             Glide.with(mContext)
                     .load(items.getRestaurantImage())
-                    .error(R.drawable.img_load_fail2)
+                    .error(R.drawable.img_load_fail)
                     .centerCrop()
                     .into(holder.restaurantImg);
         }

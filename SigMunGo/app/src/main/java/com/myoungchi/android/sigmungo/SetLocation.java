@@ -2,6 +2,7 @@ package com.myoungchi.android.sigmungo;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -20,7 +21,7 @@ public class SetLocation extends Activity {
     private List<String> locationNames = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstance){
+    protected void onCreate(@Nullable Bundle savedInstance){
         super.onCreate(savedInstance);
         setContentView(R.layout.set_location);
         initData();
@@ -29,7 +30,7 @@ public class SetLocation extends Activity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 
-    public void initData(){
+    private void initData(){
         for(int i=0; i<5; i++){
             locationNames.add(i, "hello");
         }

@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar;
  */
 
 public class SearchRestaurant extends AppCompatActivity {
-    Toolbar toolbar;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -19,7 +19,5 @@ public class SearchRestaurant extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-
-
     }
 }

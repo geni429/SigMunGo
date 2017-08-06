@@ -14,9 +14,8 @@ import com.myoungchi.android.sigmungo.R;
  */
 
 public class FindId extends AppCompatActivity {
-    EditText name;
-    EditText phone;
-    Button submit;
+    private EditText name, phone;
+    private Button submit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,6 +25,7 @@ public class FindId extends AppCompatActivity {
         phone = (EditText)findViewById(R.id.user_phone);
         submit = (Button)findViewById(R.id.submit);
     }
+
     //툴바에서 back버튼을 클릭할시에 종료시켜주는 코드
     public void onBackBtnClicked(View v){
         finish();

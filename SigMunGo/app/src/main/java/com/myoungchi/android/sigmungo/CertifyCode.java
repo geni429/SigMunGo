@@ -1,6 +1,7 @@
 package com.myoungchi.android.sigmungo;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 /**
@@ -9,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 
 public class CertifyCode extends AppCompatActivity {
     @Override
-    protected void onCreate(Bundle savedInstance){
+    protected void onCreate(@Nullable Bundle savedInstance){
         super.onCreate(savedInstance);
     }
 }

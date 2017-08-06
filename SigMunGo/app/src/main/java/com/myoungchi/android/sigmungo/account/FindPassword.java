@@ -16,10 +16,8 @@ import com.myoungchi.android.sigmungo.R;
  */
 
 public class FindPassword extends AppCompatActivity {
-    EditText name;
-    EditText phone;
-    EditText id;
-    Button submit;
+    private EditText name, phone, id;
+    private Button submit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
