@@ -1,12 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.sigmungo.sigmungo.SignUp"
+    tools:context="com.myoungchi.android.sigmungo.account.SignUp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal">
     <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentTop="true"
@@ -36,12 +37,13 @@
                 android:textColor="@android:color/white"/>
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginTop="50dp"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/input_name"
@@ -63,12 +65,26 @@
             android:hint="아이디 입력"
             android:inputType="textPassword" />
 
+        <TextView
+            android:id="@+id/check_id_overlap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이미 존재하는 아이디입니다"
+            android:textColor="@color/colorPrimary" />
+
         <EditText
             android:id="@+id/input_userPassword"
             android:layout_width="340dp"
             android:layout_height="50dp"
             android:hint="비밀번호 입력(6~15자)"
             android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/check_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀번호를 설정해주세요"
+            android:textColor="@color/colorPrimary" />
 
         <EditText
             android:id="@+id/input_passwordOK"
@@ -78,6 +94,7 @@
             android:inputType="textPassword" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"

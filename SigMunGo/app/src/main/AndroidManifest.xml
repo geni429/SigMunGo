@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sigmungo.sigmungo">
+    package="com.myoungchi.android.sigmungo">
 
+    <!-- 통신을 위한 권한 설정 -->
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <permission
+        android:name="com.myoungchi.android.sigmungo.locationapi.maps.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.myoungchi.android.sigmungo.locationapi.maps.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -11,8 +24,18 @@
         android:roundIcon="@mipmap/ic_sigmungo"
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security_config">
+
+        <!--Google Map Api-->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDuCt8773Dq8rvP-ZtTPw6UlH-nnKoMOKI" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+
         <activity
-            android:name=".Splash"
+            android:name="com.myoungchi.android.sigmungo.Splash"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,24 +44,42 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Landing"
+            android:name="com.myoungchi.android.sigmungo.Landing"
             android:theme="@style/LandingTheme" />
         <activity
-            android:name=".SignIn"
+            android:name="com.myoungchi.android.sigmungo.account.SignIn"
             android:theme="@style/ToolbarTheme" />
         <activity
-            android:name=".SignUp"
+            android:name="com.myoungchi.android.sigmungo.account.SignUp"
             android:theme="@style/ToolbarTheme" />
         <activity
-            android:name=".Certification"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Main"
+            android:name="com.myoungchi.android.sigmungo.Certification"
             android:theme="@style/ToolbarTheme" />
         <activity
-            android:name=".SetLocation"
+            android:name="com.myoungchi.android.sigmungo.Main"
+            android:theme="@style/ToolbarTheme" />
+        <activity
+            android:name="com.myoungchi.android.sigmungo.SetLocation"
             android:theme="@style/ToolbarTheme"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.myoungchi.android.sigmungo.account.FindIdPassword"
+            android:theme="@style/ToolbarTheme" />
+        <activity
+            android:name="com.myoungchi.android.sigmungo.account.FindId"
+            android:theme="@style/ToolbarTheme" />
+        <activity
+            android:name="com.myoungchi.android.sigmungo.account.FindPassword"
+            android:theme="@style/ToolbarTheme" />
+        <activity
+            android:name="com.myoungchi.android.sigmungo.CertifyCode"
+            android:theme="@style/ToolbarTheme" />
+        <activity
+            android:name="com.myoungchi.android.sigmungo.RestaurantDetail"
+            android:theme="@style/ToolbarTheme"/>
+        <activity
+            android:name="com.myoungchi.android.sigmungo.MyPage"
+            android:theme="@style/ToolbarTheme"/>
     </application>
 
 </manifest>

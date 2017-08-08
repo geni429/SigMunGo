@@ -1,10 +1,11 @@
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.example.sigmungo.sigmungo"
+        applicationId 'com.myoungchi.android.sigmungo'
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
@@ -33,11 +34,13 @@ dependencies {
     compile('com.squareup.retrofit2:retrofit:2.3.0') {
         exclude module: 'okhttp'
     }
+    compile 'com.google.android.gms:play-services-maps:11.0.4'
+    compile 'com.google.android.gms:play-services-location:11.0.4'
     compile 'com.android.support:design:25.3.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.google.code.gson:gson:2.7'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'

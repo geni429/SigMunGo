@@ -5,7 +5,7 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
 android:weightSum="15"
-tools:context="com.example.sigmungo.sigmungo.Certification">
+tools:context="com.myoungchi.android.sigmungo.Certification">
 
     <LinearLayout
         android:layout_width="match_parent"
