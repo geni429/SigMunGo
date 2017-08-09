@@ -5,28 +5,28 @@ const key = 'this_is_key';
 
 module.exports = {
     signup: function (id, password, name, phone, callback) {
-        let response = {
-            success: false
-        };
+        let response = {};
 
         conn.query('insert into account (id, password, name, phone) values(?,?,?,?)', [id, password, name, phone], function (err, result) {
-            if (err) response.error = true;
-            else if (result.affectedRows) response.success = true;
+            if (err) {
+                response.success = false;
+            }
+            else if (result.affectedRows) {
+                response.success = true;
+            }
 
             callback(response);
         });
     },
 
     signin: function (id, password, callback) {
-        let response = {
-            success: false
-        };
+        let response = {}
         let message = {};
 
         conn.query('select * from account where id=?', id, function (err, rows) {
             console.log(rows);
             if (err) {
-                response.error = true;
+                response.success = false;
                 callback(response, message);
             } else if (rows.length == 1) {
                 conn.query('select * from account where id=? and password=?;', [id, password], function (err, rows1) {
@@ -36,6 +36,7 @@ module.exports = {
                         response.success = true;
                         callback(response, message);
                     } else if (rows1.length == 0) {
+                        response.success = false;
                         message.message = 'wrongPassword';
                         callback(response, message);
                     }
@@ -78,7 +79,7 @@ module.exports = {
 
         conn.query('update account set password=? where id=?;', [id, password], function (err, result) {
             if (err) response.error = true;
-            else if (reslt.affectedRows) response.success = true;
+            else if (result.affectedRows) response.success = true;
 
             callback(response);
         });
@@ -104,9 +105,9 @@ module.exports = {
 //         success: false
 //     };
 
-//     conn.query('insert into account (id, password, name, phone) values(?,?,?,?);', [id, password, name, phone], function (err, result) {
+//     conn.query('insert into account (id, password, name, phone) values(?,?,?,?);', [id, password, name, phone], function (err, response) {
 //         if (err) response.error = true;
-//         else if (result.affectedRows) response.success = true;
+//         else if (response.affectedRows) response.success = true;
 
 //         callback(response);
 //     });
@@ -175,9 +176,9 @@ module.exports = {
 //         success: false
 //     };
 
-//     conn.query('update account set password=? where id=?;', [id, password], function (err, result) {
+//     conn.query('update account set password=? where id=?;', [id, password], function (err, rows) {
 //         if (err) response.error = true;
-//         else if (reslt.affectedRows) response.success = true;
+//         else if (rows.affectedRows) response.success = true;
 
 //         callback(response);
 //     });
