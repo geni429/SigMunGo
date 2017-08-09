@@ -1,22 +1,20 @@
 "use strict";
-let express = require('express');
-let app = express();
-
-let path = require('path');
-let bodyParser = require('body-parser');
-let cookieParser = require('cookie-parser');
-let errorHandler = require('errorhandler');
-let expressSession = require('express-session');
-
-var restaurant = require('./routes/restaurant/router');
-var mypage = require('./routes/mypage/router');
-var user = require('./routes/user/router');
-var port = '5429';
-
-app.set('port', port);
-
-app.set('views', path.join(__dirname, 'views'));
+const express = require('express');
+const app = express();
+app.set('port', 5429);
 app.set('view engine', 'jade');
+
+const path = require('path');
+app.set('views', path.join(__dirname, 'views'));
+
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const errorHandler = require('errorhandler');
+const expressSession = require('express-session');
+
+const restaurant = require('./routes/restaurant/router');
+const mypage = require('./routes/mypage/router');
+const user = require('./routes/user/router');
 
 app.use(expressSession({
     secret: 'my key',
@@ -35,5 +33,5 @@ app.use('/', restaurant);
 app.use('/', mypage);
 
 app.listen(app.get('port'), function () {
-    console.log('Server started on ' + app.get('port') + 'port');
+    console.log('Server is listening on : ' + app.get('port'));
 });
