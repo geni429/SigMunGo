@@ -9,15 +9,15 @@ app.set('views', path.join(__dirname, 'views'));
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const errorHandler = require('errorhandler');
-const expressSession = require('express-session');
 
 const restaurant = require('./routes/restaurant/router');
 const mypage = require('./routes/mypage/router');
 const user = require('./routes/user/router');
 
-app.use(expressSession({
-    secret: 'my key',
+app.use(session({
+    secret: '2oo!.dmmva!aAKS',
     resave: true,
     saveUninitialized: true
 }));
