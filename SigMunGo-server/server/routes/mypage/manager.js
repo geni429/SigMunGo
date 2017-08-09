@@ -1,6 +1,5 @@
 "use strict";
-let conn = require('../../DBConnection');
-
+const conn = require('../../DBConnection');
 let manager = {};
 
 manager.getUserInfo = function (id, callback) {
@@ -21,7 +20,7 @@ manager.getUserInfo = function (id, callback) {
                 if (err) response.error = true;
                 else if (rows.length >= 0) {
                     response.sympathy = rows.length;
-                    conn.query('select * from post where id=?;', id, function (err, rows) {});
+                    conn.query('select * from post where id=?;', id, function (err, rows) { });
                     response.discontents = 0;
                     callback(response);
                 }
@@ -36,7 +35,7 @@ manager.getPostList = function (id, callback) {
     };
     conn.query('select * from post where id=?', id, function (err, rows) {
         if (err) response.error = true;
-        else if (rows.length >= 0) {}
+        else if (rows.length >= 0) { }
     });
     conn.query('select * from restaurant ', null, function (err, rows) {
         if (err) response.error = true;

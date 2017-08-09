@@ -1,8 +1,8 @@
 "use strict";
-let conn = require('../../DBConnection');
-var Promise = require('promise');
-
+const conn = require('../../DBConnection');
 let manager = {};
+
+var Promise = require('promise');
 
 //좋아요 +1
 manager.addSympathy = function (contentId, id, callback) {
@@ -55,7 +55,6 @@ manager.getMostOfRestaurant = function (callback) {
     conn.query('select * from restaurant where improved=1 order by good', null, function (err, rows) {
         if (err) response.error = true;
         else if (rows.length >= 0) {
-            console.log(rows.length);
             for (let i = 0; i < 5; i++) {
                 response[i].img = rows[i] ? rows[i].img : null;
                 response[i].name = rows[i] ? rows[i].name : null;
@@ -173,7 +172,7 @@ manager.getRestaurant = function (callback) {
         if (err) response.error = true;
         else if (rows.length >= 0) {
             for (var i = 0; i < 50; i++) {
-                conn.query('select * from post where contentid=?', rows[i].contentid, function (err, rows2) {});
+                conn.query('select * from post where contentid=?', rows[i].contentid, function (err, rows2) { });
                 let restaurant = {
                     contentid: rows[i].contentid,
                     img: rows[i].img,
@@ -185,7 +184,6 @@ manager.getRestaurant = function (callback) {
                 }
                 response.restaurant.push(restaurant);
                 if (i == 49) {
-                    console.log(response);
                     callback(response);
                 }
             }
