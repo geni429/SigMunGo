@@ -1,26 +1,24 @@
 "use strict";
-let express = require('express');
-let router = express.Router();
-let manager = require('./manager');
+const express = require('express');
+const router = express.Router();
+const manager = require('./manager');
 
 router.route('/userinfo/:id').get(function (req, res) {
     let id = req.params.id;
-    console.log(id);
+
     manager.getUserInfo(id, function (response) {
         res.writeHead(200, {
             'Content-Type': 'application/json'
         });
-        res.write(JSON.stringify(response));
-        res.end();
+        res.send(JSON.stringify(response));
     });
-
 });
 
 router.route('/mypage/postlist').get(function (req, res) {
 
 });
 
-router.route('/mypage/profile/:id/').put(function (req, res) {
+router.route('/mypage/profile/:id').put(function (req, res) {
     let id = req.params.id;
     let profile = req.body.profile;
 
@@ -36,9 +34,7 @@ router.route('/mypage/profile/:id/').put(function (req, res) {
         }
         res.end();
     });
-});
-
-router.route('/mypage/profile/:id').delete(function (req, res) {
+}).delete(function (req, res) {
     let id = req.params.id;
 
     manager.deleteProfile(id, function (response) {

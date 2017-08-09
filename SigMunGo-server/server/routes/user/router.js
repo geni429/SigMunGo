@@ -1,11 +1,10 @@
 "use strict";
-
-let express = require('express');
-let router = express.Router();
-let manager = require('./manager');
-let AES256 = require('nodejs-aes256');
-let SHA256 = require('sha256');
-let random = require('../../support/random');
+const express = require('express');
+const router = express.Router();
+const manager = require('./manager');
+const AES256 = require('nodejs-aes256');
+const SHA256 = require('sha256');
+const random = require('../../support/random');
 const key = 'this_is_key';
 // let apistore = require('apistore-sms').createClient({
 //     apiKey: 'YOUR_API_KEY',
@@ -19,7 +18,6 @@ router.route('/account/signup').post(function (req, res) {
     let name = req.body.name;
     let password = SHA256(req.body.password);
     let phone = req.body.phone;
-    console.log(id, name, password, phone);
 
     manager.signup(id, password, name, phone, function (response) {
         if (response.success) {
@@ -47,14 +45,13 @@ router.route('/account/certify/demand/:phone').post(function (req, res) {
         res.writeHead(200, {
             'Content-Type': 'application/json'
         });
-        res.write(JSON.stringify(response));
-    }else{
-         res.writeHead(204, {
+        res.send(JSON.stringify(response));
+    } else {
+        res.writeHead(204, {
             'Content-Type': 'application/json'
         });
-        res.write(JSON.stringify(response));
+        res.send(JSON.stringify(response));
     }
-    res.end();
     // // SMS 전송 (단일 수신자)
     // apistore.sendSMS({
     //     from: '01028962001', // 발신자 번호
@@ -162,8 +159,7 @@ router.route('/account/findid').get(function (req, res) {
             });
         }
 
-        res.write(JSON.stringify(response));
-        res.end();
+        res.send(JSON.stringify(response));
     });
 });
 
