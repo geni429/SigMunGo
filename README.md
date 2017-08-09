@@ -1,9 +1,2 @@
-<<<<<<< HEAD
 # SikMunGo
-Here is Server Branch.
-=======
-# SigMunGo
-Here is Android Branch.
-
-## commit시 주의 사항
->>>>>>> 79240171789d1461c2c455cfeaa2fdb6d676c264
+고객의 불만사항을 받아 정리한 후에 음식점에 전달해주는 서비스입니다.
