@@ -1,6 +1,5 @@
 let mysql = require('mysql');
 
-
 let conn = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -8,4 +7,4 @@ let conn = mysql.createConnection({
     database: "sigmungo"
 });
 
-module.exports = conn;  
+module.exports = conn;
