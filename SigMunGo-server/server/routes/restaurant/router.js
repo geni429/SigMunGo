@@ -1,8 +1,8 @@
 "use strict";
-let express = require('express');
-let router = express.Router();
-let manager = require('./manager');
-let random = require('../../support/random');
+const express = require('express');
+const router = express.Router();
+const manager = require('./manager');
+const random = require('../../support/random');
 
 //좋아요 +1
 router.route('/restaurant/sympathy/:contentId').post(function (req, res) {
@@ -35,8 +35,7 @@ router.route('/restaurant/mostofsympathy').get(function (req, res) {
                 'Content-Type': 'application/json'
             });
         }
-        res.write(JSON.stringify(response));
-        res.end();
+        res.send(JSON.stringify(response));
     });
 });
 
@@ -52,8 +51,7 @@ router.route('/restaurant/base').get(function (req, res) {
                 'Content-Type': 'application/json'
             });
         }
-        res.write(JSON.stringify(response));
-        res.end();
+        res.send(JSON.stringify(response));
     });
 });
 
@@ -97,8 +95,7 @@ router.route('/restaurant').get(function (req, res) {
                 'Content-Type': 'application/json'
             });
         }
-        res.write(JSON.stringify(response));
-        res.end();
+        res.send(JSON.stringify(response));
     });
 });
 
@@ -116,8 +113,7 @@ router.route('/restaurant/detail/:contentId').get(function (req, res) {
                 'Content-Type': 'application/json'
             });
         }
-        res.write(JSON.stringify(response));
-        res.end();
+        res.send(JSON.stringify(response));
     });
 });
 
@@ -190,8 +186,7 @@ router.route('/restaurant/menu/:contentid').get(function (req, res) {
                 'Content-Type': 'application/json'
             });
         }
-        res.write(JSON.stringify(response));
-        res.end();
+        res.send(JSON.stringify(response));
     });
 });
 
