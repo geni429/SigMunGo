@@ -37,11 +37,11 @@
         <activity
             android:name="com.myoungchi.android.sigmungo.Splash"
             android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name="com.myoungchi.android.sigmungo.Landing"
@@ -80,6 +80,15 @@
         <activity
             android:name="com.myoungchi.android.sigmungo.MyPage"
             android:theme="@style/ToolbarTheme"/>
+        <activity
+            android:name="com.myoungchi.android.sigmungo.WriteComplain"
+            android:theme="@style/ToolbarTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

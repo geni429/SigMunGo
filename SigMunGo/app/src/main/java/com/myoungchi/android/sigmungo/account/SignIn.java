@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.CookieManager;
 
 import io.realm.Realm;
 import retrofit2.Call;

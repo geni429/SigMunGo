@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.myoungchi.android.sigmungo.Items.ValueObject;
+import com.myoungchi.android.sigmungo.account.SignIn;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -21,27 +22,26 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstance){
         super.onCreate(savedInstance);
-//        Realm적용중 이슈발생, 수정필요
-//        mRealm.init(getApplicationContext());
-//        mRealm = Realm.getDefaultInstance();
-//        mRealm.beginTransaction();
-//        ValueObject vo = mRealm.createObject(ValueObject.class);
-//        mRealm.commitTransaction();
-//        Log.d("getVo", getVo().size()+"");
-//        if(getVo().size() == 1){
-//            Initializing(mRealm, vo);
-//        }
-//
-//        if(!getVo().get(0).isFirst() && getVo().get(0).isLogin()){
-//            Log.d("realm on", mRealm.where(ValueObject.class).findFirst().toString());
-//            startActivity(new Intent(getApplicationContext(), Main.class));
-//        } else if(!getVo().get(0).isFirst() && !getVo().get(0).isLogin()){
-//            Log.d("realm login", mRealm.where(ValueObject.class).findFirst().toString());
-//            startActivity(new Intent(getApplicationContext(), SignIn.class));
-//        } else {
-//            updateFirst(mRealm, vo);
-//            startActivity(new Intent(getApplicationContext(), Landing.class));
-//        }
+        mRealm.init(getApplicationContext());
+        mRealm = Realm.getDefaultInstance();
+        mRealm.beginTransaction();
+        ValueObject vo = mRealm.createObject(ValueObject.class);
+        mRealm.commitTransaction();
+        Log.d("getVo", getVo().size()+"");
+        if(getVo().size() == 1){
+            Initializing(mRealm, vo);
+        }
+
+        if(!getVo().get(0).isFirst() && getVo().get(0).isLogin()){
+            Log.d("realm on", mRealm.where(ValueObject.class).findFirst().toString());
+            startActivity(new Intent(getApplicationContext(), Main.class));
+        } else if(!getVo().get(0).isFirst() && !getVo().get(0).isLogin()){
+            Log.d("realm login", mRealm.where(ValueObject.class).findFirst().toString());
+            startActivity(new Intent(getApplicationContext(), SignIn.class));
+        } else {
+            updateFirst(mRealm, vo);
+            startActivity(new Intent(getApplicationContext(), Landing.class));
+        }
         try {
             Thread.sleep(1000);
             startActivity(new Intent(getApplicationContext(), Landing.class));
