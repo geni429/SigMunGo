@@ -2,6 +2,7 @@ package com.myoungchi.android.sigmungo.account;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -41,7 +42,7 @@ public class SignIn extends AppCompatActivity {
     private EditText inputId, inputPw;
     private Button signIn;
     private UserInformation userInformation;
-    private Realm realm;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstance){
@@ -53,9 +54,6 @@ public class SignIn extends AppCompatActivity {
         signIn = (Button) findViewById(R.id.signin);
         apIinterface = APIclient.getClient().create(APIinterface.class);
         userInformation = new UserInformation();
-
-        realm.init(getApplicationContext());
-        realm = Realm.getDefaultInstance();
 
         setSupportActionBar(toolbar);
 
@@ -75,7 +73,9 @@ public class SignIn extends AppCompatActivity {
                 if(response.isSuccessful()){
                     //로그인 성공시 코드
                     userInformation.setUserId(inputId.getText().toString());
-//                    autoSignIn(realm); (이슈발생)
+                    sharedPreferences = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
+                    sharedPreferences.edit().putBoolean("isSignIn", true).apply();
+                    Log.d("change isSignIn", sharedPreferences.getBoolean("isSignIn", true)+"");
                     startActivity(new Intent(getApplicationContext(), Main.class));
                     finish();
                 } else {
@@ -122,15 +122,5 @@ public class SignIn extends AppCompatActivity {
     public void onBackBtnClicked(View v){
         startActivity(new Intent(getApplicationContext(), Landing.class));
         finish();
-    }
-
-    //자동로그인 기능 (이슈있음)
-    private void autoSignIn(Realm realm){
-        realm.beginTransaction();
-        ValueObject vo = realm.createObject(ValueObject.class);
-        userInformation = new UserInformation();
-        vo.setLogin(true);
-        vo.setId(inputId.getText().toString());
-        realm.commitTransaction();
     }
 }
