@@ -5,7 +5,7 @@ var Promise = require('promise');
 let manager = {};
 
 //좋아요 +1
-manager.addSympathy = function (contentId, id, callback) {
+manager.addSympathy = (contentId, id, callback) => {
     let response = {
         success: false
     }
@@ -18,7 +18,7 @@ manager.addSympathy = function (contentId, id, callback) {
 }
 
 //좋아요 높은 5개 음식점 
-manager.getMostOfRestaurant = function (callback) {
+manager.getMostOfRestaurant = (callback) => {
     let response = {
         0: {
             img: null,
@@ -68,7 +68,7 @@ manager.getMostOfRestaurant = function (callback) {
 }
 
 //앱 시작할 때, contentid, name
-manager.getContentId = function (callback) {
+manager.getContentId = (callback) => {
     let response = {
         contentId: [],
         name: []
@@ -87,7 +87,7 @@ manager.getContentId = function (callback) {
 }
 
 //contentid 중복 체크
-manager.checkId = function (contentId) {
+manager.checkId = (contentId) => {
     conn.query('select * from restaurant where contentid=?;', contentId, function (err, rows) {
         if (rows.length == 1) return true;
         else if (rows.length == 0) return false;
@@ -108,7 +108,7 @@ manager.addRestaurant = function (contentId, name, place, phone, img, callback) 
 }
 
 //음식점 디테일 정보
-manager.getDetailRestaurant = function (contentId, callback) {
+manager.getDetailRestaurant = (contentId, callback) => {
     let response = {
         name: null,
         place: null,
@@ -145,12 +145,12 @@ manager.getDetailRestaurant = function (contentId, callback) {
 }
 
 //음식점 정보 업데이트
-manager.updateRestaurant = function (contentId, name, place, phone, menu, callback) {
+manager.updateRestaurant = (contentId, name, place, phone, menu, callback) => {
 
 }
 
 //음식점 정보 삭제
-manager.deleteRestaurant = function (contentId, callback) {
+manager.deleteRestaurant = (contentId, callback) => {
     let response = {
         success: false
     };
@@ -164,7 +164,7 @@ manager.deleteRestaurant = function (contentId, callback) {
 }
 
 //음식점 대략 정보
-manager.getRestaurant = function (callback) {
+manager.getRestaurant = (callback) => {
     let response = {
         restaurant: []
     };
@@ -195,7 +195,7 @@ manager.getRestaurant = function (callback) {
 }
 
 //음식점 메뉴 추가
-manager.addMenu = function (contentId, menu, callback) {
+manager.addMenu = (contentId, menu, callback) => {
     let response = {
         success: false
     };
@@ -208,7 +208,7 @@ manager.addMenu = function (contentId, menu, callback) {
 }
 
 //음식점 메뉴 요청
-manager.getMenu = function (contentId, callback) {
+manager.getMenu = (contentId, callback) => {
     let response = {
         menu: []
     };
@@ -226,7 +226,7 @@ manager.getMenu = function (contentId, callback) {
 }
 
 //음식점 메뉴 삭제
-manager.deleteMenu = function (contentId, menu) {
+manager.deleteMenu = (contentId, menu) => {
     let response = {
         success: false
     };
@@ -239,27 +239,80 @@ manager.deleteMenu = function (contentId, menu) {
 }
 
 //불만 작성
-manager.addPost = function () {
-
+manager.addPost = (contentId, post, callback) => {
+    let signupPromise = (post) => {
+        return new Promise(function (resolve, reject) {
+            let stateCode;
+            conn.query('insert into post values (?,?);', [contentId, post], function (err, result) {
+                if (err) stateCode = 400;
+                else if (result.affectedRows) stateCode = 200;
+                resolve(stateCode);
+            });
+        });
+    }
+    signupPromise.then(function (stateCode) {
+        callback(stateCode);
+    })
 }
 
 //불만 개수
-manager.getCountOfPost = function (contentId, callback) {
+manager.getCountOfPost = (contentId, callback) => {
+    let count = 0;
+    let getCountOfPost = (contentId) => {
+        return new Promise(function (resolve, reject) {
+            conn.query('select count(*) count from post where contentid=?;', [contentId], function (err, rows) {
+                if (err) stateCode = 500;
+                else if (rows.length == 1) {
+                    stateCode = 201;
+                    count = rows[0].count;
+                } else stateCode = 204;
+                resolve(stateCode, count);
+            });
+        });
+    }
 
+    getCountOfPost.then(function (stateCode, count) {
+        callback(stateCode, count);
+    });
 }
 
 //불만 수정
-manager.updatePost = function (callback) {
+manager.updatePost = (callback) => {
 
 }
 
 //불만 삭제
-manager.deletePost = function (contentId, callback) {
+manager.deletePost = (contentId, callback) => {
+
+}
+
+manager.getRestaurantImg = (contentid, callback) => {
+    let images = [];
+
+    let getImages = (contentId) => {
+        return new Promise(function (resolve, reject) {
+            conn.query('select * from restaurant where contentid=?;', [contentId], function (err, rows) {
+                if (err) stateCode = 500;
+                else if (rows.length >= 1) stateCode = 201;
+                else stateCode = 204;
+                resolve(stateCode, rows);
+            });
+        });
+    }
+
+    getImages.then(function (stateCode, rows) {
+        return new Promise(function (resolve, reject) {
+            if (rows >= 1) for(let i=0; i<rows.length;i++) images.push(rows[i]);
+            resolve(stateCode, images);
+        });
+    }).then(function (stateCode, images) {
+        callback(stateCode, images);
+    });
 
 }
 
 //음식점 검색
-manager.restaurantSearch = function (search_word, callback) {
+manager.restaurantSearch = (search_word, callback) => {
     let response = {
         restaurant: []
     };

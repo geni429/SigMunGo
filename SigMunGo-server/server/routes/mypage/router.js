@@ -14,7 +14,6 @@ router.route('/userinfo/:id').get(function (req, res) {
         res.write(JSON.stringify(response));
         res.end();
     });
-
 });
 
 //불만 단 음식점

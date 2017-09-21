@@ -1,106 +1,133 @@
 "use strict";
 let conn = require('../../DBConnection');
 let AES256 = require('nodejs-aes256');
+let Promise = require('promise');
 const key = 'this_is_key';
 
 let manager = {}
 
 //회원가입
-manager.signup = function (id, password, name, phone, callback) {
-    let response = {
-        success: false
-    };
-
-    conn.query('insert into account (id, password, name, phone) values(?,?,?,?);', [id, password, name, phone], function (err, result) {
-        if (err) response.error = true;
-        else if (result.affectedRows) response.success = true;
-
-        callback(response);
-    });
+manager.signup = (id, password, name, phone, callback) => {
+    let signupPromise = (id, password, name, phone) => {
+        return new Promise(function (resolve, reject) {
+            let stateCode;
+            conn.query('insert into account (id, password, name, phone) values(?,?,?,?);', [id, password, name, phone], function (err, result) {
+                if (err) stateCode = 400;
+                else if (result.affectedRows) stateCode = 200;
+                resolve(stateCode);
+            });
+        });
+    }
+    signupPromise.then(function (stateCode) {
+        callback(stateCode);
+    })
 }
 
 //로그인
-manager.signin = function (id, password, callback) {
-    let response = {
-        success: false
-    };
+manager.signin = (id, password, callback) => {
     let message = {};
 
-    conn.query('select * from account where id=?', id, function (err, rows) {
-        console.log(rows);
-        if (err) {
-            response.error = true;
-            callback(response, message);
-        } else if (rows.length == 1) {
-            conn.query('select * from account where id=? and password=?;', [id, password], function (err, rows1) {
-                if (err) {
-                    callback(response, message);
-                } else if (rows1.length == 1) {
-                    response.success = true;
-                    callback(response, message);
-                } else if (rows1.length == 0) {
-                    message.message = 'wrongPassword';
-                    callback(response, message);
-                }
+    let loginPromise = () => {
+        return new Promise(function (resolve, reject) {
+            conn.query('select * from account where id=?', id, function (err, rows) {
+                let stateCode;
+                if (err) stateCode = 500;
+                else if (rows.length == 1) resolve(stateCode, reject);
+                stateCode = 400;
+                message.message = 'nonexistentId';
+                callback(message, stateCode);
             });
-        } else {
-            message.message = 'nonexistentId';
-            callback(response, message);
-        }
-    });
+        });
+    }
+
+    loginPromise.then(function (message, stateCode) {
+        conn.query('select * from account where id=? and password=?;', [id, password], function (err, rows1) {
+            if (err) stateCode = 500;
+            else if (rows1.length == 1) stateCode = 201;
+            else if (rows1.length == 0) {
+                stateCode = 400;
+                message.message = 'wrongPassword';
+            }
+            callback(stateCode, message);
+        });
+    })
 }
 
 //아이디 중복 체크
-manager.idCheck = function (id, callback) {
-    let response = {
-        overlap: false
-    };
-    conn.query('select * from account where id=?', id, function (err, rows) {
-        if (err) response.error = true;
-        else if (rows.length == 1) response.overlap = true;
+manager.idCheck = (id, callback) => {
+    let idCheck = () => {
+        return new Promise(function (resolve, reject) {
+            let stateCode;
+            conn.query('select * from account where id=?', id, function (err, rows) {
+                if (err) stateCode = 500;
+                else if (rows.length == 1) stateCode = 200;
+                else if (rows.length == 0) stateCode = 204;
+                resolve(stateCode);
+            });
+        });
+    }
 
-        callback(response);
+    idCheck.then(function (stateCode) {
+        callback(stateCode);
     });
 }
 
 //전화번호 중복 체크
-manager.phonecheck = function (phone, callback) {
-    let response = {
-        overlap: false
-    };
-    conn.query('select * from account where phone=?', phone, function (err, rows) {
-        if (err) response.error = true;
-        else if (rows.length == 1) response.overlap = true;
+manager.phonecheck = (phone, callback) => {
+    let poneCheck = () => {
+        return new Promise(function (resolve, reject) {
+            let stateCode;
+            conn.query('select * from account where phone=?', phone, function (err, rows) {
+                if (err) stateCode = 500;
+                else if (rows.length == 1) stateCode = 200;
+                else if (rows.length == 0) stateCode = 204;
+                resolve(stateCode);
+            });
+        });
+    }
 
-        callback(response);
+    phoneCheck.then(function (stateCode) {
+        callback(stateCode);
     });
 }
 
 //비밀번호 변경
-manager.updatePassword = function (id, callback) {
-    let response = {
-        success: false
-    };
-
-    conn.query('update account set password=? where id=?;', [id, password], function (err, result) {
-        if (err) response.error = true;
-        else if (reslt.affectedRows) response.success = true;
-
-        callback(response);
+manager.updatePassword = (id, callback) => {
+    let modifyPassword = () => {
+        return new Promise(function (resolve, reject) {
+            let stateCode;
+            conn.query('update account set password=? where id=?;', [id, password], function (err, result) {
+                if (err) stateCode = 500;
+                else if (reslt.affectedRows) stateCode = 201;
+                else stateCode = 204;
+                resolve(stateCode);
+            });
+        });
+    }
+    modifyPassword.then(function (stateCode) {
+        callback(stateCode);
     });
 }
 
 //아이디 찾기
-manager.getId = function (name, phone, callback) {
-    let response = {
-        id: null
-    };
+manager.getId = (name, phone, callback) => {
+    let id = null;
 
-    conn.query('select id from account where name=? and phone=?;', [name, phone], function (err, rows) {
-        if (err) response.error = true;
-        else if (rows.length == 1) response.id = rows[0].id;
+    let findId = () => {
+        return new Promise(function (resolve, reject) {
+            conn.query('select id from account where name=? and phone=?;', [name, phone], function (err, rows) {
+                if (err) stateCode = 500;
+                else if (rows.length == 1) {
+                    stateCode = 201;
+                    id = rows[0].id;
+                } else stateCode = 204;
+                resolve(stateCode, id);
+            });
+        });
+    }
 
-        callback(response);
+    findId.then(function (stateCode, id) {
+        callback(stateCode, id);
     });
 }
 

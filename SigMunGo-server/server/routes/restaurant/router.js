@@ -216,17 +216,46 @@ router.route('/restaurant/menu/:contentid').delete(function (req, res) {
 
 //불만 작성
 router.route('/restaurant/post/:contentId').post(function (req, res) {
+    let post = req.body.post;
+    let contentId=req.params.contentId;
 
+    manager.signup(contentId, post, function (stateCode) {
+        res.writeHead(stateCode, {
+            'Content-Type': 'application/json'
+        });
+        res.end();
+    });
 });
 
 //불만 개수 
 router.route('/restaurant/post/:contentId').get(function (req, res) {
+    let contentId=req.params.contentId;
 
+    manager.signup(contentId, function (stateCode, count) {
+        res.writeHead(stateCode, {
+            'Content-Type': 'application/json'
+        }); 
+        res.write(count);
+        res.end();
+    });
+});
+
+//음식점 이미지 가져오기 
+router.route('/restaurant/images/:contentId').get(function (req, res) {
+    let contentId=req.params.contentId;
+
+    manager.signup(contentId, function (stateCode, images) {
+        res.writeHead(stateCode, {
+            'Content-Type': 'application/json'
+        });
+        if(!!images) res.write(images);
+        res.end();
+    });
 });
 
 //불만 수정
 router.route('/restaurant/post/:contentId').put(function (req, res) {
-
+    
 });
 
 //불만 삭제

@@ -15,22 +15,17 @@ let certifyString;
 
 //회원가입
 router.route('/account/signup').post(function (req, res) {
+    console.log(req.body.name);
     let id = req.body.id;
     let name = req.body.name;
     let password = SHA256(req.body.password);
     let phone = req.body.phone;
     console.log(id, name, password, phone);
 
-    manager.signup(id, password, name, phone, function (response) {
-        if (response.success) {
-            res.writeHead(201, {
-                'Content-Type': 'application/json'
-            });
-        } else {
-            res.writeHead(400, {
-                'Content-Type': 'application/json'
-            });
-        }
+    manager.signup(id, password, name, phone, function (stateCode) {
+        res.writeHead(stateCode, {
+            'Content-Type': 'application/json'
+        });
         res.end();
     });
 });
@@ -49,8 +44,8 @@ router.route('/account/certify/demand/:phone').post(function (req, res) {
             'Content-Type': 'application/json'
         });
         res.write(JSON.stringify(response));
-    }else{
-         res.writeHead(204, {
+    } else {
+        res.writeHead(204, {
             'Content-Type': 'application/json'
         });
         res.write(JSON.stringify(response));
@@ -79,20 +74,11 @@ router.route('/account/signin').post(function (req, res) {
     let id = req.body.id;
     let password = SHA256(req.body.password);
 
-    manager.signin(id, password, function (response, message) {
-        if (response.success) {
-            res.writeHead(201, {
-                'Content-Type': 'application/json'
-            });
-        } else {
-            res.writeHead(400, {
-                'Content-Type': 'application/json'
-            });
-        }
-        if (!!message.message) {
-            res.write(JSON.stringify(message));
-            res.end();
-        }
+    manager.signin(id, password, function (stateCode, message) {
+        res.writeHead(stateCode, {
+            'Content-Type': 'application/json'
+        });
+        if (!!message.message) res.write(JSON.stringify(message));
         res.end();
 
     });
@@ -101,17 +87,10 @@ router.route('/account/signin').post(function (req, res) {
 //아이디 중복 체크
 router.route('/account/idcheck').post(function (req, res) {
     let id = req.body.id;
-    manager.idCheck(id, function (response) {
-        console.log(response);
-        if (response.overlap) {
-            res.writeHead(200, {
-                'Content-Type': 'application/json'
-            });
-        } else {
-            res.writeHead(204, {
-                'Content-Type': 'application/json'
-            });
-        }
+    manager.idCheck(id, function (stateCode) {
+        res.writeHead(stateCode, {
+            'Content-Type': 'application/json'
+        });
         res.end();
     });
 });
@@ -120,16 +99,10 @@ router.route('/account/idcheck').post(function (req, res) {
 router.route('/account/phonecheck').post(function (req, res) {
     let phone = req.body.phone;
 
-    manager.phonecheck(phone, function (response) {
-        if (response.overlap) {
-            res.writeHead(200, {
-                'Content-Type': 'application/json'
-            });
-        } else {
-            res.writeHead(204, {
-                'Content-Type': 'application/json'
-            });
-        }
+    manager.phonecheck(phone, function (stateCode) {
+        res.writeHead(stateCode, {
+            'Content-Type': 'application/json'
+        });
         res.end();
     });
 });
@@ -139,18 +112,11 @@ router.route('/account/findid').get(function (req, res) {
     let name = req.body.name;
     let phone = req.body.phone;
 
-    manager.getId(name, phone, function (response) {
-        if (!!response.id) {
-            res.writeHead(200, {
-                'Content-Type': 'application/json'
-            });
-        } else {
-            res.writeHead(204, {
-                'Content-Type': 'application/json'
-            });
-        }
-
-        res.write(JSON.stringify(response));
+    manager.getId(name, phone, function (stateCode, id) {
+        res.writeHead(stateCode, {
+            'Content-Type': 'application/json'
+        });
+        if (!!id) res.write(id);
         res.end();
     });
 });
@@ -160,16 +126,10 @@ router.route('/account/findpassword').put(function (req, res) {
     let id = req.params.id;
     let password = SHA256(req.body.password);
 
-    manager.updatePassword(id, password, function (response) {
-        if (response.success) {
-            res.writeHead(201, {
-                'Content-Type': 'application/json'
-            });
-        } else {
-            res.writeHead(204, {
-                'Content-Type': 'application/json'
-            });
-        }
+    manager.updatePassword(id, password, function (stateCode) {
+        res.writeHead(stateCode, {
+            'Content-Type': 'application/json'
+        });
         res.end();
     });
 });
