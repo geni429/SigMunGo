@@ -1,11 +1,13 @@
 package com.myoungchi.android.sigmungo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 import com.myoungchi.android.sigmungo.adapter.WCFirstAdapter;
@@ -77,5 +79,11 @@ public class WriteComplain extends AppCompatActivity {
 
         firstKeyword.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         firstKeyword.setAdapter(wcFirstAdapter);
+    }
+
+    //툴바에서 back버튼을 클릭할시에 랜딩으로 돌아가는 코드
+    public void onBackBtnClicked(View v){
+        startActivity(new Intent(getApplicationContext(), RestaurantDetail.class));
+        finish();
     }
 }

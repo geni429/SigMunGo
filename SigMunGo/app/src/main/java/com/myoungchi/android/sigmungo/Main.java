@@ -45,6 +45,11 @@ public class Main extends AppCompatActivity {
     private List<MainItems> restaurantsInfo = new ArrayList<>();
     private UserInformation userInformation;
     private ViewPager pager;
+    private String[] testerRestaurant1 = {
+            "더 테라스",     //음식점명
+            "경기도 안양시 만안구 안양예술공원로 103번길 김중업 박물관 3층",     //음식점 위치
+            "031-689-4540"
+    };
 
     private TextView sympathyCount, writingCount, userName, userId;
 
@@ -99,7 +104,12 @@ public class Main extends AppCompatActivity {
 
         PagerThread thread = new PagerThread();
         thread.start();
-        getRestaurantInfo();
+
+        initData(0, testerRestaurant1[0], testerRestaurant1[1], "0", "0");
+        recyclerView.setAdapter(new MainRecyclerAdapter(restaurantsInfo, getApplicationContext()));
+        recyclerView.setLayoutManager(new MainGridLayoutManager(getApplicationContext(), 2, true));
+//        getRestaurantInfo();
+
     }
 
     //위치설정 액티비티로 넘어갈때 실행되는 코드
@@ -108,10 +118,8 @@ public class Main extends AppCompatActivity {
     }
 
     //음식점정보를 넣어줄때 호출되는 메소드
-    public void initData(int index, String contentid, String img, String name, String place, String sympathy, String improved){
+    public void initData(int index, String name, String place, String sympathy, String improved){
         MainItems items = new MainItems();
-        items.setContentID(contentid);
-        items.setRestaurantImage(img);
         items.setRestaurantName(name);
         items.setRestuarantLocation(place);
         items.setSympathyCount(sympathy);
@@ -136,40 +144,41 @@ public class Main extends AppCompatActivity {
                 break;
             case R.id.simplewrite_btn:
                 Log.d("simplewrite_btn", "clicked");
+                startActivity(new Intent(getApplicationContext(), WriteComplain.class));
                 break;
         }
     }
 
     //음식점 정보를 통신을 통해서 불러오는 메소드
-    public void getRestaurantInfo(){
-        apIinterface.getRestaurantInfo().enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonParser parser = new JsonParser();
-                JsonObject jsonObject = parser.parse(response.body().toString()).getAsJsonObject();
-                JsonArray restaurants = jsonObject.get("restaurant").getAsJsonArray();
-                Log.d("JsonArray Size", restaurants.size()+"");
-                for(int i = 0; i < restaurants.size(); i++){
-                    JsonObject info = restaurants.get(i).getAsJsonObject();
-                    initData(i,
-                            info.get("contentid").getAsString(),
-                            info.get("img").getAsString(),
-                            info.get("name").getAsString(),
-                            info.get("place").getAsString(),
-                            info.get("sympathy").getAsString(),
-                            info.get("improved").getAsString());
-                }
-                recyclerView.setAdapter(new MainRecyclerAdapter(restaurantsInfo, getApplicationContext()));
-                recyclerView.setLayoutManager(new MainGridLayoutManager(getApplicationContext(), 2, true));
-                getUserInfo();
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.d("Main GET", "onFailure");
-            }
-        });
-    }
+//    public void getRestaurantInfo(){
+//        apIinterface.getRestaurantInfo().enqueue(new Callback<JsonObject>() {
+//            @Override
+//            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+//                JsonParser parser = new JsonParser();
+//                JsonObject jsonObject = parser.parse(response.body().toString()).getAsJsonObject();
+//                JsonArray restaurants = jsonObject.get("restaurant").getAsJsonArray();
+//                Log.d("JsonArray Size", restaurants.size()+"");
+//                for(int i = 0; i < restaurants.size(); i++){
+//                    JsonObject info = restaurants.get(i).getAsJsonObject();
+//                    initData(i,
+//                            info.get("contentid").getAsString(),
+//                            info.get("img").getAsString(),
+//                            info.get("name").getAsString(),
+//                            info.get("place").getAsString(),
+//                            info.get("sympathy").getAsString(),
+//                            info.get("improved").getAsString());
+//                }
+//                recyclerView.setAdapter(new MainRecyclerAdapter(restaurantsInfo, getApplicationContext()));
+//                recyclerView.setLayoutManager(new MainGridLayoutManager(getApplicationContext(), 2, true));
+//                getUserInfo();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<JsonObject> call, Throwable t) {
+//                Log.d("Main GET", "onFailure");
+//            }
+//        });
+//    }
 
     //user정보를 불러오는 코드 (Realm사용 예정)
     public void getUserInfo(){

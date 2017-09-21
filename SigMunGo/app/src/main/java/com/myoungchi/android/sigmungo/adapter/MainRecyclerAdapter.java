@@ -44,13 +44,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         MainItems items = mDataset.get(position);
-        if(items.getRestaurantImage() != null){
-            Glide.with(mContext)
-                    .load(items.getRestaurantImage())
-                    .error(R.drawable.img_load_fail)
-                    .centerCrop()
-                    .into(holder.restaurantImg);
-        }
+        Glide.with(mContext).load(R.drawable.the_terrace_photo1).centerCrop().into(holder.restaurantImg);
         holder.restaurantName.setText(items.getRestaurantName());
         holder.restaurantLocation.setText(items.getRestuarantLocation());
         holder.sympathyCount.setText(items.getSympathyCount()+"");

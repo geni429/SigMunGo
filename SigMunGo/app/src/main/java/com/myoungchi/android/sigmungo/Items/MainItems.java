@@ -12,28 +12,12 @@ public class MainItems {
     private String sympathyCount;
     private String improved;
 
-    public String getContentID() {
-        return contentID;
-    }
-
-    public void setContentID(String contentID) {
-        this.contentID = contentID;
-    }
-
     public String getSympathyCount() {
         return sympathyCount;
     }
 
     public void setSympathyCount(String sympathyCount) {
         this.sympathyCount = sympathyCount;
-    }
-
-    public String getRestaurantImage() {
-        return restaurantImage;
-    }
-
-    public void setRestaurantImage(String restaurantImage) {
-        this.restaurantImage = restaurantImage;
     }
 
     public String getRestaurantName() {
