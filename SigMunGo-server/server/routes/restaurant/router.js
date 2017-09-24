@@ -219,7 +219,7 @@ router.route('/restaurant/post/:contentId').post(function (req, res) {
     let post = req.body.post;
     let contentId=req.params.contentId;
 
-    manager.signup(contentId, post, function (stateCode) {
+    manager.addPost(contentId, post, function (stateCode) {
         res.writeHead(stateCode, {
             'Content-Type': 'application/json'
         });
@@ -244,7 +244,7 @@ router.route('/restaurant/post/:contentId').get(function (req, res) {
 router.route('/restaurant/images/:contentId').get(function (req, res) {
     let contentId=req.params.contentId;
 
-    manager.signup(contentId, function (stateCode, images) {
+    manager.getRestaurantImg(contentId, function (stateCode, images) {
         res.writeHead(stateCode, {
             'Content-Type': 'application/json'
         });

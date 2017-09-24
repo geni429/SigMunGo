@@ -8,7 +8,7 @@ let manager = {}
 
 //회원가입
 manager.signup = (id, password, name, phone, callback) => {
-    let signupPromise = (id, password, name, phone) => {
+    let signupLogic = (id, password, name, phone) => {
         return new Promise(function (resolve, reject) {
             let stateCode;
             conn.query('insert into account (id, password, name, phone) values(?,?,?,?);', [id, password, name, phone], function (err, result) {
@@ -18,6 +18,7 @@ manager.signup = (id, password, name, phone, callback) => {
             });
         });
     }
+    let signupPromise = signupLogic(id, password, name, phone);
     signupPromise.then(function (stateCode) {
         callback(stateCode);
     })
@@ -27,20 +28,23 @@ manager.signup = (id, password, name, phone, callback) => {
 manager.signin = (id, password, callback) => {
     let message = {};
 
-    let loginPromise = () => {
+    let loginLogic = () => {
         return new Promise(function (resolve, reject) {
             conn.query('select * from account where id=?', id, function (err, rows) {
                 let stateCode;
                 if (err) stateCode = 500;
-                else if (rows.length == 1) resolve(stateCode, reject);
-                stateCode = 400;
-                message.message = 'nonexistentId';
-                callback(message, stateCode);
+                else if (rows.length == 1) resolve(message, stateCode);
+                else {
+                    stateCode = 400;
+                    message.message = 'nonexistentId';
+                    callback(stateCode, message);
+                }
             });
         });
     }
-
+    let loginPromise = loginLogic();
     loginPromise.then(function (message, stateCode) {
+        console.log(id, password);
         conn.query('select * from account where id=? and password=?;', [id, password], function (err, rows1) {
             if (err) stateCode = 500;
             else if (rows1.length == 1) stateCode = 201;
@@ -55,7 +59,7 @@ manager.signin = (id, password, callback) => {
 
 //아이디 중복 체크
 manager.idCheck = (id, callback) => {
-    let idCheck = () => {
+    let idCheckLogic = () => {
         return new Promise(function (resolve, reject) {
             let stateCode;
             conn.query('select * from account where id=?', id, function (err, rows) {
@@ -66,7 +70,7 @@ manager.idCheck = (id, callback) => {
             });
         });
     }
-
+    let idCheck = idCheckLogic();
     idCheck.then(function (stateCode) {
         callback(stateCode);
     });
@@ -74,7 +78,7 @@ manager.idCheck = (id, callback) => {
 
 //전화번호 중복 체크
 manager.phonecheck = (phone, callback) => {
-    let poneCheck = () => {
+    let phoneCheckLogic = () => {
         return new Promise(function (resolve, reject) {
             let stateCode;
             conn.query('select * from account where phone=?', phone, function (err, rows) {
@@ -85,7 +89,7 @@ manager.phonecheck = (phone, callback) => {
             });
         });
     }
-
+    let phoneCheck = phoneCheckLogic();
     phoneCheck.then(function (stateCode) {
         callback(stateCode);
     });
@@ -93,7 +97,7 @@ manager.phonecheck = (phone, callback) => {
 
 //비밀번호 변경
 manager.updatePassword = (id, callback) => {
-    let modifyPassword = () => {
+    let modifyPasswordLogic = () => {
         return new Promise(function (resolve, reject) {
             let stateCode;
             conn.query('update account set password=? where id=?;', [id, password], function (err, result) {
@@ -104,6 +108,7 @@ manager.updatePassword = (id, callback) => {
             });
         });
     }
+    let modifyPassword = modifyPasswordLogic();
     modifyPassword.then(function (stateCode) {
         callback(stateCode);
     });
@@ -113,7 +118,7 @@ manager.updatePassword = (id, callback) => {
 manager.getId = (name, phone, callback) => {
     let id = null;
 
-    let findId = () => {
+    let findIdLogic = () => {
         return new Promise(function (resolve, reject) {
             conn.query('select id from account where name=? and phone=?;', [name, phone], function (err, rows) {
                 if (err) stateCode = 500;
@@ -125,7 +130,7 @@ manager.getId = (name, phone, callback) => {
             });
         });
     }
-
+    let findId = findIdLogic();
     findId.then(function (stateCode, id) {
         callback(stateCode, id);
     });

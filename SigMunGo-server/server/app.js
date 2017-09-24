@@ -24,6 +24,8 @@ app.use(expressSession({
     saveUninitialized: true
 }));
 
+app.use('/static', express.static(__dirname + '/public'));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false

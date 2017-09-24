@@ -18,7 +18,7 @@ router.route('/account/signup').post(function (req, res) {
     console.log(req.body.name);
     let id = req.body.id;
     let name = req.body.name;
-    let password = SHA256(req.body.password);
+    let password = req.body.password;
     let phone = req.body.phone;
     console.log(id, name, password, phone);
 
@@ -72,9 +72,10 @@ router.route('/account/certify/verify/:certifyString').post(function (req, res) 
 //로그인
 router.route('/account/signin').post(function (req, res) {
     let id = req.body.id;
-    let password = SHA256(req.body.password);
+    let password = req.body.password;
 
     manager.signin(id, password, function (stateCode, message) {
+        console.log(stateCode);
         res.writeHead(stateCode, {
             'Content-Type': 'application/json'
         });
@@ -124,7 +125,7 @@ router.route('/account/findid').get(function (req, res) {
 //비밀번호 변경
 router.route('/account/findpassword').put(function (req, res) {
     let id = req.params.id;
-    let password = SHA256(req.body.password);
+    let password = req.body.password;
 
     manager.updatePassword(id, password, function (stateCode) {
         res.writeHead(stateCode, {

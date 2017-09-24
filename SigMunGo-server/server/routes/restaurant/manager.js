@@ -240,7 +240,7 @@ manager.deleteMenu = (contentId, menu) => {
 
 //불만 작성
 manager.addPost = (contentId, post, callback) => {
-    let signupPromise = (post) => {
+    let addPostLogic = (post) => {
         return new Promise(function (resolve, reject) {
             let stateCode;
             conn.query('insert into post values (?,?);', [contentId, post], function (err, result) {
@@ -250,7 +250,9 @@ manager.addPost = (contentId, post, callback) => {
             });
         });
     }
-    signupPromise.then(function (stateCode) {
+
+    let addPostPromise=addPostLogic(post);
+    addPostPromise.then(function (stateCode) {
         callback(stateCode);
     })
 }
@@ -258,7 +260,7 @@ manager.addPost = (contentId, post, callback) => {
 //불만 개수
 manager.getCountOfPost = (contentId, callback) => {
     let count = 0;
-    let getCountOfPost = (contentId) => {
+    let getCountOfPostLogic = (contentId) => {
         return new Promise(function (resolve, reject) {
             conn.query('select count(*) count from post where contentid=?;', [contentId], function (err, rows) {
                 if (err) stateCode = 500;
@@ -270,7 +272,7 @@ manager.getCountOfPost = (contentId, callback) => {
             });
         });
     }
-
+    let getCountOfPost=getCountOfPostLogic(contentId);
     getCountOfPost.then(function (stateCode, count) {
         callback(stateCode, count);
     });
@@ -289,8 +291,9 @@ manager.deletePost = (contentId, callback) => {
 manager.getRestaurantImg = (contentid, callback) => {
     let images = [];
 
-    let getImages = (contentId) => {
+    let getImagesLogic = (contentId) => {
         return new Promise(function (resolve, reject) {
+            let stateCode;
             conn.query('select * from restaurant where contentid=?;', [contentId], function (err, rows) {
                 if (err) stateCode = 500;
                 else if (rows.length >= 1) stateCode = 201;
@@ -300,12 +303,9 @@ manager.getRestaurantImg = (contentid, callback) => {
         });
     }
 
+    let getImages=getImagesLogic();
     getImages.then(function (stateCode, rows) {
-        return new Promise(function (resolve, reject) {
-            if (rows >= 1) for(let i=0; i<rows.length;i++) images.push(rows[i]);
-            resolve(stateCode, images);
-        });
-    }).then(function (stateCode, images) {
+        if (rows >= 1) for(let i=0; i<rows.length;i++) images.push(rows[i]);
         callback(stateCode, images);
     });
 
