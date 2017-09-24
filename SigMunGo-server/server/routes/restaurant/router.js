@@ -217,7 +217,7 @@ router.route('/restaurant/menu/:contentid').delete(function (req, res) {
 //불만 작성
 router.route('/restaurant/post/:contentId').post(function (req, res) {
     let post = req.body.post;
-    let contentId=req.params.contentId;
+    let contentId = req.params.contentId;
 
     manager.addPost(contentId, post, function (stateCode) {
         res.writeHead(stateCode, {
@@ -229,12 +229,12 @@ router.route('/restaurant/post/:contentId').post(function (req, res) {
 
 //불만 개수 
 router.route('/restaurant/post/:contentId').get(function (req, res) {
-    let contentId=req.params.contentId;
+    let contentId = req.params.contentId;
 
     manager.signup(contentId, function (stateCode, count) {
         res.writeHead(stateCode, {
             'Content-Type': 'application/json'
-        }); 
+        });
         res.write(count);
         res.end();
     });
@@ -242,20 +242,52 @@ router.route('/restaurant/post/:contentId').get(function (req, res) {
 
 //음식점 이미지 가져오기 
 router.route('/restaurant/images/:contentId').get(function (req, res) {
-    let contentId=req.params.contentId;
+    let contentId = req.params.contentId;
 
     manager.getRestaurantImg(contentId, function (stateCode, images) {
         res.writeHead(stateCode, {
             'Content-Type': 'application/json'
         });
-        if(!!images) res.write(images);
+        if (!!images) res.write(images);
         res.end();
     });
 });
 
+router.route('/restaurant/detail/images/:contentId').get(function (req, res) {
+    let contentId = req.params.contentId;
+
+    manager.getRestaurantDetailImg(contentId, function (stateCode, images) {
+        res.writeHead(stateCode, {
+            'Content-Type': 'application/json'
+        });
+        if (!!images) res.write(images);
+        res.end();
+    });
+});
+
+router.route('/upload/:image').get(function (req, res) {
+    let image = req.params.image;
+
+    fs.readFile(image, function (err, data) {
+        if (err) throw err;
+        res.write(data);
+        res.send();
+    });
+});
+
+router.route('/save/:image').post(function(req, res){
+    let image = req.params.image;
+
+    let stateCode;
+    fs.writeFile('logo.png', image, 'binary', function(err){
+            if (err) 
+            console.log('File saved.')
+    })
+})
+
 //불만 수정
 router.route('/restaurant/post/:contentId').put(function (req, res) {
-    
+
 });
 
 //불만 삭제
@@ -265,9 +297,9 @@ router.route('/restaurant/post/:contentId').delete(function (req, res) {
 
 //음식점 검색
 router.route('/restaurant/search').get(function (req, res) {
-    let search_word=req.query.searchword;
+    let search_word = req.query.searchword;
 
-    manager.restaurantSearch(search_word,function (response) {
+    manager.restaurantSearch(search_word, function (response) {
         if (!!response.restaurant) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'

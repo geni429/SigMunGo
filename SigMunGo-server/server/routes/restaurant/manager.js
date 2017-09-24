@@ -176,7 +176,6 @@ manager.getRestaurant = (callback) => {
                 conn.query('select * from post where contentid=?', rows[i].contentid, function (err, rows2) {});
                 let restaurant = {
                     contentid: rows[i].contentid,
-                    img: rows[i].img,
                     name: rows[i].name,
                     place: rows[i].place,
                     sympathy: rows[i].good,
@@ -295,6 +294,31 @@ manager.getRestaurantImg = (contentid, callback) => {
         return new Promise(function (resolve, reject) {
             let stateCode;
             conn.query('select * from restaurant where contentid=?;', [contentId], function (err, rows) {
+                if (err) stateCode = 500;
+                else if (rows.length >= 1) {
+                    images.push(rows[0].img);
+                    stateCode = 201;
+                }
+                else stateCode = 204;
+                resolve(stateCode, images);
+            });
+        });
+    }
+
+    let getImages=getImagesLogic();
+    getImages.then(function (stateCode, images) {
+        callback(stateCode, images);
+    });
+
+}
+
+manager.getRestaurantDetailImg = (contentid, callback) => {
+    let images = [];
+
+    let getImagesLogic = (contentId) => {
+        return new Promise(function (resolve, reject) {
+            let stateCode;
+            conn.query('select * from restaurant_img where contentid=?;', [contentId], function (err, rows) {
                 if (err) stateCode = 500;
                 else if (rows.length >= 1) stateCode = 201;
                 else stateCode = 204;
