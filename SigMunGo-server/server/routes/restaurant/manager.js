@@ -301,8 +301,8 @@ manager.deletePost = (contentId, callback) => {
 
 manager.getRestaurantImg = (contentid, callback) => {
     let response={
-        images : null;
-    }
+        images : null
+       }
     let getImagesLogic = (contentId) => {
         return new Promise(function (resolve, reject) {
             let stateCode;
