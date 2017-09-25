@@ -40,7 +40,7 @@ CREATE TABLE `restaurant` (
 
 LOCK TABLES `restaurant` WRITE;
 /*!40000 ALTER TABLE `restaurant` DISABLE KEYS */;
-INSERT INTO `restaurant` VALUES ('2kknKoVXkS','더 테라스','경기도 안양시 만인구 안양예술공원로 103번길 김중업박물관3층','031-689-4540',0,NULL,0);
+INSERT INTO `restaurant` VALUES ('2kknKoVXkS','더 테라스','경기도 안양시 만인구 안양예술공원로 103번길 김중업박물관3층','031-689-4540',0,'TheTerrace (17).jpeg',0),('gJJQqnGxDJ','미락 시골밥상','서울시 노원구 하계동 180-22','02-492-2122',0,'mirak (1).jpeg',0),('qv6BncO1Wm','홍초불닭','경기 남양주시 화도읍 맷돌로 114','031-591-9640',0,'buldarg (2).jpeg',0);
 /*!40000 ALTER TABLE `restaurant` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-25 14:34:05
+-- Dump completed on 2017-09-25 19:47:06
