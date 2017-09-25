@@ -6,10 +6,10 @@ let manager = {};
 
 manager.idcheck = (id) => {
     let stateCode;
-    conn.query('select * from account where id = ? ', id, function(err, result){
-        if(err) stateCode=500;
-        else if(result.affectedRows==1) stateCode = 200;
-        else stateCode=204;
+    conn.query('select * from account where id = ? ', id, function (err, result) {
+        if (err) stateCode = 500;
+        else if (result.affectedRows == 1) stateCode = 200;
+        else stateCode = 204;
         return stateCode;
     });
 }
@@ -263,7 +263,7 @@ manager.addPost = (contentId, post, id, callback) => {
         });
     }
 
-    let addPostPromise=addPostLogic(post);
+    let addPostPromise = addPostLogic(post);
     addPostPromise.then(function (stateCode) {
         callback(stateCode);
     })
@@ -284,7 +284,7 @@ manager.getCountOfPost = (contentId, callback) => {
             });
         });
     }
-    let getCountOfPost=getCountOfPostLogic(contentId);
+    let getCountOfPost = getCountOfPostLogic(contentId);
     getCountOfPost.then(function (stateCode, count) {
         callback(stateCode, count);
     });
@@ -301,49 +301,52 @@ manager.deletePost = (contentId, callback) => {
 }
 
 manager.getRestaurantImg = (contentid, callback) => {
-    let images = [];
-
+    let response={
+        images :[]
+    }
     let getImagesLogic = (contentId) => {
         return new Promise(function (resolve, reject) {
             let stateCode;
             conn.query('select * from restaurant where contentid=?;', [contentId], function (err, rows) {
                 if (err) stateCode = 500;
                 else if (rows.length >= 1) {
-                    images.push(rows[0].img);
+                    response.images.push(rows[0].img);
                     stateCode = 201;
-                }
-                else stateCode = 204;
-                resolve(stateCode, images);
+                } else stateCode = 204;
+                resolve(stateCode);
             });
         });
     }
 
-    let getImages=getImagesLogic();
-    getImages.then(function (stateCode, images) {
-        callback(stateCode, images);
+    let getImages = getImagesLogic();
+    getImages.then(function (stateCode) {
+        callback(stateCode, response);
     });
 
 }
 
-manager.getRestaurantDetailImg = (contentid, callback) => {
-    let images = [];
-
+manager.getRestaurantDetailImg = (contentId, callback) => {
+    let response={
+        images:[]
+    }
     let getImagesLogic = (contentId) => {
         return new Promise(function (resolve, reject) {
             let stateCode;
-            conn.query('select * from restaurant_img where contentid=?;', [contentId], function (err, rows) {
+            conn.query('select * from restaurant_img where contentid=?;', contentId, function (err, rows) {
                 if (err) stateCode = 500;
-                else if (rows.length >= 1) stateCode = 201;
-                else stateCode = 204;
-                resolve(stateCode, rows);
+                else if (rows.length >= 1) {
+                    for (let i = 0; i < rows.length; i++) response.images.push(rows[i].img);
+                    stateCode = 201;
+                } else stateCode = 204;
+                resolve(stateCode);
             });
         });
     }
 
-    let getImages=getImagesLogic();
-    getImages.then(function (stateCode, rows) {
-        if (rows >= 1) for(let i=0; i<rows.length;i++) images.push(rows[i]);
-        callback(stateCode, images);
+    let getImages = getImagesLogic(contentId);
+    getImages.then(function (stateCode) {
+        callback(stateCode, response);
+        
     });
 
 }

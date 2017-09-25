@@ -107,16 +107,16 @@ router.route('/restaurant/detail/:contentId').get(function (req, res) {
     let contentId = req.params.contentId;
 
     manager.getDetailRestaurant(contentId, function (response) {
-        if (asdf) {
+        if (!!response.name) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
             });
         } else {
-            res.writeHead(204, {
+            res.writeHead(500, {
                 'Content-Type': 'application/json'
             });
         }
-        res.write(JSON.stringify(response));
+         if (!!response.name) res.write(JSON.stringify(response));
         res.end();
     });
 });
@@ -252,11 +252,12 @@ router.route('/restaurant/post/:contentId').get(function (req, res) {
 router.route('/restaurant/images/:contentId').get(function (req, res) {
     let contentId = req.params.contentId;
 
-    manager.getRestaurantImg(contentId, function (stateCode, images) {
+    manager.getRestaurantImg(contentId, function (stateCode, response) {
         res.writeHead(stateCode, {
             'Content-Type': 'application/json'
         });
-        if (!!images) res.write(images);
+        
+        if (!!response.images) res.write(JSON.stringify(response));
         res.end();
     });
 });
@@ -264,11 +265,11 @@ router.route('/restaurant/images/:contentId').get(function (req, res) {
 router.route('/restaurant/detail/images/:contentId').get(function (req, res) {
     let contentId = req.params.contentId;
 
-    manager.getRestaurantDetailImg(contentId, function (stateCode, images) {
+    manager.getRestaurantDetailImg(contentId, function (stateCode, response) {
         res.writeHead(stateCode, {
             'Content-Type': 'application/json'
         });
-        if (!!images) res.write(images);
+        if (!!response.images) res.write(JSON.stringify(response));
         res.end();
     });
 });
