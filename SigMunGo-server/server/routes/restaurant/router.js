@@ -277,11 +277,12 @@ router.route('/restaurant/detail/images/:contentId').get(function (req, res) {
 
 router.route('/upload/:image').get(function (req, res) {
     let image = req.params.image;
-
-    fs.readFile('/projects/SigMunGo/SigMunGo-server/server/public/images/'+image, function (err, data) {
+    
+    fs.readFile(__dirname+'/../../public/images/'+image, function (err, data) {
         if (err) throw err;
-        res.write(data);
-        res.send();
+        console.log(data);
+        res.writeHead(200, {"Content-Type" : `image/jpeg`});
+        res.end(data);       
     });
 });
 
