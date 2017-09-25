@@ -251,7 +251,7 @@ router.route('/restaurant/post/:contentId').get(function (req, res) {
 });
 
 //음식점 이미지 가져오기 
-router.route('/restaurant/images/:contentId').get(function (req, res) {
+router.route('/restaurant/image/:contentId').get(function (req, res) {
     let contentId = req.params.contentId;
 
     manager.getRestaurantImg(contentId, function (stateCode, response) {
@@ -259,7 +259,7 @@ router.route('/restaurant/images/:contentId').get(function (req, res) {
             'Content-Type': 'application/json'
         });
         
-        if (!!response.images) res.write(JSON.stringify(response));
+        if (!!response.image) res.write(JSON.stringify(response));
         res.end();
     });
 });

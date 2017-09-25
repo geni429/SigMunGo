@@ -299,9 +299,9 @@ manager.deletePost = (contentId, callback) => {
 
 }
 
-manager.getRestaurantImg = (contentid, callback) => {
+manager.getRestaurantImg = (contentId, callback) => {
     let response={
-        images : null
+        image : null
        }
     let getImagesLogic = (contentId) => {
         return new Promise(function (resolve, reject) {
@@ -309,7 +309,7 @@ manager.getRestaurantImg = (contentid, callback) => {
             conn.query('select * from restaurant where contentid=?;', [contentId], function (err, rows) {
                 if (err) stateCode = 500;
                 else if (rows.length >= 1) {
-                    response.images=rows[0].img;
+                    response.image=rows[0].img;
                     stateCode = 201;
                 } else stateCode = 204;
                 resolve(stateCode);
@@ -317,9 +317,9 @@ manager.getRestaurantImg = (contentid, callback) => {
         });
     }
 
-    let getImages = getImagesLogic();
+    let getImages = getImagesLogic(contentId);
     getImages.then(function (stateCode) {
-        callback(stateCode, response);
+        callback(stateCode, response)
     });
 
 }
