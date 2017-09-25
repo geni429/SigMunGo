@@ -35,7 +35,7 @@ CREATE TABLE `restaurant_img` (
 
 LOCK TABLES `restaurant_img` WRITE;
 /*!40000 ALTER TABLE `restaurant_img` DISABLE KEYS */;
-INSERT INTO `restaurant_img` VALUES ('2kknKoVXkS','images/TheTerrace(1)'),('2kknKoVXkS','images/TheTerrace(10)'),('2kknKoVXkS','images/TheTerrace(11)'),('2kknKoVXkS','images/TheTerrace(12)'),('2kknKoVXkS','images/TheTerrace(13)'),('2kknKoVXkS','images/TheTerrace(14)'),('2kknKoVXkS','images/TheTerrace(15)'),('2kknKoVXkS','images/TheTerrace(16)'),('2kknKoVXkS','images/TheTerrace(17)'),('2kknKoVXkS','images/TheTerrace(18)'),('2kknKoVXkS','images/TheTerrace(19)'),('2kknKoVXkS','images/TheTerrace(2)'),('2kknKoVXkS','images/TheTerrace(20)'),('2kknKoVXkS','images/TheTerrace(21)'),('2kknKoVXkS','images/TheTerrace(3)'),('2kknKoVXkS','images/TheTerrace(4)'),('2kknKoVXkS','images/TheTerrace(5)'),('2kknKoVXkS','images/TheTerrace(6)'),('2kknKoVXkS','images/TheTerrace(7)'),('2kknKoVXkS','images/TheTerrace(8)'),('2kknKoVXkS','images/TheTerrace(9)');
+INSERT INTO `restaurant_img` VALUES ('2kknKoVXkS','TheTerrace(1)'),('2kknKoVXkS','TheTerrace(10)'),('2kknKoVXkS','TheTerrace(11)'),('2kknKoVXkS','TheTerrace(12)'),('2kknKoVXkS','TheTerrace(13)'),('2kknKoVXkS','TheTerrace(14)'),('2kknKoVXkS','TheTerrace(15)'),('2kknKoVXkS','TheTerrace(16)'),('2kknKoVXkS','TheTerrace(17)'),('2kknKoVXkS','TheTerrace(18)'),('2kknKoVXkS','TheTerrace(19)'),('2kknKoVXkS','TheTerrace(2)'),('2kknKoVXkS','TheTerrace(20)'),('2kknKoVXkS','TheTerrace(21)'),('2kknKoVXkS','TheTerrace(3)'),('2kknKoVXkS','TheTerrace(4)'),('2kknKoVXkS','TheTerrace(5)'),('2kknKoVXkS','TheTerrace(6)'),('2kknKoVXkS','TheTerrace(7)'),('2kknKoVXkS','TheTerrace(8)'),('2kknKoVXkS','TheTerrace(9)');
 /*!40000 ALTER TABLE `restaurant_img` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-23  1:37:56
+-- Dump completed on 2017-09-25 14:34:06

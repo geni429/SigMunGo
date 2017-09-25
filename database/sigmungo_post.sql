@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
   `contentid` varchar(10) NOT NULL,
   `post` text,
+  `id` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`contentid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -35,6 +36,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
+INSERT INTO `post` VALUES ('2kknKoVXkS','asdasdf','nnnnn');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -47,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-23  1:37:57
+-- Dump completed on 2017-09-25 14:34:06
