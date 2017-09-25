@@ -187,6 +187,7 @@ manager.getRestaurant = (callback) => {
                 // conn.query('select * from restaurant where contentid=?', rows[i].contentid, function (err, rows2) {});
                 let restaurant = {
                     contentid: rows[i].contentid,
+                    img: rows[i].img,
                     name: rows[i].name,
                     place: rows[i].place,
                     sympathy: rows[i].good,
