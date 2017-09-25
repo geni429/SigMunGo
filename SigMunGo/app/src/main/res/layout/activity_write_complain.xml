@@ -90,6 +90,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:text="작성 완료"/>
+            android:background="@drawable/primary_button"
+            android:text="작성 완료"
+            android:textSize="20sp"/>
     </LinearLayout>
 </RelativeLayout>

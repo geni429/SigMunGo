@@ -21,12 +21,14 @@ public class WCSecondAdapter extends RecyclerView.Adapter<WCSecondAdapter.ViewHo
     private RecyclerView thirdKeyword;
     private int mIndex;
     private Context mContext;
-    public WCSecondAdapter(String[] secondKeywords, String[][][] thirdKeywords, RecyclerView thirdKeyword, int index, Context context){
+    private String firstKeyordContent;
+    public WCSecondAdapter(String[] secondKeywords, String[][][] thirdKeywords, RecyclerView thirdKeyword, int index, Context context, String firstKeywordContent){
         this.secondKeywords = secondKeywords;
         this.thirdKeywords = thirdKeywords;
         this.thirdKeyword = thirdKeyword;
         this.mIndex = index;
         this.mContext = context;
+        this.firstKeyordContent = firstKeywordContent;
     }
 
     @Override
@@ -41,7 +43,7 @@ public class WCSecondAdapter extends RecyclerView.Adapter<WCSecondAdapter.ViewHo
         holder.keywordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WCThirdAdapter wcThirdAdapter = new WCThirdAdapter(thirdKeywords[mIndex][position]);
+                WCThirdAdapter wcThirdAdapter = new WCThirdAdapter(thirdKeywords[mIndex][position], firstKeyordContent, secondKeywords[position], mContext);
                 thirdKeyword.setLayoutManager(new LinearLayoutManager(mContext));
                 thirdKeyword.setAdapter(wcThirdAdapter);
             }

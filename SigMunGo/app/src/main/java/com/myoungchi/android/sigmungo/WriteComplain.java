@@ -79,6 +79,13 @@ public class WriteComplain extends AppCompatActivity {
 
         firstKeyword.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         firstKeyword.setAdapter(wcFirstAdapter);
+
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MyPage.class));
+            }
+        });
     }
 
     //툴바에서 back버튼을 클릭할시에 랜딩으로 돌아가는 코드
