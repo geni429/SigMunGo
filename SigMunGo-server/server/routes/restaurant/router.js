@@ -89,6 +89,7 @@ router.route('/restaurant').post(function (req, res) {
 //음식점 대략 정보 받아오기
 router.route('/restaurant').get(function (req, res) {
     manager.getRestaurant(function (response) {
+        console.log(response);
         if (!!response.restaurant) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'

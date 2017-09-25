@@ -185,7 +185,6 @@ manager.getRestaurant = (callback) => {
         else if (rows.length >= 0) {
             for (var i = 0; i < rows.length; i++) {
                 // conn.query('select * from restaurant where contentid=?', rows[i].contentid, function (err, rows2) {});
-                console.log(rows[i].contentid);
                 let restaurant = {
                     contentid: rows[i].contentid,
                     name: rows[i].name,
@@ -195,7 +194,7 @@ manager.getRestaurant = (callback) => {
                     discontent: 0
                 }
                 response.restaurant.push(restaurant);
-                if (i == rows.length) {
+                if (i == rows.length-1) {
                     console.log(response);
                     callback(response);
                 }
