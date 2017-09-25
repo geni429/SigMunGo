@@ -106,7 +106,7 @@
             android:textSize="20dp"
             android:textColor="@drawable/text"
             android:background="@drawable/primary_button"
-            android:text="휴대폰 인증하기">
+            android:text="회원가입">
         </Button>
     </LinearLayout>
 </LinearLayout>

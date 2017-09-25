@@ -63,5 +63,12 @@ public interface APIinterface {
     @POST("/certify/demand")
     Call<Void> getCertifyCode();
 
-    //Verify CertifyCode
+    @FormUrlEncoded
+    @POST("/restaurant/post/{content_id}")
+    Call<Void> doPost(@Path("content_id") String content_id,
+                      @Field("id") String id,
+                      @Field("post") String post);
+
+    @GET("/mypage/postlist/{id}")
+    Call<JsonObject> getPostList(@Path("id") String id);
 }

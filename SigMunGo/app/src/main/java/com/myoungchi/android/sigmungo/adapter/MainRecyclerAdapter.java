@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -32,22 +33,25 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurants_info_items, parent, false);
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, RestaurantDetail.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            }
-        });
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        MainItems items = mDataset.get(position);
+        final MainItems items = mDataset.get(position);
         Glide.with(mContext).load(R.drawable.the_terrace_photo1).centerCrop().into(holder.restaurantImg);
         holder.restaurantName.setText(items.getRestaurantName());
         holder.restaurantLocation.setText(items.getRestuarantLocation());
         holder.sympathyCount.setText(items.getSympathyCount()+"");
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, RestaurantDetail.class);
+                intent.putExtra("contentid", items.getContentID());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -56,10 +60,11 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView restaurantImg;
-        TextView restaurantName;
-        TextView restaurantLocation;
-        TextView sympathyCount;
+        private ImageView restaurantImg;
+        private TextView restaurantName;
+        private TextView restaurantLocation;
+        private TextView sympathyCount;
+        private LinearLayout layout;
 
         public ViewHolder(View view){
             super(view);
@@ -67,6 +72,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
             this.restaurantName = (TextView) view.findViewById(R.id.restaurant_name);
             this.restaurantLocation = (TextView) view.findViewById(R.id.restaurant_location);
             this.sympathyCount = (TextView) view.findViewById(R.id.sympathy_count);
+            this.layout = (LinearLayout) view.findViewById(R.id.layout);
         }
     }
 }

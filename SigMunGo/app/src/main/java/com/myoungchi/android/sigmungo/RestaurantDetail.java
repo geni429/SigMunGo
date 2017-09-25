@@ -40,6 +40,7 @@ public class RestaurantDetail extends AppCompatActivity implements OnMapReadyCal
             "경기도 안양시 만안구 안양예술공원로 103번길 김중업 박물관 3층",     //음식점 위치
             "031-689-4540"
     };
+    private Intent mIntent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class RestaurantDetail extends AppCompatActivity implements OnMapReadyCal
         restaurantPhoto = (ViewPager)findViewById(R.id.restaurant_photo);
         writeComplain = (Button)findViewById(R.id.writeComplain);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
+        mIntent = getIntent();
 
         restaurantName.setText(testerRestaurant1[0]);
         restaurantLocation.setText(testerRestaurant1[1]);
@@ -67,7 +69,11 @@ public class RestaurantDetail extends AppCompatActivity implements OnMapReadyCal
         writeComplain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), WriteComplain.class));
+                Intent intent = new Intent(getApplicationContext(), WriteComplain.class);
+                Log.d("contentid", mIntent.getStringExtra("contentid"));
+                intent.putExtra("contentid", mIntent.getStringExtra("contentid"));
+                startActivity(intent);
+                finish();
             }
         });
     }

@@ -10,7 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
 import com.myoungchi.android.sigmungo.Items.UserInformation;
+import com.myoungchi.android.sigmungo.http_client.APIclient;
+import com.myoungchi.android.sigmungo.http_client.APIinterface;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by geni on 2017. 8. 3..
@@ -21,6 +28,7 @@ public class MyPage extends AppCompatActivity {
     private Toolbar toolbar;
     private Spinner dropdown;
     private RecyclerView recyclerView;
+    private APIinterface apiInterface;
 
     private TextView userName, userId, writingCount, sympathyCount;
 
@@ -36,6 +44,21 @@ public class MyPage extends AppCompatActivity {
         sympathyCount = (TextView)findViewById(R.id.sympathy_count);
         dropdown = (Spinner)findViewById(R.id.time);
         recyclerView = (RecyclerView)findViewById(R.id.write_list);
+
+        apiInterface = APIclient.getClient().create(APIinterface.class);
+
+        apiInterface.getPostList("geni429").enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                JsonObject result = response.body();
+                userName.setText(result.get("name").getAsString());
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
 
         setSupportActionBar(toolbar);
 

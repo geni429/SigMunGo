@@ -1,5 +1,6 @@
 package com.myoungchi.android.sigmungo.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,16 +26,24 @@ public class WCFirstAdapter extends RecyclerView.Adapter<WCFirstAdapter.ViewHold
     private String[] firstKeywords;
     private String[][] secondKeywords;
     private String[][][] thirdKeywords;
-    private Context mContext;
+    private Activity mContext;
+    private String mContentId;
 
 
-    public WCFirstAdapter(String[] firstKeywords, String[][] secondKeywords, String[][][] thirdKeywords, Context context, RecyclerView secondKeyword, RecyclerView thirdKeyword){
+    public WCFirstAdapter(String[] firstKeywords,
+                          String[][] secondKeywords,
+                          String[][][] thirdKeywords,
+                          Activity context,
+                          RecyclerView secondKeyword,
+                          RecyclerView thirdKeyword,
+                          String contentId){
         this.secondKeyword = secondKeyword;
         this.thirdKeyword = thirdKeyword;
         this.firstKeywords = firstKeywords;
         this.secondKeywords = secondKeywords;
         this.thirdKeywords = thirdKeywords;
         this.mContext = context;
+        this.mContentId = contentId;
     }
 
     @Override
@@ -49,9 +58,10 @@ public class WCFirstAdapter extends RecyclerView.Adapter<WCFirstAdapter.ViewHold
         holder.keywordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                wcSecondAdapter = new WCSecondAdapter(secondKeywords[position], thirdKeywords, thirdKeyword, position, mContext, firstKeywords[position]);
+                Log.d("contentid", mContentId);
+                wcSecondAdapter = new WCSecondAdapter(secondKeywords[position], thirdKeywords, thirdKeyword, position, mContext, firstKeywords[position], mContentId);
                 String[] dumy = {};
-                wcThirdAdapter = new WCThirdAdapter(dumy, "", "", mContext);
+                wcThirdAdapter = new WCThirdAdapter(dumy, "", "", mContext, "");
                 thirdKeyword.setLayoutManager(new LinearLayoutManager(mContext));
                 thirdKeyword.setAdapter(wcThirdAdapter);
                 secondKeyword.setLayoutManager(new LinearLayoutManager(mContext));
