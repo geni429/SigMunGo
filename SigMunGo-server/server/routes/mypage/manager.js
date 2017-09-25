@@ -36,29 +36,37 @@ manager.getPostList = (id, callback) => {
     let response = {
         restaurant: []
     };
+
+    let stateCode;
     conn.query('select * from post where id=?', id, function (err, rows) {
-        if (err) response.error = true;
-        else if (rows.length >= 0) {}
-    });
-    conn.query('select * from restaurant ', null, function (err, rows) {
-        if (err) response.error = true;
-        else if (rows.length >= 0) {
-            for (var i = 0; i < 50; i++) {
-                conn.query('select * from post where contentid=?', rows[i].contentid, function (err, rows2) {
-                    let restaurant = {
-                        contentid: rows[i].contentid,
-                        img: rows[i].img,
-                        name: rows[i].name,
-                        place: rows[i].place,
-                        sympathy: rows[i].good,
-                        improved: rows[i].improved,
-                        discontent: rows2[i].length
+        if (err) stateCode = 500;
+        else if (rows.length > 0) {
+            for (var i = 0; i < rows.length; i++) {
+                conn.query('select * from restaurant where contentid=?', rows[i].contentid, function (err, rows2) {
+                    if (err) stateCode = 500;
+                    else if (rows2.length > 0) {
+                        let restaurant = {
+                            contentid: rows2[0].contentid,
+                            img: rows2[0].img,
+                            name: rows2[0].name,
+                            place: rows2[0].place,
+                            sympathy: rows2[0].good,
+                            improved: rows2[0].improved,
+                            discontent: rows2[0].length
+                        }
+                        response.restaurant.push(restaurant);
+                        console.log(rows.length);
+                        if (i == rows.length) {
+                            stateCode = 200;
+                            callback(stateCode, response);
+                        }
                     }
-                    response.restaurant.push(restaurant);
                 });
             }
+        } else if (rows.length == 0) {
+            stateCode = 200;
+            callback(stateCode, response);
         }
-        callback(response);
     });
 };
 

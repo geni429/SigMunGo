@@ -17,8 +17,16 @@ router.route('/userinfo/:id').get(function (req, res) {
 });
 
 //불만 단 음식점
-router.route('/mypage/postlist').get(function (req, res) {
+router.route('/mypage/postlist/:id').get(function (req, res) {
+    let id= req.params.id;
 
+    manager.getPostList(id, function(stateCode, response){
+        res.writeHead(stateCode, {
+            'Content-Type': 'application/json'
+        });
+        if(!!response.restaurant) res.write(JSON.stringify(response));
+        res.end();
+    })    
 });
 
 //프로필 수정

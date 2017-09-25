@@ -4,6 +4,16 @@ var Promise = require('promise');
 
 let manager = {};
 
+manager.idcheck = (id) => {
+    let stateCode;
+    conn.query('select * from account where id = ? ', id, function(err, result){
+        if(err) stateCode=500;
+        else if(result.affectedRows==1) stateCode = 200;
+        else stateCode=204;
+        return stateCode;
+    });
+}
+
 //좋아요 +1
 manager.addSympathy = (contentId, id, callback) => {
     let response = {
@@ -185,7 +195,7 @@ manager.getRestaurant = (callback) => {
                     discontent: 0
                 }
                 response.restaurant.push(restaurant);
-                if (i == rows.length-1) {
+                if (i == rows.length) {
                     console.log(response);
                     callback(response);
                 }
@@ -240,11 +250,12 @@ manager.deleteMenu = (contentId, menu) => {
 }
 
 //불만 작성
-manager.addPost = (contentId, post, callback) => {
+manager.addPost = (contentId, post, id, callback) => {
     let addPostLogic = (post) => {
         return new Promise(function (resolve, reject) {
             let stateCode;
-            conn.query('insert into post values (?,?);', [contentId, post], function (err, result) {
+            console.log(contentId, post, id);
+            conn.query('insert into post values (?,?,?);', [contentId, post, id], function (err, result) {
                 if (err) stateCode = 400;
                 else if (result.affectedRows) stateCode = 200;
                 resolve(stateCode);

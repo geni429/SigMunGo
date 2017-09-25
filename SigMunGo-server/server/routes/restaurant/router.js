@@ -218,8 +218,16 @@ router.route('/restaurant/menu/:contentid').delete(function (req, res) {
 router.route('/restaurant/post/:contentId').post(function (req, res) {
     let post = req.body.post;
     let contentId = req.params.contentId;
+    let id = req.body.id;
 
-    manager.addPost(contentId, post, function (stateCode) {
+    console.log(contentId, post, id);
+    if (manager.idcheck(id) == 204 || manager.idcheck(id) == 500) {
+        res.writeHead(stateCode, {
+            'Content-Type': 'application/json'
+        });
+    }
+
+    manager.addPost(contentId, post, id, function (stateCode) {
         res.writeHead(stateCode, {
             'Content-Type': 'application/json'
         });
@@ -275,12 +283,12 @@ router.route('/upload/:image').get(function (req, res) {
     });
 });
 
-router.route('/save/:image').post(function(req, res){
+router.route('/save/:image').post(function (req, res) {
     let image = req.params.image;
 
     let stateCode;
-    fs.writeFile('logo.png', image, 'binary', function(err){
-            if (err) 
+    fs.writeFile('logo.png', image, 'binary', function (err) {
+        if (err)
             console.log('File saved.')
     })
 })
