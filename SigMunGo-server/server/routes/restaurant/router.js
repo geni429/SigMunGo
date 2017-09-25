@@ -3,6 +3,7 @@ let express = require('express');
 let router = express.Router();
 let manager = require('./manager');
 let random = require('../../support/random');
+let fs=require('fs');
 
 //좋아요 +1
 router.route('/restaurant/sympathy/:contentId').post(function (req, res) {
@@ -277,7 +278,7 @@ router.route('/restaurant/detail/images/:contentId').get(function (req, res) {
 router.route('/upload/:image').get(function (req, res) {
     let image = req.params.image;
 
-    fs.readFile(image, function (err, data) {
+    fs.readFile('/projects/SigMunGo/SigMunGo-server/server/public/images/'+image, function (err, data) {
         if (err) throw err;
         res.write(data);
         res.send();
