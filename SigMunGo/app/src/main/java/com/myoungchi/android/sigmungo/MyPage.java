@@ -92,12 +92,10 @@ public class MyPage extends AppCompatActivity {
         apiInterface.getUserInfo(id).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Log.d("response", response+"");
                 userName.setText(response.body().get("name").getAsString());
                 userId.setText(id);
-                Log.d("writingCount", response.body().get("discontents").getAsInt()+"");
-                writingCount.setText(response.body().get("discontents").getAsInt());
-                sympathyCount.setText(response.body().get("sympathy").getAsInt());
+                writingCount.setText(response.body().get("discontents").getAsInt()+"");
+                sympathyCount.setText(response.body().get("sympathy").getAsInt()+"");
             }
 
             @Override
