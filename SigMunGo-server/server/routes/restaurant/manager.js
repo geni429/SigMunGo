@@ -193,10 +193,13 @@ manager.getRestaurant = (callback) => {
                     sympathy: rows[i].good,
                     improved: rows[i].improved,
                     discontent: 0,
-                    location: {x: rows[i].x_loc, y:rows[i].y_loc}
+                    location: {
+                        x: rows[i].x_loc,
+                        y: rows[i].y_loc
+                    }
                 }
                 response.restaurant.push(restaurant);
-                if (i == rows.length-1) {
+                if (i == rows.length - 1) {
                     console.log(response);
                     callback(response);
                 }
@@ -256,12 +259,22 @@ manager.addPost = (contentId, post, id, callback) => {
         return new Promise(function (resolve, reject) {
             let stateCode;
             console.log(contentId, post, id);
-            conn.query('insert into post values (?,?,?);', [contentId, post, id], function (err, result) {
-                console.log(err);
-		if (err) stateCode = 400;
-                else if (result.affectedRows) stateCode = 200;
-                resolve(stateCode);
-            });
+            conn.query('select id from post where id=?', id, function (err, rows) {
+                if (err) stateCode = 500;
+                else if (rows.length >= 1) {
+                    conn.query('UPDATE post SET post = ? WHERE id = ?', [post, id], function (err, result) {
+                        if (err) stateCode = 500;
+                        else if (result.affectedRows) stateCode = 200;
+                        resolve(stateCode);
+                    });
+                } else if(rows.length==0) {
+                    conn.query('insert into post values (?,?,?);', [contentId, post, id], function (err, result) {
+                        if (err) stateCode = 500;
+                        else if (result.affectedRows) stateCode = 200;
+                        resolve(stateCode);
+                    });
+                }
+            })
         });
     }
 
@@ -303,16 +316,16 @@ manager.deletePost = (contentId, callback) => {
 }
 
 manager.getRestaurantImg = (contentId, callback) => {
-    let response={
-        image : null
-       }
+    let response = {
+        image: null
+    }
     let getImagesLogic = (contentId) => {
         return new Promise(function (resolve, reject) {
             let stateCode;
             conn.query('select * from restaurant where contentid=?;', [contentId], function (err, rows) {
                 if (err) stateCode = 500;
                 else if (rows.length >= 1) {
-                    response.image=rows[0].img;
+                    response.image = rows[0].img;
                     stateCode = 201;
                 } else stateCode = 204;
                 resolve(stateCode);
@@ -328,8 +341,8 @@ manager.getRestaurantImg = (contentId, callback) => {
 }
 
 manager.getRestaurantDetailImg = (contentId, callback) => {
-    let response={
-        images:[]
+    let response = {
+        images: []
     }
     let getImagesLogic = (contentId) => {
         return new Promise(function (resolve, reject) {
@@ -348,7 +361,7 @@ manager.getRestaurantDetailImg = (contentId, callback) => {
 
     let getImages = getImagesLogic(contentId);
     getImages.then(function (stateCode) {
-        callback(stateCode, response); 
+        callback(stateCode, response);
     });
 
 }
