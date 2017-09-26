@@ -35,7 +35,7 @@ CREATE TABLE `restaurant_img` (
 
 LOCK TABLES `restaurant_img` WRITE;
 /*!40000 ALTER TABLE `restaurant_img` DISABLE KEYS */;
-INSERT INTO `restaurant_img` VALUES ('2kknKoVXkS','TheTerrace (1).jpeg'),('2kknKoVXkS','TheTerrace (10).jpeg'),('2kknKoVXkS','TheTerrace (11).jpeg'),('2kknKoVXkS','TheTerrace (12).jpeg'),('2kknKoVXkS','TheTerrace (13).jpeg'),('2kknKoVXkS','TheTerrace (14).jpeg'),('2kknKoVXkS','TheTerrace (15).jpeg'),('2kknKoVXkS','TheTerrace (16).jpeg'),('2kknKoVXkS','TheTerrace (17).jpeg'),('2kknKoVXkS','TheTerrace (18).jpeg'),('2kknKoVXkS','TheTerrace (19).jpeg'),('2kknKoVXkS','TheTerrace (2).jpeg'),('2kknKoVXkS','TheTerrace (20).jpeg'),('2kknKoVXkS','TheTerrace (21).jpeg'),('2kknKoVXkS','TheTerrace (3).jpeg'),('2kknKoVXkS','TheTerrace (4).jpeg'),('2kknKoVXkS','TheTerrace (5).jpeg'),('2kknKoVXkS','TheTerrace (6).jpeg'),('2kknKoVXkS','TheTerrace (7).jpeg'),('2kknKoVXkS','TheTerrace (8).jpeg'),('2kknKoVXkS','TheTerrace (9).jpeg'),('gJJQqnGxDJ','mirak (1).jpeg'),('gJJQqnGxDJ','mirak (2).jpeg'),('gJJQqnGxDJ','mirak (3).jpeg'),('gJJQqnGxDJ','mirak (4).jpeg'),('qv6BncO1Wm','buldarg (1).jpeg'),('qv6BncO1Wm','buldarg (2).jpeg'),('qv6BncO1Wm','buldarg (3).jpeg'),('qv6BncO1Wm','buldarg (4).jpeg');
+INSERT INTO `restaurant_img` VALUES ('2kknKoVXkS','TheTerrace (01).jpeg'),('2kknKoVXkS','TheTerrace (02).jpeg'),('2kknKoVXkS','TheTerrace (03).jpeg'),('2kknKoVXkS','TheTerrace (04).jpeg'),('2kknKoVXkS','TheTerrace (05).jpeg'),('2kknKoVXkS','TheTerrace (06).jpeg'),('2kknKoVXkS','TheTerrace (07).jpeg'),('2kknKoVXkS','TheTerrace (08).jpeg'),('2kknKoVXkS','TheTerrace (09).jpeg'),('2kknKoVXkS','TheTerrace (10).jpeg'),('2kknKoVXkS','TheTerrace (11).jpeg'),('2kknKoVXkS','TheTerrace (12).jpeg'),('2kknKoVXkS','TheTerrace (13).jpeg'),('2kknKoVXkS','TheTerrace (14).jpeg'),('2kknKoVXkS','TheTerrace (15).jpeg'),('2kknKoVXkS','TheTerrace (16).jpeg'),('2kknKoVXkS','TheTerrace (17).jpeg'),('2kknKoVXkS','TheTerrace (18).jpeg'),('2kknKoVXkS','TheTerrace (19).jpeg'),('2kknKoVXkS','TheTerrace (20).jpeg'),('2kknKoVXkS','TheTerrace (21).jpeg'),('gJJQqnGxDJ','mirak (1).jpeg'),('gJJQqnGxDJ','mirak (2).jpeg'),('gJJQqnGxDJ','mirak (3).jpeg'),('gJJQqnGxDJ','mirak (4).jpeg'),('qv6BncO1Wm','buldarg (1).jpeg'),('qv6BncO1Wm','buldarg (2).jpeg'),('qv6BncO1Wm','buldarg (3).jpeg'),('qv6BncO1Wm','buldarg (4).jpeg');
 /*!40000 ALTER TABLE `restaurant_img` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-25 19:47:07
+-- Dump completed on 2017-09-26 19:25:56

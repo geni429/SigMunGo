@@ -192,7 +192,8 @@ manager.getRestaurant = (callback) => {
                     place: rows[i].place,
                     sympathy: rows[i].good,
                     improved: rows[i].improved,
-                    discontent: 0
+                    discontent: 0,
+                    location: [rows[i].x_loc, rows[i].y_loc]
                 }
                 response.restaurant.push(restaurant);
                 if (i == rows.length-1) {
@@ -332,7 +333,8 @@ manager.getRestaurantDetailImg = (contentId, callback) => {
     let getImagesLogic = (contentId) => {
         return new Promise(function (resolve, reject) {
             let stateCode;
-            conn.query('select * from restaurant_img where contentid=?;', contentId, function (err, rows) {
+            conn.query('select * from restaurant_img where contentid= ? order by img;', contentId, function (err, rows) {
+                console.log(contentId);
                 if (err) stateCode = 500;
                 else if (rows.length >= 1) {
                     for (let i = 0; i < rows.length; i++) response.images.push(rows[i].img);
@@ -345,8 +347,7 @@ manager.getRestaurantDetailImg = (contentId, callback) => {
 
     let getImages = getImagesLogic(contentId);
     getImages.then(function (stateCode) {
-        callback(stateCode, response);
-        
+        callback(stateCode, response); 
     });
 
 }
