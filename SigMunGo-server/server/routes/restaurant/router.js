@@ -221,7 +221,7 @@ router.route('/restaurant/post/:contentId').post(function (req, res) {
     let post = req.body.post;
     let contentId = req.params.contentId;
     let id = req.body.id;
-
+	
     console.log(contentId, post, id);
     if (manager.idcheck(id) == 204 || manager.idcheck(id) == 500) {
         res.writeHead(stateCode, {
