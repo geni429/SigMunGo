@@ -2,6 +2,7 @@ package com.myoungchi.android.sigmungo;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,6 +24,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.JsonObject;
 import com.google.maps.android.PolyUtil;
+import com.myoungchi.android.sigmungo.account.SignIn;
 import com.myoungchi.android.sigmungo.adapter.RestaurantDetailAdapter;
 import com.myoungchi.android.sigmungo.http_client.APIclient;
 import com.myoungchi.android.sigmungo.http_client.APIinterface;
@@ -29,6 +32,7 @@ import com.myoungchi.android.sigmungo.http_client.APIinterface;
 import java.io.IOException;
 import java.util.List;
 
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,6 +48,7 @@ public class RestaurantDetail extends AppCompatActivity implements OnMapReadyCal
     private ViewPager restaurantPhoto;
     private Intent mIntent;
     private APIinterface apiInterface;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,11 +99,18 @@ public class RestaurantDetail extends AppCompatActivity implements OnMapReadyCal
         writeComplain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), WriteComplain.class);
-                Log.d("contentid", mIntent.getStringExtra("contentid"));
-                intent.putExtra("contentid", mIntent.getStringExtra("contentid"));
-                startActivity(intent);
-                finish();
+                sharedPreferences = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
+                if(sharedPreferences.getBoolean("isSignIn", false)){
+                    Intent intent = new Intent(getApplicationContext(), WriteComplain.class);
+                    intent.putExtra("contentid", mIntent.getStringExtra("contentid"));
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), SignIn.class);
+                    intent.putExtra("member", false);
+                    startActivity(intent);
+                }
             }
         });
     }

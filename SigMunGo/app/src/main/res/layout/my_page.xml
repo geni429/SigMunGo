@@ -56,14 +56,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/user_id"
-                android:text="정근철"
                 android:textSize="23dp"/>
             <TextView
                 android:id="@+id/user_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/count"
-                android:text="geni429"
                 android:textSize="13dp"/>
             <LinearLayout
                 android:id="@+id/count"
@@ -80,7 +78,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
-                    android:text="5"
                     android:textSize="30dp"
                     android:textColor="@color/colorPrimary" />
                 <ImageView
@@ -91,7 +88,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="2"
                     android:textSize="30dp"
                     android:textColor="@color/colorPrimary"/>
             </LinearLayout>

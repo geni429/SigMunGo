@@ -1,6 +1,7 @@
 package com.myoungchi.android.sigmungo;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,7 +16,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.myoungchi.android.sigmungo.Items.UserData;
+import com.myoungchi.android.sigmungo.account.SignIn;
 import com.myoungchi.android.sigmungo.adapter.MainPagerAdapter;
 import com.myoungchi.android.sigmungo.adapter.MainRecyclerAdapter;
 import com.myoungchi.android.sigmungo.Items.MainItems;
@@ -29,6 +33,7 @@ import com.myoungchi.android.sigmungo.http_client.APIinterface;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,13 +50,9 @@ public class Main extends AppCompatActivity {
     private List<MainItems> restaurantsInfo = new ArrayList<>();
     private UserInformation userInformation;
     private ViewPager pager;
-    private String[] testerRestaurant1 = {
-            "더 테라스",     //음식점명
-            "경기도 안양시 만안구 안양예술공원로 103번길 김중업 박물관 3층",     //음식점 위치
-            "031-689-4540"
-    };
-
     private TextView sympathyCount, writingCount, userName, userId;
+    private Realm mRealm;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstance){
@@ -63,6 +64,20 @@ public class Main extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         apIinterface = APIclient.getClient().create(APIinterface.class);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mRealm.init(getApplicationContext());
+        mRealm = Realm.getDefaultInstance();
+
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                UserData userData = realm.where(UserData.class).findFirst();
+                if(userData != null){
+                    if(userData.getUserId().equals("")){
+                        id = userData.getUserId();
+                    }
+                }
+            }
+        });
 
         //Navigation Drawer Layout
         setSupportActionBar(toolbar);
@@ -73,7 +88,15 @@ public class Main extends AppCompatActivity {
         navHeaderView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MyPage.class));
+                SharedPreferences sharedPreferences = getSharedPreferences("SharedPreference", MODE_PRIVATE);
+                if(sharedPreferences.getBoolean("isSignIn", false)){
+                    startActivity(new Intent(getApplicationContext(), MyPage.class));
+                } else {
+                    Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), SignIn.class);
+                    intent.putExtra("member", false);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -90,12 +113,15 @@ public class Main extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.nav_item_restaurant:
                         Log.d("nav_item_restaurant", "clicked");
+                        startActivity(new Intent(getApplicationContext(), ComingSoon.class));
                         break;
                     case R.id.nav_item_notice:
                         Log.d("nav_item_notice", "clicked");
+                        startActivity(new Intent(getApplicationContext(), ComingSoon.class));
                         break;
                     case R.id.nav_item_help:
                         Log.d("nav_item_help", "clicked");
+                        startActivity(new Intent(getApplicationContext(), ComingSoon.class));
                         break;
                 }
                 return true;
@@ -106,6 +132,7 @@ public class Main extends AppCompatActivity {
         thread.start();
 
         getRestaurantInfo();
+        getUserInfo();
     }
 
     //위치설정 액티비티로 넘어갈때 실행되는 코드
@@ -166,10 +193,9 @@ public class Main extends AppCompatActivity {
 
     //user정보를 불러오는 코드 (Realm사용 예정)
     public void getUserInfo(){
-        apIinterface.getUserInfo("nn").enqueue(new Callback<JsonObject>() {
+        apIinterface.getUserInfo(id).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Log.d("getUserInfo Status", response.code()+"");
                 if(response.isSuccessful()){
                     userInformation.setUserName(response.body().get("name").getAsString());
                     userInformation.setUserId("("+response.body().get("id").getAsString()+")");
@@ -181,6 +207,11 @@ public class Main extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                userInformation.setUserName("사용자");
+                userInformation.setUserId("("+"로그인 해주세요"+")");
+                userInformation.setMyWritingCount(0+"");
+                userInformation.setMySympathyCount(0+"");
+                setUserInfo();
                 t.printStackTrace();
             }
         });

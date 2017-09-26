@@ -45,6 +45,7 @@ public class SignIn extends AppCompatActivity {
     private UserInformation userInformation;
     private SharedPreferences sharedPreferences;
     private Realm mRealm;
+    private Intent intent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstance){
@@ -121,6 +122,7 @@ public class SignIn extends AppCompatActivity {
     //회원이 아니신가요를 눌렀을 시에 실행되는 코드 (회원가입 액티비티로 이동하게 된다)
     public void onSignUpClicked(View view){
         startActivity(new Intent(getApplicationContext(), SignUp.class));
+        finish();
     }
 
     //아이디 비밀번호 찾기를 선택했을 시에 실행되는 코드
@@ -130,7 +132,13 @@ public class SignIn extends AppCompatActivity {
 
     //툴바에서 back버튼을 클릭할시에 랜딩으로 돌아가는 코드
     public void onBackBtnClicked(View v){
-        startActivity(new Intent(getApplicationContext(), Landing.class));
-        finish();
+        intent = getIntent();
+        Log.d("test", intent.getBooleanExtra("member", true)+"");
+        if(!intent.getBooleanExtra("member", true)){
+            finish();
+        } else {
+            startActivity(new Intent(getApplicationContext(), Landing.class));
+            finish();
+        }
     }
 }
