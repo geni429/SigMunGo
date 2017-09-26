@@ -257,7 +257,8 @@ manager.addPost = (contentId, post, id, callback) => {
             let stateCode;
             console.log(contentId, post, id);
             conn.query('insert into post values (?,?,?);', [contentId, post, id], function (err, result) {
-                if (err) stateCode = 400;
+                console.log(err);
+		if (err) stateCode = 400;
                 else if (result.affectedRows) stateCode = 200;
                 resolve(stateCode);
             });

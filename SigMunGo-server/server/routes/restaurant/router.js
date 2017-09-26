@@ -1,4 +1,4 @@
-"use strict";
+"use strict"
 let express = require('express');
 let router = express.Router();
 let manager = require('./manager');
@@ -280,9 +280,12 @@ router.route('/upload/:image').get(function (req, res) {
     let image = req.params.image;
     
     fs.readFile(__dirname+'/../../public/images/'+image, function (err, data) {
-        if (err) throw err;
-        console.log(data);
-        res.writeHead(200, {"Content-Type" : `image/jpeg`});
+	if (err) {
+		res.writeHead(500, {"Content-Type" : 'application/json'});
+		res.end();
+	}
+
+        res.writeHead(200, {"Content-Type" : 'image/jpeg'});
         res.end(data);       
     });
 });
