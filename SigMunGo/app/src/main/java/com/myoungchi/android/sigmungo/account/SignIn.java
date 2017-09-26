@@ -113,7 +113,6 @@ public class SignIn extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Log.d("SignIn POST Fail", "Failure");
                 t.printStackTrace();
             }
         });
@@ -133,7 +132,6 @@ public class SignIn extends AppCompatActivity {
     //툴바에서 back버튼을 클릭할시에 랜딩으로 돌아가는 코드
     public void onBackBtnClicked(View v){
         intent = getIntent();
-        Log.d("test", intent.getBooleanExtra("member", true)+"");
         if(!intent.getBooleanExtra("member", true)){
             finish();
         } else {

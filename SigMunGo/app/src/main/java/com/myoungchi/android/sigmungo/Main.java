@@ -52,7 +52,7 @@ public class Main extends AppCompatActivity {
     private ViewPager pager;
     private TextView sympathyCount, writingCount, userName, userId;
     private Realm mRealm;
-    private String id;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstance){
@@ -64,20 +64,10 @@ public class Main extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         apIinterface = APIclient.getClient().create(APIinterface.class);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        sharedPreferences = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
+
         mRealm.init(getApplicationContext());
         mRealm = Realm.getDefaultInstance();
-
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                UserData userData = realm.where(UserData.class).findFirst();
-                if(userData != null){
-                    if(userData.getUserId().equals("")){
-                        id = userData.getUserId();
-                    }
-                }
-            }
-        });
 
         //Navigation Drawer Layout
         setSupportActionBar(toolbar);
@@ -88,7 +78,7 @@ public class Main extends AppCompatActivity {
         navHeaderView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences = getSharedPreferences("SharedPreference", MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
                 if(sharedPreferences.getBoolean("isSignIn", false)){
                     startActivity(new Intent(getApplicationContext(), MyPage.class));
                 } else {
@@ -132,7 +122,23 @@ public class Main extends AppCompatActivity {
         thread.start();
 
         getRestaurantInfo();
-        getUserInfo();
+
+        if(sharedPreferences.getBoolean("isSignIn", false)){
+            if(!sharedPreferences.getBoolean("MyInfo", false)){
+                getUserInfo();
+            } else {
+                setUserInfo();
+            }
+        } else {
+            userName.setText("사용자");
+            userId.setText("("+"로그인 해주세요"+")");
+            SpannableString sympathyCountNumber = new SpannableString(0+"");
+            SpannableString writingCountNumber = new SpannableString(0+"");
+            sympathyCountNumber.setSpan(new UnderlineSpan(), 0, sympathyCountNumber.length(), 0);
+            writingCountNumber.setSpan(new UnderlineSpan(), 0, writingCountNumber.length(), 0);
+            sympathyCount.setText(sympathyCountNumber);
+            writingCount.setText(writingCountNumber);
+        }
     }
 
     //위치설정 액티비티로 넘어갈때 실행되는 코드
@@ -193,39 +199,57 @@ public class Main extends AppCompatActivity {
 
     //user정보를 불러오는 코드 (Realm사용 예정)
     public void getUserInfo(){
-        apIinterface.getUserInfo(id).enqueue(new Callback<JsonObject>() {
+        mRealm.executeTransaction(new Realm.Transaction() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                if(response.isSuccessful()){
-                    userInformation.setUserName(response.body().get("name").getAsString());
-                    userInformation.setUserId("("+response.body().get("id").getAsString()+")");
-                    userInformation.setMyWritingCount(response.body().get("discontents").getAsString());
-                    userInformation.setMySympathyCount(response.body().get("sympathy").getAsString());
-                    setUserInfo();
-                }
-            }
+            public void execute(Realm realm) {
+                UserData userData = realm.where(UserData.class).findFirst();
+                apIinterface.getUserInfo(userData.getUserId()).enqueue(new retrofit2.Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, final Response<JsonObject> response) {
+                        if(response.isSuccessful()){
+                            mRealm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    UserData userData = mRealm.where(UserData.class).findFirst();
+                                    userData.setUserName(response.body().get("name").getAsString());
+                                    userData.setSympathyCount(response.body().get("sympathy").getAsInt());
+                                    userData.setDiscontentCount(response.body().get("discontents").getAsInt());
+                                }
+                            });
+                            userInformation.setUserName(response.body().get("name").getAsString());
+                            userInformation.setUserId("("+response.body().get("id").getAsString()+")");
+                            userInformation.setMyWritingCount(response.body().get("discontents").getAsString());
+                            userInformation.setMySympathyCount(response.body().get("sympathy").getAsString());
+                            sharedPreferences.edit().putBoolean("MyInfo", true);
+                            setUserInfo();
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                userInformation.setUserName("사용자");
-                userInformation.setUserId("("+"로그인 해주세요"+")");
-                userInformation.setMyWritingCount(0+"");
-                userInformation.setMySympathyCount(0+"");
-                setUserInfo();
-                t.printStackTrace();
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        setUserInfo();
+                        t.printStackTrace();
+                    }
+                });
             }
         });
     }
 
     //받아온 데이터를 바탕으로 내정보를 세팅해주는 메소드
     public void setUserInfo(){
-        userName.setText(userInformation.getUserName());
-        userId.setText(userInformation.getUserId());
-        SpannableString sympathyCountNumber = new SpannableString(userInformation.getMySympathyCount());
-        SpannableString writingCountNumber = new SpannableString(userInformation.getMyWritingCount());
-        sympathyCountNumber.setSpan(new UnderlineSpan(), 0, sympathyCountNumber.length(), 0);
-        writingCountNumber.setSpan(new UnderlineSpan(), 0, writingCountNumber.length(), 0);
-        sympathyCount.setText(sympathyCountNumber);
-        writingCount.setText(writingCountNumber);
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                UserData userData = mRealm.where(UserData.class).findFirst();
+                userName.setText(userData.getUserName());
+                userId.setText(userData.getUserId());
+                SpannableString sympathyCountNumber = new SpannableString(userData.getSympathyCount()+"");
+                SpannableString writingCountNumber = new SpannableString(userData.getDiscontentCount()+"");
+                sympathyCountNumber.setSpan(new UnderlineSpan(), 0, sympathyCountNumber.length(), 0);
+                writingCountNumber.setSpan(new UnderlineSpan(), 0, writingCountNumber.length(), 0);
+                sympathyCount.setText(sympathyCountNumber);
+                writingCount.setText(writingCountNumber);
+            }
+        });
     }
 }

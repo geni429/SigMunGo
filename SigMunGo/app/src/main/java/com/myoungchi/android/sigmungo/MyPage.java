@@ -1,5 +1,6 @@
 package com.myoungchi.android.sigmungo;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -42,7 +43,6 @@ public class MyPage extends AppCompatActivity {
     private List<MyPageItems> mDataSet = new ArrayList<>();
     private TextView userName, userId, writingCount, sympathyCount;
     private Realm mRealm;
-    private String id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstance){
@@ -56,56 +56,43 @@ public class MyPage extends AppCompatActivity {
         sympathyCount = (TextView)findViewById(R.id.sympathy_count);
         dropdown = (Spinner)findViewById(R.id.time);
         writeList = (RecyclerView)findViewById(R.id.write_list);
+
+        apiInterface = APIclient.getClient().create(APIinterface.class);
+
         mRealm.init(getApplicationContext());
         mRealm = Realm.getDefaultInstance();
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 UserData userData = realm.where(UserData.class).findFirst();
-                id = userData.getUserId();
-            }
-        });
+                userName.setText(userData.getUserName());
+                userId.setText(userData.getUserId());
+                writingCount.setText(userData.getDiscontentCount()+"");
+                sympathyCount.setText(userData.getSympathyCount()+"");
+                apiInterface.getPostList(userData.getUserId()).enqueue(new retrofit2.Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        JsonArray result = response.body().getAsJsonArray("restaurant");
+                        for(int i = 0; i < result.size(); i++){
+                            MyPageItems myPageItems = new MyPageItems();
+                            myPageItems.setName(result.get(i).getAsJsonObject().get("name").getAsString());
+                            myPageItems.setImg(result.get(i).getAsJsonObject().get("img").getAsString());
 
-        apiInterface = APIclient.getClient().create(APIinterface.class);
-        apiInterface.getPostList(id).enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonArray result = response.body().getAsJsonArray("restaurant");
-                for(int i=0; i < result.size(); i++){
-                    JsonObject restaurant = result.get(i).getAsJsonObject();
-                    MyPageItems myPageItems = new MyPageItems();
-                    myPageItems.setName(restaurant.get("name").getAsString());
-                    myPageItems.setImg(restaurant.get("img").getAsString());
+                            mDataSet.add(myPageItems);
+                        }
+                        writeList.setAdapter(new MyPageAdapter(MyPage.this, mDataSet));
+                        writeList.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+                    }
 
-                    mDataSet.add(i, myPageItems);
-                }
-                writeList.setAdapter(new MyPageAdapter(MyPage.this, mDataSet));
-                writeList.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
-            }
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
 
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
-        apiInterface.getUserInfo(id).enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                userName.setText(response.body().get("name").getAsString());
-                userId.setText(id);
-                writingCount.setText(response.body().get("discontents").getAsInt()+"");
-                sympathyCount.setText(response.body().get("sympathy").getAsInt()+"");
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                t.printStackTrace();
+                    }
+                });
             }
         });
 
         setSupportActionBar(toolbar);
-
         String[] items = new String[]{"아침(breakfast)", "점심(launch)", "저녁(dinner)"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
