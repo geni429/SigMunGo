@@ -30,6 +30,8 @@ CREATE TABLE `restaurant` (
   `good` int(11) DEFAULT '0',
   `img` varchar(100) DEFAULT NULL,
   `improved` tinyint(1) DEFAULT '0',
+  `x_loc` float DEFAULT NULL,
+  `y_loc` float DEFAULT NULL,
   PRIMARY KEY (`contentid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -40,7 +42,7 @@ CREATE TABLE `restaurant` (
 
 LOCK TABLES `restaurant` WRITE;
 /*!40000 ALTER TABLE `restaurant` DISABLE KEYS */;
-INSERT INTO `restaurant` VALUES ('2kknKoVXkS','더 테라스','경기도 안양시 만인구 안양예술공원로 103번길 김중업박물관3층','031-689-4540',0,'TheTerrace (17).jpeg',0),('gJJQqnGxDJ','미락 시골밥상','서울시 노원구 하계동 180-22','02-492-2122',0,'mirak (1).jpeg',0),('qv6BncO1Wm','홍초불닭','경기 남양주시 화도읍 맷돌로 114','031-591-9640',0,'buldarg (2).jpeg',0);
+INSERT INTO `restaurant` VALUES ('2kknKoVXkS','더 테라스','경기도 안양시 만인구 안양예술공원로 103번길 김중업박물관3층','031-689-4540',0,'TheTerrace (04).jpeg',0,37.4189,126.92),('gJJQqnGxDJ','미락 시골밥상','서울시 노원구 하계동 180-22','02-492-2122',0,'mirak (1).jpeg',0,37.6356,127.07),('qv6BncO1Wm','홍초불닭','경기 남양주시 화도읍 맷돌로 114','031-591-9640',0,'buldarg (2).jpeg',0,37.6574,127.303);
 /*!40000 ALTER TABLE `restaurant` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-26 19:25:56
+-- Dump completed on 2017-09-26 20:54:16

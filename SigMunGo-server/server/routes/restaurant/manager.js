@@ -192,7 +192,8 @@ manager.getRestaurant = (callback) => {
                     place: rows[i].place,
                     sympathy: rows[i].good,
                     improved: rows[i].improved,
-                    discontent: 0
+                    discontent: 0,
+                    location: {x: rows[i].x_loc, y:rows[i].y_loc}
                 }
                 response.restaurant.push(restaurant);
                 if (i == rows.length-1) {
