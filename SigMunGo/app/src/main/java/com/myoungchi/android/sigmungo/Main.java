@@ -110,7 +110,7 @@ public class Main extends AppCompatActivity {
 
     //위치설정 액티비티로 넘어갈때 실행되는 코드
     public void setLocation(View v){
-        startActivity(new Intent(getApplicationContext(), SetLocation.class));
+        startActivity(new Intent(getApplicationContext(), ComingSoon.class));
     }
 
     //이달의 음식점 ViewPager실행시에 작동되는 스레드 (AsyncTask로 마이그레이션 필요)
@@ -130,7 +130,7 @@ public class Main extends AppCompatActivity {
                 break;
             case R.id.simplewrite_btn:
                 Log.d("simplewrite_btn", "clicked");
-                startActivity(new Intent(getApplicationContext(), WriteComplain.class));
+                startActivity(new Intent(getApplicationContext(), ComingSoon.class));
                 break;
         }
     }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.myoungchi.android.sigmungo.Items.MyPageItems;
+import com.myoungchi.android.sigmungo.Items.UserData;
 import com.myoungchi.android.sigmungo.Items.UserInformation;
 import com.myoungchi.android.sigmungo.adapter.MyPageAdapter;
 import com.myoungchi.android.sigmungo.http_client.APIclient;
@@ -23,6 +24,7 @@ import com.myoungchi.android.sigmungo.http_client.APIinterface;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,6 +41,8 @@ public class MyPage extends AppCompatActivity {
     private APIinterface apiInterface;
     private List<MyPageItems> mDataSet = new ArrayList<>();
     private TextView userName, userId, writingCount, sympathyCount;
+    private Realm mRealm;
+    private String id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstance){
@@ -52,13 +56,21 @@ public class MyPage extends AppCompatActivity {
         sympathyCount = (TextView)findViewById(R.id.sympathy_count);
         dropdown = (Spinner)findViewById(R.id.time);
         writeList = (RecyclerView)findViewById(R.id.write_list);
+        mRealm.init(getApplicationContext());
+        mRealm = Realm.getDefaultInstance();
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                UserData userData = realm.where(UserData.class).findFirst();
+                id = userData.getUserId();
+            }
+        });
 
         apiInterface = APIclient.getClient().create(APIinterface.class);
-        apiInterface.getPostList("geni429").enqueue(new Callback<JsonObject>() {
+        apiInterface.getPostList(id).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 JsonArray result = response.body().getAsJsonArray("restaurant");
-                Log.d("et", mDataSet+"");
                 for(int i=0; i < result.size(); i++){
                     JsonObject restaurant = result.get(i).getAsJsonObject();
                     MyPageItems myPageItems = new MyPageItems();
@@ -82,12 +94,6 @@ public class MyPage extends AppCompatActivity {
         String[] items = new String[]{"아침(breakfast)", "점심(launch)", "저녁(dinner)"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
-
-        //get userinformation (통신 구현 필요)
-//        userName.setText(userInformation.getUserName());
-//        userId.setText(userInformation.getUserId());
-//        writingCount.setText(userInformation.getMyWritingCount());
-//        sympathyCount.setText(userInformation.getMySympathyCount());
     }
 
     //툴바에서 back버튼을 클릭할시에 종료시켜주는 코드

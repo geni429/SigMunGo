@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.myoungchi.android.sigmungo.Items.UserData;
 import com.myoungchi.android.sigmungo.Items.UserInformation;
 import com.myoungchi.android.sigmungo.Items.ValueObject;
 import com.myoungchi.android.sigmungo.Landing;
@@ -43,6 +44,7 @@ public class SignIn extends AppCompatActivity {
     private Button signIn;
     private UserInformation userInformation;
     private SharedPreferences sharedPreferences;
+    private Realm mRealm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstance){
@@ -75,7 +77,15 @@ public class SignIn extends AppCompatActivity {
                     userInformation.setUserId(inputId.getText().toString());
                     sharedPreferences = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
                     sharedPreferences.edit().putBoolean("isSignIn", true).apply();
-                    Log.d("change isSignIn", sharedPreferences.getBoolean("isSignIn", true)+"");
+                    mRealm.init(getApplicationContext());
+                    mRealm = Realm.getDefaultInstance();
+                    mRealm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            UserData userData = realm.createObject(UserData.class);
+                            userData.setUserId(inputId.getText().toString());
+                        }
+                    });
                     startActivity(new Intent(getApplicationContext(), Main.class));
                     finish();
                 } else {

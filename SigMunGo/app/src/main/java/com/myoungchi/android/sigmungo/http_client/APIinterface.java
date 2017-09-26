@@ -48,6 +48,12 @@ public interface APIinterface {
     @GET("/restaurant")
     Call<JsonObject> getRestaurantInfo();
 
+    @GET("/restaurant/detail/{contentId}")
+    Call<JsonObject> getRestaurantDetail(@Path("contentId") String contentId);
+
+    @GET("/restaurant/detail/images/{contentId}")
+    Call<JsonObject> getRestaurantImgs(@Path("contentId") String contentId);
+
     //Main activity
     @GET("/userinfo/{id}")
     Call<JsonObject> getUserInfo(@Path("id") String id);

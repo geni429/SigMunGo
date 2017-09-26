@@ -62,8 +62,7 @@
             android:id="@+id/input_id"
             android:layout_width="340dp"
             android:layout_height="50dp"
-            android:hint="아이디 입력"
-            android:inputType="textPassword" />
+            android:hint="아이디 입력" />
 
         <TextView
             android:id="@+id/check_id_overlap"

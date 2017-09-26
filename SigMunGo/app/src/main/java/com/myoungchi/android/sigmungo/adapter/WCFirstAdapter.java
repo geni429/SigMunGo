@@ -53,12 +53,11 @@ public class WCFirstAdapter extends RecyclerView.Adapter<WCFirstAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.keywordBtn.setText(firstKeywords[position]);
         holder.keywordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("contentid", mContentId);
                 wcSecondAdapter = new WCSecondAdapter(secondKeywords[position], thirdKeywords, thirdKeyword, position, mContext, firstKeywords[position], mContentId);
                 String[] dumy = {};
                 wcThirdAdapter = new WCThirdAdapter(dumy, "", "", mContext, "");

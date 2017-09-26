@@ -9,9 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.myoungchi.android.sigmungo.Items.UserData;
 import com.myoungchi.android.sigmungo.http_client.APIclient;
 import com.myoungchi.android.sigmungo.http_client.APIinterface;
 
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,6 +27,8 @@ public class WriteResult extends AppCompatActivity {
     private Button submit, back;
     private String result;
     private APIinterface apiInterface;
+    private Realm mRealm;
+    private String id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,14 +45,22 @@ public class WriteResult extends AppCompatActivity {
         result = intent.getStringExtra("firstKeywordContent") + " " + intent.getStringExtra("secondKeywordContent") + " " + intent.getStringExtra("thirdKeywordContent");
         writeResult.setText(result);
 
+        mRealm.init(getApplicationContext());
+        mRealm = Realm.getDefaultInstance();
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                UserData userData = realm.where(UserData.class).findFirst();
+                id = userData.getUserId();
+            }
+        });
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("result", result);
-                apiInterface.doPost(intent.getStringExtra("contentid"), "geni429", result).enqueue(new Callback<Void>() {
+                apiInterface.doPost(intent.getStringExtra("contentid"), id, result).enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        Log.d("response", response.body()+"");
                         startActivity(new Intent(getApplicationContext(), MyPage.class));
                         finish();
                     }

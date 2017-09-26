@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.JsonArray;
 import com.myoungchi.android.sigmungo.R;
 
 /**
@@ -18,6 +19,7 @@ import com.myoungchi.android.sigmungo.R;
 
 public class RestaurantDetailAdapter extends PagerAdapter {
     private Context mContext;
+    private JsonArray mImages;
     private Pools.SimplePool<View> viewPool;
 
     @Override
@@ -25,8 +27,9 @@ public class RestaurantDetailAdapter extends PagerAdapter {
         return POSITION_NONE;
     }
 
-    public RestaurantDetailAdapter(Context context){
+    public RestaurantDetailAdapter(Context context, JsonArray images){
         this.mContext = context;
+        this.mImages = images;
         viewPool = new Pools.SynchronizedPool<>(8);
     }
 
@@ -34,14 +37,16 @@ public class RestaurantDetailAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View view = getPagerItemView();
         ImageView restaurantPhoto = (ImageView)view.findViewById(R.id.restaurant_photo);
-        Glide.with(mContext).load(R.drawable.the_terrace_photo1 + position).fitCenter().into(restaurantPhoto);
+        String image = "http://52.15.75.60:5429/upload/" + mImages.get(position).getAsString();
+        Glide.with(mContext).load(image).fitCenter().into(restaurantPhoto);
+        Log.d("position", position+"");
         container.addView(view, 0);
         return view;
     }
 
     @Override
     public int getCount() {
-        return 8;
+        return mImages.size();
     }
 
     @Override
