@@ -3,17 +3,25 @@ package com.myoungchi.android.sigmungo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.myoungchi.android.sigmungo.Items.MyPageItems;
 import com.myoungchi.android.sigmungo.Items.UserInformation;
+import com.myoungchi.android.sigmungo.adapter.MyPageAdapter;
 import com.myoungchi.android.sigmungo.http_client.APIclient;
 import com.myoungchi.android.sigmungo.http_client.APIinterface;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,9 +35,9 @@ public class MyPage extends AppCompatActivity {
     private UserInformation userInformation;
     private Toolbar toolbar;
     private Spinner dropdown;
-    private RecyclerView recyclerView;
+    private RecyclerView writeList;
     private APIinterface apiInterface;
-
+    private List<MyPageItems> mDataSet = new ArrayList<>();
     private TextView userName, userId, writingCount, sympathyCount;
 
     @Override
@@ -43,15 +51,24 @@ public class MyPage extends AppCompatActivity {
         writingCount = (TextView)findViewById(R.id.writing_count);
         sympathyCount = (TextView)findViewById(R.id.sympathy_count);
         dropdown = (Spinner)findViewById(R.id.time);
-        recyclerView = (RecyclerView)findViewById(R.id.write_list);
+        writeList = (RecyclerView)findViewById(R.id.write_list);
 
         apiInterface = APIclient.getClient().create(APIinterface.class);
-
         apiInterface.getPostList("geni429").enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonObject result = response.body();
-                userName.setText(result.get("name").getAsString());
+                JsonArray result = response.body().getAsJsonArray("restaurant");
+                Log.d("et", mDataSet+"");
+                for(int i=0; i < result.size(); i++){
+                    JsonObject restaurant = result.get(i).getAsJsonObject();
+                    MyPageItems myPageItems = new MyPageItems();
+                    myPageItems.setName(restaurant.get("name").getAsString());
+                    myPageItems.setImg(restaurant.get("img").getAsString());
+
+                    mDataSet.add(i, myPageItems);
+                }
+                writeList.setAdapter(new MyPageAdapter(MyPage.this, mDataSet));
+                writeList.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
             }
 
             @Override

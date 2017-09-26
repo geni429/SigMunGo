@@ -3,6 +3,7 @@ package com.myoungchi.android.sigmungo.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final MainItems items = mDataset.get(position);
-        Glide.with(mContext).load(R.drawable.the_terrace_photo1).centerCrop().into(holder.restaurantImg);
+        Log.d("image", "http://52.15.75.60:5429/upload/" + items.getImage());
+        Glide.with(mContext).load("http://52.15.75.60:5429/upload/" + items.getImage()).centerCrop().into(holder.restaurantImg);
         holder.restaurantName.setText(items.getRestaurantName());
         holder.restaurantLocation.setText(items.getRestuarantLocation());
         holder.sympathyCount.setText(items.getSympathyCount()+"");

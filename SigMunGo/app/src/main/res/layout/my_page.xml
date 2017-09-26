@@ -128,18 +128,13 @@
                 android:text="내가 불만을 작성한 음식점 목록"
                 android:textSize="18dp"
                 android:textColor="@color/colorPrimary"/>
-            <HorizontalScrollView
-                android:layout_below="@+id/write_list_title"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/write_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/write_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layoutManager="LinearLayoutManager">
+                android:layout_height="match_parent"
+                app:layoutManager="LinearLayoutManager">
 
-                </android.support.v7.widget.RecyclerView>
-            </HorizontalScrollView>
+            </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
     </LinearLayout>
     <View

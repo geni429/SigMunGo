@@ -105,8 +105,6 @@ public class Main extends AppCompatActivity {
         PagerThread thread = new PagerThread();
         thread.start();
 
-        recyclerView.setAdapter(new MainRecyclerAdapter(restaurantsInfo, getApplicationContext()));
-        recyclerView.setLayoutManager(new MainGridLayoutManager(getApplicationContext(), 2, true));
         getRestaurantInfo();
     }
 
@@ -151,6 +149,7 @@ public class Main extends AppCompatActivity {
                     mainItems.setRestuarantLocation(restaurant.get("place").getAsString());
                     mainItems.setSympathyCount(restaurant.get("sympathy").getAsInt());
                     mainItems.setImproved(restaurant.get("improved").getAsInt());
+                    mainItems.setImage(restaurant.get("img").getAsString());
 
                     restaurantsInfo.add(i, mainItems);
                 }

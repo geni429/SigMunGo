@@ -77,7 +77,6 @@ public class WriteComplain extends AppCompatActivity {
         firstKeyword = (RecyclerView) findViewById(R.id.firstKeyword);
         secondKeyword = (RecyclerView) findViewById(R.id.secondKeyword);
         thirdKeyword = (RecyclerView) findViewById(R.id.thirdKeyword);
-        Log.d("contentid", mIntent.getStringExtra("contentid"));
         wcFirstAdapter = new WCFirstAdapter(firstKeywords, secondKeywords, thirdKeywords, this, secondKeyword, thirdKeyword, mIntent.getStringExtra("contentid"));
 
         firstKeyword.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

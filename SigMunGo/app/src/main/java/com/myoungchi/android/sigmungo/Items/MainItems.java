@@ -10,6 +10,7 @@ public class MainItems {
     private String restuarantLocation;
     private int sympathyCount;
     private int improved;
+    private String image;
 
     public String getContentID() {
         return contentID;
@@ -49,5 +50,13 @@ public class MainItems {
 
     public void setImproved(int improved) {
         this.improved = improved;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
