@@ -258,9 +258,8 @@ manager.addPost = (contentId, post, id, callback) => {
     let addPostLogic = (post) => {
         return new Promise(function (resolve, reject) {
             let stateCode;
-            console.log(contentId, post, id);
-            conn.query('select id from post where id=?', id, function (err, rows) {
-		console.log(rows);
+            conn.query('select id from post where id=? and contentid=?', [id, contentId], function (err, rows) {
+                console.log(rows);
                 if (err) stateCode = 500;
                 else if (rows.length >= 1) {
                     conn.query('UPDATE post SET post = ? WHERE id = ?', [post, id], function (err, result) {
