@@ -39,10 +39,13 @@ manager.getPostList = (id, callback) => {
 
     let stateCode;
     conn.query('select * from post where id=?', id, function (err, rows) {
-        if (err) stateCode = 500;
+       	console.log(rows.length);
+	if (err) stateCode = 500;
         else if (rows.length > 0) {
             for (var i = 0; i < rows.length; i++) {
                 (function(i){
+console.log(rows.lenght);
+console.log(i);
                     conn.query('select * from restaurant where contentid=?', rows[i].contentid, function (err, rows2) {
                     if (err) stateCode = 500;
                     else if (rows2.length > 0) {
@@ -55,8 +58,8 @@ manager.getPostList = (id, callback) => {
                             improved: rows2[0].improved,
                             discontent: rows2[0].length
                         }
-                        response.restaurant.push(restaurant);
-                        if (i == rows.length+1) {
+                        response.restaurant.push(restaurant);                        		
+			if (i == rows.length-1) {
                             stateCode = 200;
                             console.log(response);
                             callback(stateCode, response);
