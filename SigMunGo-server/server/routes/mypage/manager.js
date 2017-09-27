@@ -42,7 +42,8 @@ manager.getPostList = (id, callback) => {
         if (err) stateCode = 500;
         else if (rows.length > 0) {
             for (var i = 0; i < rows.length; i++) {
-                conn.query('select * from restaurant where contentid=?', rows[i].contentid, function (err, rows2) {
+                (function(i){
+                    conn.query('select * from restaurant where contentid=?', rows[i].contentid, function (err, rows2) {
                     if (err) stateCode = 500;
                     else if (rows2.length > 0) {
                         let restaurant = {
@@ -55,14 +56,14 @@ manager.getPostList = (id, callback) => {
                             discontent: rows2[0].length
                         }
                         response.restaurant.push(restaurant);
-			console.log('asdf'+i);
                         if (i == rows.length+1) {
                             stateCode = 200;
                             console.log(response);
                             callback(stateCode, response);
                         }
                     }
-                });
+                })
+            })(i);
             }
         } else if (rows.length == 0) {
             stateCode = 200;
