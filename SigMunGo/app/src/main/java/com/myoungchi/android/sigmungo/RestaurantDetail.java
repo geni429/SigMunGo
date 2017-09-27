@@ -101,9 +101,8 @@ public class RestaurantDetail extends AppCompatActivity implements OnMapReadyCal
             public void onClick(View v) {
                 sharedPreferences = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
                 if(sharedPreferences.getBoolean("isSignIn", false)){
-                    Intent intent = new Intent(getApplicationContext(), WriteComplain.class);
-                    intent.putExtra("contentid", mIntent.getStringExtra("contentid"));
-                    startActivity(intent);
+                    sharedPreferences.edit().putString("ContentId", mIntent.getStringExtra("contentid")).apply();
+                    startActivity(new Intent(getApplicationContext(), WriteComplain.class));
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다", Toast.LENGTH_SHORT).show();

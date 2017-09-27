@@ -52,7 +52,6 @@ public class WCSecondAdapter extends RecyclerView.Adapter<WCSecondAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 if(thirdKeywords[mIndex][position][0].equals("")){
-                    Log.d("thirdKeyword", thirdKeywords[mIndex][position][0]);
                     Intent intent = new Intent(mContext, WriteResult.class);
                     intent.putExtra("firstKeywordContent", firstKeyordContent);
                     intent.putExtra("secondKeywordContent", secondKeywords[position]);

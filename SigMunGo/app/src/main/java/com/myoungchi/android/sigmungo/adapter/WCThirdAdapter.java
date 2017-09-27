@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ public class WCThirdAdapter extends RecyclerView.Adapter<WCThirdAdapter.ViewHold
                 intent.putExtra("firstKeywordContent", firstKeywordContent);
                 intent.putExtra("secondKeywordContent", secondKeywordContent);
                 intent.putExtra("thirdKeywordContent", thirdKeywords[position]);
+                Log.d("content_id", mContentId);
                 intent.putExtra("contentid", mContentId);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
