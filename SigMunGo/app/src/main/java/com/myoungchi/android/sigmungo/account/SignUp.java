@@ -176,6 +176,7 @@ public class SignUp extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()){
                     startActivity(new Intent(getApplicationContext(), SignIn.class));
+                    finish();
                 }
             }
 

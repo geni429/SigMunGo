@@ -2,6 +2,7 @@ package com.myoungchi.android.sigmungo.account;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.myoungchi.android.sigmungo.Items.UserData;
 import com.myoungchi.android.sigmungo.Items.UserInformation;
 import com.myoungchi.android.sigmungo.Items.ValueObject;
 import com.myoungchi.android.sigmungo.Landing;
@@ -24,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.CookieManager;
 
 import io.realm.Realm;
 import retrofit2.Call;
@@ -40,7 +43,9 @@ public class SignIn extends AppCompatActivity {
     private EditText inputId, inputPw;
     private Button signIn;
     private UserInformation userInformation;
-    private Realm realm;
+    private SharedPreferences sharedPreferences;
+    private Realm mRealm;
+    private Intent intent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstance){
@@ -52,9 +57,6 @@ public class SignIn extends AppCompatActivity {
         signIn = (Button) findViewById(R.id.signin);
         apIinterface = APIclient.getClient().create(APIinterface.class);
         userInformation = new UserInformation();
-
-        realm.init(getApplicationContext());
-        realm = Realm.getDefaultInstance();
 
         setSupportActionBar(toolbar);
 
@@ -74,7 +76,17 @@ public class SignIn extends AppCompatActivity {
                 if(response.isSuccessful()){
                     //로그인 성공시 코드
                     userInformation.setUserId(inputId.getText().toString());
-//                    autoSignIn(realm); (이슈발생)
+                    sharedPreferences = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
+                    sharedPreferences.edit().putBoolean("isSignIn", true).apply();
+                    mRealm.init(getApplicationContext());
+                    mRealm = Realm.getDefaultInstance();
+                    mRealm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            UserData userData = realm.createObject(UserData.class);
+                            userData.setUserId(inputId.getText().toString());
+                        }
+                    });
                     startActivity(new Intent(getApplicationContext(), Main.class));
                     finish();
                 } else {
@@ -101,7 +113,6 @@ public class SignIn extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Log.d("SignIn POST Fail", "Failure");
                 t.printStackTrace();
             }
         });
@@ -110,6 +121,7 @@ public class SignIn extends AppCompatActivity {
     //회원이 아니신가요를 눌렀을 시에 실행되는 코드 (회원가입 액티비티로 이동하게 된다)
     public void onSignUpClicked(View view){
         startActivity(new Intent(getApplicationContext(), SignUp.class));
+        finish();
     }
 
     //아이디 비밀번호 찾기를 선택했을 시에 실행되는 코드
@@ -119,17 +131,12 @@ public class SignIn extends AppCompatActivity {
 
     //툴바에서 back버튼을 클릭할시에 랜딩으로 돌아가는 코드
     public void onBackBtnClicked(View v){
-        startActivity(new Intent(getApplicationContext(), Landing.class));
-        finish();
-    }
-
-    //자동로그인 기능 (이슈있음)
-    private void autoSignIn(Realm realm){
-        realm.beginTransaction();
-        ValueObject vo = realm.createObject(ValueObject.class);
-        userInformation = new UserInformation();
-        vo.setLogin(true);
-        vo.setId(inputId.getText().toString());
-        realm.commitTransaction();
+        intent = getIntent();
+        if(!intent.getBooleanExtra("member", true)){
+            finish();
+        } else {
+            startActivity(new Intent(getApplicationContext(), Landing.class));
+            finish();
+        }
     }
 }

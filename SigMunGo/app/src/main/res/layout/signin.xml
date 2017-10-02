@@ -43,7 +43,6 @@
         android:id="@+id/input_area"
         android:gravity="center_horizontal"
         android:layout_below="@+id/toolbar"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
         <EditText
             android:id="@+id/input_id"

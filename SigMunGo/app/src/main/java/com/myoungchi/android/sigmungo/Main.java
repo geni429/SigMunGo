@@ -1,6 +1,7 @@
 package com.myoungchi.android.sigmungo;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,7 +16,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.myoungchi.android.sigmungo.Items.UserData;
+import com.myoungchi.android.sigmungo.account.SignIn;
 import com.myoungchi.android.sigmungo.adapter.MainPagerAdapter;
 import com.myoungchi.android.sigmungo.adapter.MainRecyclerAdapter;
 import com.myoungchi.android.sigmungo.Items.MainItems;
@@ -29,6 +33,7 @@ import com.myoungchi.android.sigmungo.http_client.APIinterface;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,8 +50,9 @@ public class Main extends AppCompatActivity {
     private List<MainItems> restaurantsInfo = new ArrayList<>();
     private UserInformation userInformation;
     private ViewPager pager;
-
     private TextView sympathyCount, writingCount, userName, userId;
+    private Realm mRealm;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstance){
@@ -58,6 +64,10 @@ public class Main extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         apIinterface = APIclient.getClient().create(APIinterface.class);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        sharedPreferences = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
+
+        mRealm.init(getApplicationContext());
+        mRealm = Realm.getDefaultInstance();
 
         //Navigation Drawer Layout
         setSupportActionBar(toolbar);
@@ -68,7 +78,15 @@ public class Main extends AppCompatActivity {
         navHeaderView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MyPage.class));
+                SharedPreferences sharedPreferences = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
+                if(sharedPreferences.getBoolean("isSignIn", false)){
+                    startActivity(new Intent(getApplicationContext(), MyPage.class));
+                } else {
+                    Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), SignIn.class);
+                    intent.putExtra("member", false);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -85,12 +103,15 @@ public class Main extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.nav_item_restaurant:
                         Log.d("nav_item_restaurant", "clicked");
+                        startActivity(new Intent(getApplicationContext(), ComingSoon.class));
                         break;
                     case R.id.nav_item_notice:
                         Log.d("nav_item_notice", "clicked");
+                        startActivity(new Intent(getApplicationContext(), ComingSoon.class));
                         break;
                     case R.id.nav_item_help:
                         Log.d("nav_item_help", "clicked");
+                        startActivity(new Intent(getApplicationContext(), ComingSoon.class));
                         break;
                 }
                 return true;
@@ -99,24 +120,30 @@ public class Main extends AppCompatActivity {
 
         PagerThread thread = new PagerThread();
         thread.start();
+
         getRestaurantInfo();
+
+        if(sharedPreferences.getBoolean("isSignIn", false)){
+            if(!sharedPreferences.getBoolean("MyInfo", false)){
+                getUserInfo();
+            } else {
+                setUserInfo();
+            }
+        } else {
+            userName.setText("사용자");
+            userId.setText("("+"로그인 해주세요"+")");
+            SpannableString sympathyCountNumber = new SpannableString(0+"");
+            SpannableString writingCountNumber = new SpannableString(0+"");
+            sympathyCountNumber.setSpan(new UnderlineSpan(), 0, sympathyCountNumber.length(), 0);
+            writingCountNumber.setSpan(new UnderlineSpan(), 0, writingCountNumber.length(), 0);
+            sympathyCount.setText(sympathyCountNumber);
+            writingCount.setText(writingCountNumber);
+        }
     }
 
     //위치설정 액티비티로 넘어갈때 실행되는 코드
     public void setLocation(View v){
-        startActivity(new Intent(getApplicationContext(), SetLocation.class));
-    }
-
-    //음식점정보를 넣어줄때 호출되는 메소드
-    public void initData(int index, String contentid, String img, String name, String place, String sympathy, String improved){
-        MainItems items = new MainItems();
-        items.setContentID(contentid);
-        items.setRestaurantImage(img);
-        items.setRestaurantName(name);
-        items.setRestuarantLocation(place);
-        items.setSympathyCount(sympathy);
-        items.setImproved(improved);
-        this.restaurantsInfo.add(index, items);
+        startActivity(new Intent(getApplicationContext(), ComingSoon.class));
     }
 
     //이달의 음식점 ViewPager실행시에 작동되는 스레드 (AsyncTask로 마이그레이션 필요)
@@ -136,6 +163,7 @@ public class Main extends AppCompatActivity {
                 break;
             case R.id.simplewrite_btn:
                 Log.d("simplewrite_btn", "clicked");
+                startActivity(new Intent(getApplicationContext(), ComingSoon.class));
                 break;
         }
     }
@@ -145,23 +173,21 @@ public class Main extends AppCompatActivity {
         apIinterface.getRestaurantInfo().enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonParser parser = new JsonParser();
-                JsonObject jsonObject = parser.parse(response.body().toString()).getAsJsonObject();
-                JsonArray restaurants = jsonObject.get("restaurant").getAsJsonArray();
-                Log.d("JsonArray Size", restaurants.size()+"");
+                JsonArray restaurants = response.body().getAsJsonArray("restaurant");
                 for(int i = 0; i < restaurants.size(); i++){
-                    JsonObject info = restaurants.get(i).getAsJsonObject();
-                    initData(i,
-                            info.get("contentid").getAsString(),
-                            info.get("img").getAsString(),
-                            info.get("name").getAsString(),
-                            info.get("place").getAsString(),
-                            info.get("sympathy").getAsString(),
-                            info.get("improved").getAsString());
+                    JsonObject restaurant = restaurants.get(i).getAsJsonObject();
+                    MainItems mainItems = new MainItems();
+                    mainItems.setContentID(restaurant.get("contentid").getAsString());
+                    mainItems.setRestaurantName(restaurant.get("name").getAsString());
+                    mainItems.setRestuarantLocation(restaurant.get("place").getAsString());
+                    mainItems.setSympathyCount(restaurant.get("sympathy").getAsInt());
+                    mainItems.setImproved(restaurant.get("improved").getAsInt());
+                    mainItems.setImage(restaurant.get("img").getAsString());
+
+                    restaurantsInfo.add(i, mainItems);
                 }
                 recyclerView.setAdapter(new MainRecyclerAdapter(restaurantsInfo, getApplicationContext()));
                 recyclerView.setLayoutManager(new MainGridLayoutManager(getApplicationContext(), 2, true));
-                getUserInfo();
             }
 
             @Override
@@ -173,35 +199,57 @@ public class Main extends AppCompatActivity {
 
     //user정보를 불러오는 코드 (Realm사용 예정)
     public void getUserInfo(){
-        apIinterface.getUserInfo("nn").enqueue(new Callback<JsonObject>() {
+        mRealm.executeTransaction(new Realm.Transaction() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Log.d("getUserInfo Status", response.code()+"");
-                if(response.isSuccessful()){
-                    userInformation.setUserName(response.body().get("name").getAsString());
-                    userInformation.setUserId("("+response.body().get("id").getAsString()+")");
-                    userInformation.setMyWritingCount(response.body().get("discontents").getAsString());
-                    userInformation.setMySympathyCount(response.body().get("sympathy").getAsString());
-                    setUserInfo();
-                }
-            }
+            public void execute(Realm realm) {
+                UserData userData = realm.where(UserData.class).findFirst();
+                apIinterface.getUserInfo(userData.getUserId()).enqueue(new retrofit2.Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, final Response<JsonObject> response) {
+                        if(response.isSuccessful()){
+                            mRealm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    UserData userData = mRealm.where(UserData.class).findFirst();
+                                    userData.setUserName(response.body().get("name").getAsString());
+                                    userData.setSympathyCount(response.body().get("sympathy").getAsInt());
+                                    userData.setDiscontentCount(response.body().get("discontents").getAsInt());
+                                }
+                            });
+                            userInformation.setUserName(response.body().get("name").getAsString());
+                            userInformation.setUserId("("+response.body().get("id").getAsString()+")");
+                            userInformation.setMyWritingCount(response.body().get("discontents").getAsString());
+                            userInformation.setMySympathyCount(response.body().get("sympathy").getAsString());
+                            sharedPreferences.edit().putBoolean("MyInfo", true);
+                            setUserInfo();
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                t.printStackTrace();
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        setUserInfo();
+                        t.printStackTrace();
+                    }
+                });
             }
         });
     }
 
     //받아온 데이터를 바탕으로 내정보를 세팅해주는 메소드
     public void setUserInfo(){
-        userName.setText(userInformation.getUserName());
-        userId.setText(userInformation.getUserId());
-        SpannableString sympathyCountNumber = new SpannableString(userInformation.getMySympathyCount());
-        SpannableString writingCountNumber = new SpannableString(userInformation.getMyWritingCount());
-        sympathyCountNumber.setSpan(new UnderlineSpan(), 0, sympathyCountNumber.length(), 0);
-        writingCountNumber.setSpan(new UnderlineSpan(), 0, writingCountNumber.length(), 0);
-        sympathyCount.setText(sympathyCountNumber);
-        writingCount.setText(writingCountNumber);
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                UserData userData = mRealm.where(UserData.class).findFirst();
+                userName.setText(userData.getUserName());
+                userId.setText(userData.getUserId());
+                SpannableString sympathyCountNumber = new SpannableString(userData.getSympathyCount()+"");
+                SpannableString writingCountNumber = new SpannableString(userData.getDiscontentCount()+"");
+                sympathyCountNumber.setSpan(new UnderlineSpan(), 0, sympathyCountNumber.length(), 0);
+                writingCountNumber.setSpan(new UnderlineSpan(), 0, writingCountNumber.length(), 0);
+                sympathyCount.setText(sympathyCountNumber);
+                writingCount.setText(writingCountNumber);
+            }
+        });
     }
 }

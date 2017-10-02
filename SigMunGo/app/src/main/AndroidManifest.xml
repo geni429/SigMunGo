@@ -34,6 +34,13 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
 
+        <activity android:name=".ComingSoon" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
         <activity
             android:name="com.myoungchi.android.sigmungo.Splash"
             android:theme="@style/SplashTheme">
@@ -79,6 +86,12 @@
             android:theme="@style/ToolbarTheme"/>
         <activity
             android:name="com.myoungchi.android.sigmungo.MyPage"
+            android:theme="@style/ToolbarTheme"/>
+        <activity
+            android:name="com.myoungchi.android.sigmungo.WriteComplain"
+            android:theme="@style/ToolbarTheme"/>
+        <activity
+            android:name="com.myoungchi.android.sigmungo.WriteResult"
             android:theme="@style/ToolbarTheme"/>
     </application>
 

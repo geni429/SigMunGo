@@ -71,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="대전"
+                    android:text="준비중"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
                     android:onClick="setLocation"/>

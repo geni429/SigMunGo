@@ -6,11 +6,11 @@ package com.myoungchi.android.sigmungo.Items;
 
 public class MainItems {
     private String contentID;
-    private String restaurantImage;
     private String restaurantName;
     private String restuarantLocation;
-    private String sympathyCount;
-    private String improved;
+    private int sympathyCount;
+    private int improved;
+    private String image;
 
     public String getContentID() {
         return contentID;
@@ -20,20 +20,12 @@ public class MainItems {
         this.contentID = contentID;
     }
 
-    public String getSympathyCount() {
+    public int getSympathyCount() {
         return sympathyCount;
     }
 
-    public void setSympathyCount(String sympathyCount) {
+    public void setSympathyCount(int sympathyCount) {
         this.sympathyCount = sympathyCount;
-    }
-
-    public String getRestaurantImage() {
-        return restaurantImage;
-    }
-
-    public void setRestaurantImage(String restaurantImage) {
-        this.restaurantImage = restaurantImage;
     }
 
     public String getRestaurantName() {
@@ -52,11 +44,19 @@ public class MainItems {
         this.restuarantLocation = restuarantLocation;
     }
 
-    public String getImproved() {
+    public int getImproved() {
         return improved;
     }
 
-    public void setImproved(String improved) {
+    public void setImproved(int improved) {
         this.improved = improved;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
