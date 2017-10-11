@@ -15,12 +15,10 @@ let certifyString;
 
 //회원가입
 router.route('/account/signup').post(function (req, res) {
-    console.log(req.body.name);
     let id = req.body.id;
     let name = req.body.name;
     let password = req.body.password;
     let phone = req.body.phone;
-    console.log(id, name, password, phone);
 
     manager.signup(id, password, name, phone, function (stateCode) {
         res.writeHead(stateCode, {
@@ -75,7 +73,6 @@ router.route('/account/signin').post(function (req, res) {
     let password = req.body.password;
 
     manager.signin(id, password, function (stateCode, message) {
-        console.log(stateCode);
         res.writeHead(stateCode, {
             'Content-Type': 'application/json'
         });
@@ -86,8 +83,8 @@ router.route('/account/signin').post(function (req, res) {
 });
 
 //아이디 중복 체크
-router.route('/account/idcheck').post(function (req, res) {
-    let id = req.body.id;
+router.route('/account/idcheck/:id').get(function (req, res) {
+    let id = req.params.id;
     manager.idCheck(id, function (stateCode) {
         res.writeHead(stateCode, {
             'Content-Type': 'application/json'

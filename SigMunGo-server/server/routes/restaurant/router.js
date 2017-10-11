@@ -89,7 +89,6 @@ router.route('/restaurant').post(function (req, res) {
 //음식점 대략 정보 받아오기
 router.route('/restaurant').get(function (req, res) {
     manager.getRestaurant(function (response) {
-        console.log(response);
         if (!!response.restaurant) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
@@ -160,7 +159,7 @@ router.route('/restaurant/:contentId').delete(function (req, res) {
 // });
 
 //음식점 메뉴 추가
-router.route('/restaurant/menu/:contentid').post(function (req, res) {
+router.route('/restaurant/menu/:contentId').post(function (req, res) {
     let contentId = req.params.contentId;
     let menu = req.body.menu;
 
@@ -222,7 +221,6 @@ router.route('/restaurant/post/:contentId').post(function (req, res) {
     let contentId = req.params.contentId;
     let id = req.body.id;
 	
-    console.log(contentId, post, id);
     if (manager.idcheck(id) == 204 || manager.idcheck(id) == 500) {
         res.writeHead(stateCode, {
             'Content-Type': 'application/json'

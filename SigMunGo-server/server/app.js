@@ -10,7 +10,7 @@ let app = express();
 var restaurant = require('./routes/restaurant/router');
 var mypage= require('./routes/mypage/router');
 var user=require('./routes/user/router');
-var port = '5429';
+var port = '8080';
 
 app.set('port', port);
 

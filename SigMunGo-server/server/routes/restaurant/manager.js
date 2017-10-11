@@ -184,7 +184,6 @@ manager.getRestaurant = (callback) => {
         if (err) response.error = true;
         else if (rows.length >= 0) {
             for (var i = 0; i < rows.length; i++) {
-                // conn.query('select * from restaurant where contentid=?', rows[i].contentid, function (err, rows2) {});
                 let restaurant = {
                     contentid: rows[i].contentid,
                     img: rows[i].img,
@@ -255,6 +254,7 @@ manager.deleteMenu = (contentId, menu) => {
 
 //불만 작성
 manager.addPost = (contentId, post, id, callback) => {
+    console.log(post);
     let addPostLogic = (post) => {
         return new Promise(function (resolve, reject) {
             let stateCode;

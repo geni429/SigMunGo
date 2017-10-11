@@ -6,7 +6,6 @@ let manager = require('./manager');
 //유저 정보
 router.route('/userinfo/:id').get(function (req, res) {
     let id = req.params.id;
-    console.log(id);
     manager.getUserInfo(id, function (response) {
         res.writeHead(200, {
             'Content-Type': 'application/json'
